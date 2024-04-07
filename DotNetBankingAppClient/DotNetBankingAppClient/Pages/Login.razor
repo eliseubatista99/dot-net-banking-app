@@ -1,0 +1,82 @@
+﻿@page "/login"
+@using BankingAppClient.Models
+@using BankingAppClient.Services
+@inject IBrowserStorage browserStorage
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<AppScreen>
+    <PageTitle>Login</PageTitle>
+
+    @if (isFetching == true)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <InputField value=@username onChange="@onChangeUsername" />
+        <InputField value=@password onChange="@onChangePassword" />
+        <AppButton text="Button" onClick="@onClickLoginButton" />
+
+        <p>
+            @user?.UserName
+        </p>
+        <p>
+            @user?.PhoneNumber
+        </p>
+    }
+
+</AppScreen>
+
+
+@code {
+    private UserDTO? user;
+    private bool isFetching = false;
+    private string username = "";
+    private string password = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        this.StateHasChanged();
+    }
+
+    private void onChangeUsername(string value)
+    {
+        username = value;
+        this.StateHasChanged();
+    }
+
+    private void onChangePassword(string value)
+    {
+        password = value;
+        this.StateHasChanged();
+    }
+
+    private async void onClickLoginButton()
+    {
+        isFetching = true;
+        this.StateHasChanged();
+
+        try
+        {
+            var result = await ServiceLogin.CallAsync(Http, new ServiceLoginInput
+                {
+                    username = username,
+                    password = password,
+                });
+
+            await browserStorage.SetInLocalStorage("user", result.user);
+            await browserStorage.SetInSessionStorage("token", result.token);
+
+            isFetching = false;
+            NavManager.NavigateTo("/dashboard");
+        }
+        catch (HttpRequestException e)
+        {
+            Console.WriteLine("Error login > " + e);
+            isFetching = false;
+            this.StateHasChanged();
+        }
+    }
+}

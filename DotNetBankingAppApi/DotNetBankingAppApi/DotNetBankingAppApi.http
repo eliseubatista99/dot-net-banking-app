@@ -1,0 +1,6 @@
+@DotNetBankingAppApi_HostAddress = http://localhost:5221
+
+GET {{DotNetBankingAppApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

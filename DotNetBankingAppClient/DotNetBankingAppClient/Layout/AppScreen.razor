@@ -1,0 +1,20 @@
+﻿<div style="width: 100%; flex: 1;">
+    @if (!withoutHeader)
+    {
+        <AppHeader variant=@variant />
+    }
+    <div style="width: 100%; flex: 1; padding: 24px 24px 32px 24px;">
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string variant { get; set; } = "light";
+
+    [Parameter]
+    public bool withoutHeader { get; set; } = false;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
