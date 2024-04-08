@@ -16,6 +16,9 @@ public class AppHeaderLogic : ComponentBase
     public AppHeaderVariant variant { get; set; } = AppHeaderVariant.Light;
 
     [Parameter]
+    public Action? onClickBack { get; set; }
+
+    [Parameter]
     public string title { get; set; } = "";
 
     public string GetClassName()
@@ -26,5 +29,13 @@ public class AppHeaderLogic : ComponentBase
         }
 
         return "app-header";
+    }
+
+    public void HandleOnClickBack()
+    {
+        if (onClickBack != null)
+        {
+            onClickBack();
+        }
     }
 }

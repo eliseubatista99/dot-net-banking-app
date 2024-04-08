@@ -1,4 +1,4 @@
-﻿.signin-icon {
+﻿.signIn-icon {
     width: 40%;
     max-width: 150px;
     aspect-ratio: 1 / 1;
@@ -7,8 +7,38 @@
     margin: 30px auto 0 auto;
 }
 
-.signin-inputs {
+.signIn-inputs {
     width: 100%;
     gap: 15px;
     margin: 30px auto 0 auto;
+}
+
+.signIn-content {
+    flex: 1;
+    width: 100%;
+    background: #ffffff;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    margin: 0 auto;
+    padding: 24px 24px 32px 24px;
+}
+
+.signIn-bottom-content {
+    width: 100%;
+    bottom: 0;
+    margin-top: auto;
+    align-items: center;
+    gap: 24px;
+}
+
+@media only screen and (min-width: 769px) {
+    .signIn-content {
+        width: 80%;
+        max-width: 600px;
+        height: 80%;
+        min-height: 550px;
+        border-radius: 16px;
+        margin: auto;
+        max-height: min(80%, 620px);
+    }
 }

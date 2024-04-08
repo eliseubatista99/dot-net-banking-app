@@ -14,6 +14,9 @@ public class AppScreenLogic : ComponentBase
     public bool withoutHeader { get; set; } = false;
 
     [Parameter]
+    public Action? onClickBack { get; set; }
+
+    [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]

@@ -4,7 +4,7 @@
 <div class="app-screen" style="@pageStyles">
     @if (!withoutHeader)
     {
-        <AppHeader title=@title variant="@variant" styles="position: absolute; top: 0"/>
+        <AppHeader title=@title variant="@variant" onClickBack="@onClickBack" styles="position: absolute; top: 0" />
     }
     <div class="app-screen-children" style="@contentStyles">
         @ChildContent
