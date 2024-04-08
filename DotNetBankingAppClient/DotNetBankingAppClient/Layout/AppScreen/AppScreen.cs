@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Components;
+namespace DotNetBankingAppClient.Layout;
 
 public class AppScreenLogic : ComponentBase
 {
@@ -12,6 +12,9 @@ public class AppScreenLogic : ComponentBase
 
     [Parameter]
     public bool withoutHeader { get; set; } = false;
+
+    [Parameter]
+    public bool loading { get; set; } = false;
 
     [Parameter]
     public Action? onClickBack { get; set; }

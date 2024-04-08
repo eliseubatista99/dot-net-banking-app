@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Components;
+namespace DotNetBankingAppClient.Layout;
 
-public enum AppHeaderVariant { 
+public enum AppHeaderVariant
+{
     Light,
     Dark,
 }

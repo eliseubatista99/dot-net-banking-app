@@ -1,0 +1,23 @@
+﻿.typography {
+    font-size: 16px;
+    white-space: break-spaces;
+    height: fit-content;
+    width: fit-content;
+    max-width: 100%;
+}
+
+    .typography.ellipsis {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .typography.highlight {
+        color: #0077d1;
+    }
+
+    .typography p {
+    }
+
+    .typography span {
+    }

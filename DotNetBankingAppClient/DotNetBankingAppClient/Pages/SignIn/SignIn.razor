@@ -4,34 +4,22 @@
 @inherits SignInPageLogic
 
 <PageTitle>Banking App - Sign In</PageTitle>
-<AppScreen title="Sign In" variant="AppHeaderVariant.Dark" pageStyles="background: #0077d1" contentStyles="padding: 0;">
-    
+<AppScreen title="Sign In" variant="AppHeaderVariant.Dark" pageStyles="background: #0077d1" contentStyles="padding: 0;" loading=@isFetching>
+    <div class="signIn-content">
+        <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome Back!</Typography>
+        <Typography styles="margin-top: 10px;">Sign in to continue</Typography>
 
-    @if (isFetching == true)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else
-    {
-        <div class="signIn-content">
-            <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome Back!</Typography>
-            <Typography styles="margin-top: 10px;">Sign in to continue</Typography>
+        <div class="signIn-icon"></div>
 
-            <div class="signIn-icon"></div>
-
-            <div class="signIn-inputs">
-                <InputField value=@userName onChange="@OnChangeUserName" placeholder="UserName" />
-                <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
-            </div>
-
-            <div class="signIn-bottom-content" styles="">
-                <AppButton text="Sign In" onClick="@OnClickLoginButton" styles="margin: 0 auto;" />
-                <Typography>Don't have an account? <span onclick="@OnClickSignUp" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign Up</span></Typography>
-            </div>
+        <div class="signIn-inputs">
+            <InputField value=@userName onChange="@OnChangeUserName" placeholder="UserName" />
+            <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
         </div>
-       
-    }
 
+        <div class="signIn-bottom-content" styles="">
+            <AppButton text="Sign In" onClick="@OnClickLoginButton" styles="margin: 0 auto;" />
+            <Typography>Don't have an account? <span onclick="@OnClickSignUp" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign Up</span></Typography>
+        </div>
+    </div>
 </AppScreen>
-
-            
+      

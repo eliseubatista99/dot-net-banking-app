@@ -2,6 +2,13 @@
 @inherits AppScreenLogic
 
 <div class="app-screen" style="@pageStyles">
+    @if (loading)
+    {
+        <div class="app-screen-loader">
+            <AppLoader />
+        </div>
+    }
+
     @if (!withoutHeader)
     {
         <AppHeader title=@title variant="@variant" onClickBack="@onClickBack" styles="position: absolute; top: 0" />
