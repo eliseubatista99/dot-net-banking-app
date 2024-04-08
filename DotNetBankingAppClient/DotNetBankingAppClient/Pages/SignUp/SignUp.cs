@@ -39,6 +39,7 @@ public class SignUpPageLogic : ComponentBase
     public async void OnClickSignUpButton()
     {
         isFetching = true;
+        errorMessage = null;
         this.StateHasChanged();
 
         var result = await ServiceSignUp.CallAsync(new ServiceSignUpInput
@@ -55,9 +56,12 @@ public class SignUpPageLogic : ComponentBase
 
             navManager.NavigateTo("/dashboard");
         }
-
-        isFetching = false;
-
+        else
+        {
+            errorMessage = result.Metadata.Message;
+            isFetching = false;
+            this.StateHasChanged();
+        }
     }
 
     public void OnClickSignInLink()

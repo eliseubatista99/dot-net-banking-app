@@ -15,6 +15,10 @@
             <InputField value=@userName onChange="@OnChangeUserName" placeholder="UserName" />
             <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
         </div>
+        @if (errorMessage != null)
+        {
+            <Typography color="TypographyColor.Error" styles="font-weight: 600; margin: 12px auto 0 auto;">@errorMessage</Typography>
+        }
 
         <div class="signIn-bottom-content" styles="">
             <AppButton text="Sign In" onClick="@OnClickLoginButton" styles="margin: 0 auto;" />

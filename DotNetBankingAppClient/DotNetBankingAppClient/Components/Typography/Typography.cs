@@ -6,6 +6,7 @@ public enum TypographyColor
 {
     Default,
     Highlight,
+    Error,
 }
 
 public enum TypographyOverflow
@@ -33,7 +34,7 @@ public class TypographyLogic : ComponentBase
     {
         string className = "typography";
 
-        if(overflowMode == TypographyOverflow.Ellipsis)
+        if (overflowMode == TypographyOverflow.Ellipsis)
         {
             className += " ellipsis";
         }
@@ -41,6 +42,10 @@ public class TypographyLogic : ComponentBase
         if (color == TypographyColor.Highlight)
         {
             className += " highlight";
+        }
+        else if (color == TypographyColor.Error)
+        {
+            className += " error";
         }
 
         return className;

@@ -56,7 +56,7 @@ namespace BankingAppApi.Controllers
 
             if (existingUser != null)
             {
-                response.SetError("UserAlreadyExists");
+                response.SetError("Username is aleady taken");
                 return response;
             }
 

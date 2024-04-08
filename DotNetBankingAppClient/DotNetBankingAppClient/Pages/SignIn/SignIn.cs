@@ -16,6 +16,9 @@ public class SignInPageLogic : ComponentBase
     public string userName = "";
     public string password = "";
 
+    public string? errorMessage = null;
+
+
     protected override async Task OnInitializedAsync()
     {
         UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
@@ -41,6 +44,7 @@ public class SignInPageLogic : ComponentBase
     public async void OnClickLoginButton()
     {
         isFetching = true;
+        errorMessage = null;
         this.StateHasChanged();
 
         var result = await ServiceSignIn.CallAsync(new ServiceSignInInput
@@ -56,8 +60,12 @@ public class SignInPageLogic : ComponentBase
 
             navManager.NavigateTo("/dashboard");
         }
-        isFetching = false;
-
+        else
+        {
+            errorMessage = result.Metadata.Message;
+            isFetching = false;
+            this.StateHasChanged();
+        }
     }
 
     public void OnClickSignUpLink()
