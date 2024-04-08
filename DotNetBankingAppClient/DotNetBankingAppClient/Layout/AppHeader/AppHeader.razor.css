@@ -1,0 +1,13 @@
+﻿.app-header {
+    width: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24px auto 24px;
+    padding: 15px 15px;
+    align-items: center;
+    color: #000000;
+}
+
+.app-header.dark {
+    color: #ffffff;
+}

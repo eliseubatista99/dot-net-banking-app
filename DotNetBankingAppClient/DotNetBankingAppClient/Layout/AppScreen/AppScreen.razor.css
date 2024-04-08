@@ -1,0 +1,12 @@
+﻿.app-screen {
+    background: #ffffff;
+    width: 100%;
+    flex: 1;
+}
+
+.app-screen-children {
+    width: 100%;
+    flex: 1;
+    padding: 24px 24px 32px 24px;
+}
+

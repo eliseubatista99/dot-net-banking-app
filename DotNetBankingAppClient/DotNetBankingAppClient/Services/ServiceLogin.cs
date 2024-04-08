@@ -1,8 +1,8 @@
-﻿using BankingAppClient.Models;
-using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Helpers;
+using DotNetBankingAppClient.Models;
 using System.Runtime.Serialization;
 
-namespace BankingAppClient.Services
+namespace DotNetBankingAppClient.Services
 {
     public class ServiceLoginOutput
     {

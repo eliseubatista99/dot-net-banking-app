@@ -5,13 +5,13 @@
 How to start project:
 
 1.  Make sure you have .NET installed. You can download it from https://dotnet.microsoft.com/en-us/download
-2.  Execute the dotNetBankingApp.sh script (If you are on Windows, use a tool like Git Bash to run the script: https://git-scm.com/download/win) with the command:
+2.  If you're on linux/mac execute the **dotNetBankingApp.sh** script with the command:
 
         sh ./dotNetBankingApp.sh
 
-    If you only want to test/run the Api, run the following command
+    If you're on windows, execute the batch file **dotNetBankingApp.bat**
 
-        sh ./dotNetBankingAppApiOnly.sh
+    If you only want to test/run the Api, do the previous steps but for the **dotNetBankingAppApiOnly** files.
 
 ## About the project
 

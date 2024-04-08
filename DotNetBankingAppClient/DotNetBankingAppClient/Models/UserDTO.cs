@@ -1,4 +1,4 @@
-﻿namespace BankingAppClient.Models
+﻿namespace DotNetBankingAppClient.Models
 {
     public class UserDTO
     {

@@ -1,0 +1,12 @@
+﻿<p class="typography" style="@styles">
+    @text
+</p>
+
+
+@code {
+    [Parameter]
+    public string? styles { get; set; }
+
+    [Parameter]
+    public string text { get; set; } = "";
+}
