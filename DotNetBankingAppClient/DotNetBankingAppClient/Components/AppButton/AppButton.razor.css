@@ -1,7 +1,10 @@
 ﻿.app-button {
+    height: 50px;
     background: #0077d1; 
-    border-radius: 16px;
+    border-radius: 100px;
     border: none;
-    padding: 8px 16px;
+    padding: 12px 32px;
     color: #ffffff;
+    max-width: 300px;
+    width: 100%;
 }

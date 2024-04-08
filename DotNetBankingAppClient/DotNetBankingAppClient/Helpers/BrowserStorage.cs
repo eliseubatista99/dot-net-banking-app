@@ -5,8 +5,8 @@ namespace DotNetBankingAppClient.Helpers
 {
     public interface IBrowserStorage
     {
-        public Task SetInLocalStorage(string key, object value);
-        public Task SetInSessionStorage(string key, object value);
+        public Task SetInLocalStorage(string key, object? value);
+        public Task SetInSessionStorage(string key, object? value);
         public Task<T> GetFromLocalStorage<T>(string key);
         public Task<T> GetFromSessionStorage<T>(string key);
         public Task RemoveFromLocalStorage(string key);
@@ -24,7 +24,7 @@ namespace DotNetBankingAppClient.Helpers
             _jsRuntime = jsRuntime;
         }
 
-        public async Task SetInLocalStorage(string key, object value)
+        public async Task SetInLocalStorage(string key, object? value)
         {
             string jsVal = null;
             if (value != null)
@@ -33,7 +33,7 @@ namespace DotNetBankingAppClient.Helpers
                 new object[] { key, jsVal });
         }
 
-        public async Task SetInSessionStorage(string key, object value)
+        public async Task SetInSessionStorage(string key, object? value)
         {
             string jsVal = null;
             if (value != null)

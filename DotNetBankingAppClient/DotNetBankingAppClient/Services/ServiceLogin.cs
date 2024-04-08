@@ -6,17 +6,17 @@ namespace DotNetBankingAppClient.Services
 {
     public class ServiceLoginOutput
     {
-        public UserDTO user { get; set; }
-        public string token { get; set; }
+        public UserDTO? User { get; set; }
+        public string? Token { get; set; }
     }
 
     [DataContract]
     public class ServiceLoginInput
     {
         [DataMember]
-        public string username { get; set; }
+        public required string UserName { get; set; }
         [DataMember]
-        public string password { get; set; }
+        public required string Password { get; set; }
     }
 
     public class ServiceLogin

@@ -2,11 +2,10 @@
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class LoginPageLogic : ComponentBase
+public class SignInPageLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
@@ -16,30 +15,33 @@ public class LoginPageLogic : ComponentBase
     [Inject]
     protected HttpClient httpClient { get; set; } = default!;
 
-    public UserDTO? user;
     public bool isFetching = false;
-    public string username = "";
+    public string userName = "";
     public string password = "";
 
     protected override async Task OnInitializedAsync()
     {
-        user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        if (user != null)
+        {
+            userName = user.UserName;
+        }
         this.StateHasChanged();
     }
 
-    public void onChangeUsername(string value)
+    public void OnChangeUserName(string value)
     {
-        username = value;
+        userName = value;
         this.StateHasChanged();
     }
 
-    public void onChangePassword(string value)
+    public void OnChangePassword(string value)
     {
         password = value;
         this.StateHasChanged();
     }
 
-    public async void onClickLoginButton()
+    public async void OnClickLoginButton()
     {
         isFetching = true;
         this.StateHasChanged();
@@ -48,12 +50,12 @@ public class LoginPageLogic : ComponentBase
         {
             var result = await ServiceLogin.CallAsync(httpClient, new ServiceLoginInput
             {
-                username = username,
-                password = password,
+                UserName = userName,
+                Password = password,
             });
 
-            await browserStorage.SetInLocalStorage("user", result.user);
-            await browserStorage.SetInSessionStorage("token", result.token);
+            await browserStorage.SetInLocalStorage("user", result?.User);
+            await browserStorage.SetInSessionStorage("token", result?.Token);
 
             isFetching = false;
             navManager.NavigateTo("/dashboard");
@@ -64,5 +66,10 @@ public class LoginPageLogic : ComponentBase
             isFetching = false;
             this.StateHasChanged();
         }
+    }
+
+    public void OnClickSignUp()
+    {
+        navManager.NavigateTo("/signup");
     }
 }

@@ -1,12 +1,24 @@
-﻿<p class="typography" style="@styles">
-    @text
-</p>
+﻿.typography {
+    font-size: 16px;
+    white-space: break-spaces;
+    height: fit-content;
+    width: fit-content;
+    max-width: 100%;
+}
 
+.typography.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 
-@code {
-    [Parameter]
-    public string? styles { get; set; }
+.typography.highlight {
+    color: #0077d1;
+}
 
-    [Parameter]
-    public string text { get; set; } = "";
+.typography p {
+}
+
+.typography span {
+
 }

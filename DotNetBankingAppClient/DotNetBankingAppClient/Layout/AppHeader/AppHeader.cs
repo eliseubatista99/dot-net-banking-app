@@ -9,7 +9,8 @@ public enum AppHeaderVariant {
 
 public class AppHeaderLogic : ComponentBase
 {
-
+    [Parameter]
+    public string styles { get; set; } = "";
 
     [Parameter]
     public AppHeaderVariant variant { get; set; } = AppHeaderVariant.Light;

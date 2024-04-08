@@ -9,6 +9,8 @@ public class InputFieldLogic : ComponentBase
     [Parameter]
     public string value { get; set; } = "";
     [Parameter]
+    public string placeholder { get; set; } = "";
+    [Parameter]
     public Action<string>? onChange { get; set; }
 
     public void HandleValueChanged(ChangeEventArgs e)

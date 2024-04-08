@@ -22,7 +22,7 @@ public class IndexPageLogic : ComponentBase
         }
         else
         {
-            navManager.NavigateTo("/login");
+            navManager.NavigateTo("/signIn");
         }
     }
 }
