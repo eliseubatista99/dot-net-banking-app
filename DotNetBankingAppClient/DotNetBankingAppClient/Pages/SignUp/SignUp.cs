@@ -1,11 +1,10 @@
 ﻿using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class SignInPageLogic : ComponentBase
+public class SignUpPageLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
@@ -15,16 +14,9 @@ public class SignInPageLogic : ComponentBase
     public bool isFetching = false;
     public string userName = "";
     public string password = "";
+    public string phoneNumber = "";
 
-    protected override async Task OnInitializedAsync()
-    {
-        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
-        if (user != null)
-        {
-            userName = user.UserName;
-        }
-        this.StateHasChanged();
-    }
+    public string? errorMessage = null;
 
     public void OnChangeUserName(string value)
     {
@@ -38,15 +30,22 @@ public class SignInPageLogic : ComponentBase
         this.StateHasChanged();
     }
 
-    public async void OnClickLoginButton()
+    public void OnChangePhoneNumber(string value)
+    {
+        phoneNumber = value;
+        this.StateHasChanged();
+    }
+
+    public async void OnClickSignUpButton()
     {
         isFetching = true;
         this.StateHasChanged();
 
-        var result = await ServiceSignIn.CallAsync(new ServiceSignInInput
+        var result = await ServiceSignUp.CallAsync(new ServiceSignUpInput
         {
             UserName = userName,
             Password = password,
+            PhoneNumber = phoneNumber,
         });
 
         if (result.Metadata.Success)
@@ -56,12 +55,13 @@ public class SignInPageLogic : ComponentBase
 
             navManager.NavigateTo("/dashboard");
         }
+
         isFetching = false;
 
     }
 
-    public void OnClickSignUpLink()
+    public void OnClickSignInLink()
     {
-        navManager.NavigateTo("/signUp");
+        navManager.NavigateTo("/signIn");
     }
 }

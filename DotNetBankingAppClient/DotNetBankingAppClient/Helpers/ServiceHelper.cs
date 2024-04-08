@@ -3,9 +3,22 @@ using System.Text.Json;
 
 namespace DotNetBankingAppClient.Helpers
 {
+    public class ApiResponseMetadata
+    {
+        public bool Success { get; set; } = true;
+        public string Message { get; set; } = "";
+    }
+
+    public class ApiResponse<T>
+    {
+        public T? Data { get; set; }
+        public required ApiResponseMetadata Metadata { get; set; }
+    }
+
+
     public interface IApiServices
     {
-        public Task<TOutput?> CallService<TInput, TOutput>(string endpoint, TInput input);
+        public Task<ApiResponse<TOutput?>> CallService<TInput, TOutput>(string endpoint, TInput input);
     }
 
     public class ApiServices : IApiServices
@@ -26,35 +39,62 @@ namespace DotNetBankingAppClient.Helpers
             }
         }
 
-        public async Task<TOutput?> CallService<TInput, TOutput>(string endpoint, TInput input)
+        public async Task<ApiResponse<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
         {
-            string jsonInput = JsonSerializer.Serialize(input);
-            var httpContent = new StringContent(jsonInput, Encoding.UTF8, "application/json");
-
-            var httpResponse = await _httpClient.PostAsync("Login", httpContent);
-
-            httpResponse.EnsureSuccessStatusCode(); // throws if not 200-299
-
-
-            if (httpResponse.Content is object && httpResponse.Content.Headers.ContentType?.MediaType == "application/json")
+            try
             {
-                var contentStream = await httpResponse.Content.ReadAsStreamAsync();
+                string jsonInput = JsonSerializer.Serialize(input);
+                var serviceBody = new StringContent(jsonInput, Encoding.UTF8, "application/json");
+                var serviceResponse = await _httpClient.PostAsync(endpoint, serviceBody);
+                var serviceResponseContent = serviceResponse.Content;
 
-                try
+                serviceResponse.EnsureSuccessStatusCode(); // throws if not 200-299
+
+                if (!serviceResponse.IsSuccessStatusCode)
                 {
-                    return await JsonSerializer.DeserializeAsync<TOutput>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    string message = await serviceResponse.Content.ReadAsStringAsync() ?? "Invalid Response";
+                    return new ApiResponse<TOutput>
+                    {
+                        Data = default,
+                        Metadata = new ApiResponseMetadata
+                        {
+                            Success = false,
+                            Message = message
+                        },
+                    };
                 }
-                catch (JsonException) // Invalid JSON
+
+                if (serviceResponseContent == null || serviceResponseContent?.Headers.ContentType?.MediaType != "application/json")
                 {
-                    Console.WriteLine("Invalid JSON.");
+                    return new ApiResponse<TOutput>
+                    {
+                        Data = default,
+                        Metadata = new ApiResponseMetadata
+                        {
+                            Success = false,
+                            Message = "No content"
+                        },
+                    };
                 }
+
+                var contentStream = await serviceResponseContent.ReadAsStreamAsync();
+
+                var response = await JsonSerializer.DeserializeAsync<ApiResponse<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+
+                return response;
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("HTTP Response was invalid and cannot be deserialised.");
+                return new ApiResponse<TOutput>
+                {
+                    Data = default,
+                    Metadata = new ApiResponseMetadata
+                    {
+                        Success = false,
+                        Message = ex.Message,
+                    },
+                };
             }
-
-            return default;
         }
     }
 }

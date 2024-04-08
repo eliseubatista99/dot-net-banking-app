@@ -4,26 +4,28 @@ using System.Runtime.Serialization;
 
 namespace DotNetBankingAppClient.Services
 {
-    public class ServiceLoginOutput
+    public class ServiceSignUpOutput
     {
         public UserDTO? User { get; set; }
         public string? Token { get; set; }
     }
 
     [DataContract]
-    public class ServiceLoginInput
+    public class ServiceSignUpInput
     {
         [DataMember]
         public required string UserName { get; set; }
         [DataMember]
         public required string Password { get; set; }
+        [DataMember]
+        public required string PhoneNumber { get; set; }
     }
 
-    public class ServiceLogin
+    public class ServiceSignUp
     {
-        public static async Task<ServiceLoginOutput?> CallAsync(HttpClient Http, ServiceLoginInput input)
+        public static async Task<ApiResponse<ServiceSignUpOutput>> CallAsync(ServiceSignUpInput input)
         {
-            return await ApiServices.Instance.CallService<ServiceLoginInput, ServiceLoginOutput>("login", input);
+            return await ApiServices.Instance.CallService<ServiceSignUpInput, ServiceSignUpOutput>("signUp", input);
         }
     }
 }

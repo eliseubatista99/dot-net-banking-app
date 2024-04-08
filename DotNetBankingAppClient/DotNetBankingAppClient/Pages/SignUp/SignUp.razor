@@ -1,0 +1,25 @@
+﻿@page "/signUp"
+
+@namespace DotNetBankingAppClient.Pages
+@inherits SignUpPageLogic
+
+<PageTitle>Banking App - Sign Up</PageTitle>
+<AppScreen title="Sign Up" variant="AppHeaderVariant.Dark" pageStyles="background: #0077d1" contentStyles="padding: 0;" loading=@isFetching>
+    <div class="signUp-content">
+        <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome To Dot Net Banking!</Typography>
+        <Typography styles="margin-top: 10px;">Create an account to get started</Typography>
+
+        <div class="signUp-icon"></div>
+
+        <div class="signUp-inputs">
+            <InputField value=@userName onChange="@OnChangeUserName" placeholder="User Name" />
+            <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
+            <InputField value=@phoneNumber onChange="@OnChangePhoneNumber" placeholder="Phone Number" />
+        </div>
+
+        <div class="signUp-bottom-content" styles="">
+            <AppButton text="Sign In" onClick="@OnClickSignUpButton" styles="margin: 0 auto;" />
+            <Typography>Have an account? <span onclick="@OnClickSignInLink" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign In</span></Typography>
+        </div>
+    </div>
+</AppScreen>
