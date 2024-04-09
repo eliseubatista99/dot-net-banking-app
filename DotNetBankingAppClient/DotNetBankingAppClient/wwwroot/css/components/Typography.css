@@ -6,13 +6,13 @@
     max-width: 100%;
 }
 
-.typography.ellipsis {
+.typography-overflow-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.typography.highlight {
+.typography-color-highlight {
     color: #0077d1;
 }
 
@@ -20,8 +20,6 @@
     color: #c63030;
 }
 
-.typography p {
-}
-
-.typography span {
+.typography-color-dark {
+    color: #ffffff;
 }

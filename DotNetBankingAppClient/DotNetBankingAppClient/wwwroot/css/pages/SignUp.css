@@ -1,4 +1,13 @@
-﻿.signUp-icon {
+﻿.signUp-title {
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.signUp-subtitle {
+    margin-top: 10px;
+}
+
+.signUp-icon {
     width: 40%;
     max-width: 150px;
     aspect-ratio: 1 / 1;
@@ -29,6 +38,15 @@
     margin-top: auto;
     align-items: center;
     gap: 24px;
+}
+
+.signUp-error-message {
+    font-weight: 600;
+    margin: 12px auto 0 auto;
+}
+
+.signUp-button {
+    margin: 0 auto;
 }
 
 @media only screen and (min-width: 769px) {

@@ -4,7 +4,8 @@ namespace DotNetBankingAppClient.Components;
 
 public enum TypographyColor
 {
-    Default,
+    DefaultLight,
+    DefaultDark,
     Highlight,
     Error,
 }
@@ -21,33 +22,40 @@ public class TypographyLogic : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public string? styles { get; set; }
+    public string? classes { get; set; } = "";
 
     [Parameter]
     public TypographyOverflow overflowMode { get; set; } = TypographyOverflow.LineBreak;
 
     [Parameter]
-    public TypographyColor color { get; set; } = TypographyColor.Default;
+    public TypographyColor color { get; set; } = TypographyColor.DefaultLight;
 
 
-    public string GetClassName()
+    public string GetClasses()
     {
-        string className = "typography";
-
+        string result = "";
         if (overflowMode == TypographyOverflow.Ellipsis)
         {
-            className += " ellipsis";
+            result += " typography-overflow-ellipsis";
         }
 
-        if (color == TypographyColor.Highlight)
+        switch (color)
         {
-            className += " highlight";
-        }
-        else if (color == TypographyColor.Error)
-        {
-            className += " error";
+            case TypographyColor.DefaultDark:
+                result += " typography-color-dark";
+                break;
+            case TypographyColor.Highlight:
+                result += " typography-color-highlight";
+                break;
+            case TypographyColor.Error:
+                result += " typography-color-error";
+                break;
+            default:
+                break;
         }
 
-        return className;
+        result += " " + classes;
+
+        return result;
     }
 }

@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class DashboardPageLogic : ComponentBase
+public class DashboardHeaderLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
-    
+
     [Inject]
     protected IWindowHelper windowHelper { get; set; } = default!;
     [Inject]
@@ -18,13 +18,13 @@ public class DashboardPageLogic : ComponentBase
     [Inject]
     protected HttpClient httpClient { get; set; } = default!;
 
-    public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
     public UserDTO? user;
-
 
     protected override async Task OnInitializedAsync()
     {
-        await windowHelper.ListenForResponsiveChanges(async (ResponsiveWindowSize size) => { windowSize = size; this.StateHasChanged(); });
+        user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+
+        this.StateHasChanged();
     }
 
 }

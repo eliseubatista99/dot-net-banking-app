@@ -5,7 +5,7 @@ namespace DotNetBankingAppClient.Components;
 public class AppButtonLogic : ComponentBase
 {
     [Parameter]
-    public string? styles { get; set; }
+    public string? classes { get; set; }
 
     [Parameter]
     public string text { get; set; } = "Button";

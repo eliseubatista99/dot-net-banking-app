@@ -20,6 +20,7 @@ namespace DotNetBankingAppClient
 
             builder.Services.AddScoped(sp => httpClient);
             builder.Services.AddScoped<IBrowserStorage, BrowserStorage>();
+            builder.Services.AddScoped<IWindowHelper, WindowHelper>();
             ApiServices.Initialize(httpClient);
         }
 

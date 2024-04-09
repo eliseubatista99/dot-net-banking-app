@@ -6,8 +6,8 @@
 <PageTitle>Banking App - Sign Up</PageTitle>
 <AppScreen title="Sign Up" variant="AppHeaderVariant.Dark" pageStyles="background: #0077d1" contentStyles="padding: 0;" loading=@isFetching>
     <div class="signUp-content">
-        <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome To Dot Net Banking!</Typography>
-        <Typography styles="margin-top: 10px;">Create an account to get started</Typography>
+        <Typography color="TypographyColor.Highlight" classes="signUp-title">Welcome To Dot Net Banking!</Typography>
+        <Typography classes="signUp-subtitle">Create an account to get started</Typography>
 
         <div class="signUp-icon"></div>
 
@@ -18,11 +18,11 @@
         </div>
         @if(errorMessage != null)
         {
-            <Typography color="TypographyColor.Error" styles="font-weight: 600; margin: 12px auto 0 auto;">@errorMessage</Typography>
+            <Typography color="TypographyColor.Error" classes="signUp-error-message">@errorMessage</Typography>
         }
 
         <div class="signUp-bottom-content" styles="">
-            <AppButton text="Sign In" onClick="@OnClickSignUpButton" styles="margin: 0 auto;" />
+            <AppButton text="Sign In" onClick="@OnClickSignUpButton" classes="signUp-button" />
             <Typography>Have an account? <span onclick="@OnClickSignInLink" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign In</span></Typography>
         </div>
     </div>
