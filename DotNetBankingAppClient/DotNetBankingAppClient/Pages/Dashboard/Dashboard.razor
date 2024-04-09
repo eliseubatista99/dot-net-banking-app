@@ -6,8 +6,11 @@
 <AppScreen withoutHeader pageClasses="dashboard-app-screen" contentClasses="dashboard-app-screen-children">
     @if (windowSize == ResponsiveWindowSize.Desktop)
     {
-        <DashboardHeader />
-        <DashboardNavigation />
+        <div class="dashboard-heading">
+            <DashboardHeader />
+            <DashboardNavigation />
+        </div>
+        
     }
     else
     {
