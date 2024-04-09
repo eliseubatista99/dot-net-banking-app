@@ -3,38 +3,41 @@
 @inherits DashboardPageLogic
 
 <PageTitle>Banking App - Dashboard</PageTitle>
-<AppScreen withoutHeader pageStyles="background: #0077d1; padding: 0;" contentStyles="padding: 0;">
-    <div class="dashboard-page">
-        @if(windowSize == ResponsiveWindowSize.Desktop)
+<AppScreen withoutHeader pageClasses="dashboard-app-screen" contentClasses="dashboard-app-screen-children">
+    @if (windowSize == ResponsiveWindowSize.Desktop)
+    {
+        <DashboardHeader />
+        <DashboardNavigation />
+    }
+    else
+    {
+        <DashboardHeader />
+    }
+    <div class="dashboard-content">
+        <div style="width: 100%; height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+        <!--  <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome To Dot Net Banking!</Typography>
+          <Typography styles="margin-top: 10px;">Create an account to get started</Typography>
+
+          <div class="signUp-icon"></div>
+
+          <div class="signUp-inputs">
+              <InputField value=@userName onChange="@OnChangeUserName" placeholder="User Name" />
+              <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
+              <InputField value=@phoneNumber onChange="@OnChangePhoneNumber" placeholder="Phone Number" />
+          </div>
+        @if (errorMessage != null)
         {
-            <DashboardHeader />
-            <DashboardNavigation />
-        } else
-        {
-            <DashboardHeader />
+              <Typography color="TypographyColor.Error" styles="font-weight: 600; margin: 12px auto 0 auto;">@errorMessage</Typography>
         }
-        <div class="dashboard-content">
-          <!--  <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome To Dot Net Banking!</Typography>
-            <Typography styles="margin-top: 10px;">Create an account to get started</Typography>
 
-            <div class="signUp-icon"></div>
-
-            <div class="signUp-inputs">
-                <InputField value=@userName onChange="@OnChangeUserName" placeholder="User Name" />
-                <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
-                <InputField value=@phoneNumber onChange="@OnChangePhoneNumber" placeholder="Phone Number" />
-            </div>
-            @if (errorMessage != null)
-            {
-                <Typography color="TypographyColor.Error" styles="font-weight: 600; margin: 12px auto 0 auto;">@errorMessage</Typography>
-            }
-
-            <div class="signUp-bottom-content" styles="">
-                <AppButton text="Sign In" onClick="@OnClickSignUpButton" styles="margin: 0 auto;" />
-                <Typography>Have an account? <span onclick="@OnClickSignInLink" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign In</span></Typography>
-            </div>
-              -->
-        </div>
+          <div class="signUp-bottom-content" styles="">
+              <AppButton text="Sign In" onClick="@OnClickSignUpButton" styles="margin: 0 auto;" />
+              <Typography>Have an account? <span onclick="@OnClickSignInLink" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign In</span></Typography>
+          </div>
+            -->
     </div>
-  
+    @if (windowSize != ResponsiveWindowSize.Desktop)
+    {
+        <DashboardNavigation />
+    }
 </AppScreen>

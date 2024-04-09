@@ -23,8 +23,8 @@ public class AppScreenLogic : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public string? pageStyles { get; set; }
+    public string? pageClasses { get; set; }
 
     [Parameter]
-    public string? contentStyles { get; set; }
+    public string? contentClasses { get; set; }
 }

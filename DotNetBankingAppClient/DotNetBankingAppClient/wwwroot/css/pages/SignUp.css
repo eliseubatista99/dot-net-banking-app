@@ -1,4 +1,12 @@
-﻿.signUp-title {
+﻿.signUp-app-screen {
+    background: #0077d1;
+}
+
+.signUp-app-screen-children {
+    padding: 0;
+}
+
+.signUp-title {
     font-weight: 600;
     font-size: 24px;
 }

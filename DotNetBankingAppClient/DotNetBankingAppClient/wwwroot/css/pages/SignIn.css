@@ -1,4 +1,12 @@
-﻿.signIn-title {
+﻿.signIn-app-screen {
+    background: #0077d1;
+}
+
+.signIn-app-screen-children {
+    padding: 0;
+}
+
+.signIn-title {
     font-weight: 600;
     font-size: 24px;
 }

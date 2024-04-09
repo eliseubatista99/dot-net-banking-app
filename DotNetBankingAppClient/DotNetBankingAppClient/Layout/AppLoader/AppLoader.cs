@@ -5,5 +5,5 @@ namespace DotNetBankingAppClient.Layout;
 public class AppLoaderLogic : ComponentBase
 {
     [Parameter]
-    public string styles { get; set; } = "";
+    public string classes { get; set; } = "";
 }

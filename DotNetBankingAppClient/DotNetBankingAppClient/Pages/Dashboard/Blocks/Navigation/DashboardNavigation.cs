@@ -18,13 +18,16 @@ public class DashboardNavigationLogic : ComponentBase
     [Inject]
     protected HttpClient httpClient { get; set; } = default!;
 
-    public UserDTO? user;
+    public string[] navOptions = ["Home", "Search", "Inbox", "Settings"];
+    public string selectedOption = "Home";
 
-    protected override async Task OnInitializedAsync()
+    public void OnOptionSelected(string option)
     {
-        user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
-
-        this.StateHasChanged();
+        if(option != selectedOption)
+        {
+            selectedOption = option;
+            this.StateHasChanged();
+        }
     }
 
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DotNetBankingAppClient.Components;
+using Microsoft.AspNetCore.Components;
+using System.Drawing;
 
 namespace DotNetBankingAppClient.Layout;
 
@@ -11,7 +13,7 @@ public enum AppHeaderVariant
 public class AppHeaderLogic : ComponentBase
 {
     [Parameter]
-    public string styles { get; set; } = "";
+    public string classes { get; set; } = "";
 
     [Parameter]
     public AppHeaderVariant variant { get; set; } = AppHeaderVariant.Light;
@@ -22,15 +24,19 @@ public class AppHeaderLogic : ComponentBase
     [Parameter]
     public string title { get; set; } = "";
 
-    public string GetClassName()
+    public string GetClasses()
     {
+        string result = "";
         if (variant == AppHeaderVariant.Dark)
         {
-            return "app-header dark";
+            result += " app-header-dark";
         }
 
-        return "app-header";
+        result += " " + classes;
+
+        return result;
     }
+
 
     public void HandleOnClickBack()
     {
@@ -39,4 +45,6 @@ public class AppHeaderLogic : ComponentBase
             onClickBack();
         }
     }
+
+
 }

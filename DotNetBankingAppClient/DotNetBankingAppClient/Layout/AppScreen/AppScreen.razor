@@ -1,7 +1,7 @@
 ﻿@namespace DotNetBankingAppClient.Layout
 @inherits AppScreenLogic
 
-<div class="app-screen" style="@pageStyles">
+<div class="app-screen @pageClasses">
     @if (loading)
     {
         <div class="app-screen-loader">
@@ -11,9 +11,9 @@
 
     @if (!withoutHeader)
     {
-        <AppHeader title=@title variant="@variant" onClickBack="@onClickBack" styles="position: absolute; top: 0" />
+        <AppHeader title=@title variant="@variant" onClickBack="@onClickBack" classes="app-screen-header" />
     }
-    <div class="app-screen-children" style="@contentStyles">
+    <div class="app-screen-children @contentClasses">
         @ChildContent
     </div>
 </div>
