@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using System.Drawing;
 using System.Text.Json;
 
 namespace DotNetBankingAppClient.Helpers
@@ -19,7 +20,7 @@ namespace DotNetBankingAppClient.Helpers
     public class WindowHelper : IWindowHelper
     {
         private readonly IJSRuntime _jsRuntime;
-        private Action<ResponsiveWindowSize>? onWindowWidthChangedCallback;
+        private List<Action<ResponsiveWindowSize>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize>>();
         private ResponsiveWindowSize currentWindowSize = ResponsiveWindowSize.Mobile;
 
         public WindowHelper(IJSRuntime jsRuntime)
@@ -45,21 +46,25 @@ namespace DotNetBankingAppClient.Helpers
         [JSInvokable]
         public async Task OnWindowWidthChange(int windowWidth)
         {
-            if(onWindowWidthChangedCallback != null)
+            if (onWindowWidthChangedCallbacks.Count > 0)
             {
                 ResponsiveWindowSize size = CalculateWindowSize(windowWidth);
 
                 if (size != currentWindowSize)
                 {
+                    onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
                     currentWindowSize = size;
-                    onWindowWidthChangedCallback(size);
+                    foreach(var callback  in onWindowWidthChangedCallbacks)
+                    {
+                        callback(size);
+                    }
                 }
             }
         }
 
         public async Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback)
         {
-            onWindowWidthChangedCallback = callback;
+            onWindowWidthChangedCallbacks.Add(callback);
             DotNetObjectReference<WindowHelper> _objectReference = DotNetObjectReference.Create(this);
 
             int currentWidth = await _jsRuntime.InvokeAsync<int>("getWidth");

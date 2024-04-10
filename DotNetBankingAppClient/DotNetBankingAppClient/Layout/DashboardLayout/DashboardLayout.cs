@@ -7,7 +7,6 @@ namespace DotNetBankingAppClient.Pages;
 
 public class DashboardLayoutLogic : LayoutComponentBase
 {
-    
     [Inject]
     protected IWindowHelper windowHelper { get; set; } = default!;
 
