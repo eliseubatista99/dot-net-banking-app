@@ -1,11 +1,17 @@
-﻿@page "/home"
+﻿@page "/Home"
 @layout DashboardLayout
 
 @namespace DotNetBankingAppClient.Pages
 @inherits HomePageLogic
 
 <PageTitle>Banking App - Home</PageTitle>
-<div style="width: 100%; height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+<div style="width: 100%; min-height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+<div class="home-page-navigation-items-list">
+    @foreach(var item in homePageItems)
+    {
+        <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem"/>
+    }
+</div>
 
 <!--  <Typography color="TypographyColor.Highlight" styles="font-weight: 600; font-size: 24px;">Welcome To Dot Net Banking!</Typography>
     <Typography styles="margin-top: 10px;">Create an account to get started</Typography>

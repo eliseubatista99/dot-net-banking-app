@@ -1,10 +1,17 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Layout;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
+
+public class HomePageItems
+{
+    public string name { get; set; } = "";
+    public string path { get; set; } = "";
+}
 
 public class HomePageLogic : ComponentBase
 {
@@ -16,64 +23,36 @@ public class HomePageLogic : ComponentBase
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
 
-    public bool isFetching = false;
-    public string userName = "";
-    public string password = "";
+    public HomePageItems[] homePageItems = [
+       new HomePageItems {
+        name = "Accounts",
+        path = AppPages.Accounts
+    }, new HomePageItems {
+        name = "Transfers",
+        path = AppPages.Transfer
+    }, new HomePageItems {
+        name = "PayMobile",
+        path = AppPages.PayMobile
+    }, new HomePageItems {
+        name = "PayBill",
+        path = AppPages.PayBill
+    }, new HomePageItems {
+        name = "Savings",
+        path = AppPages.Savings
+    }, new HomePageItems {
+        name = "Cards",
+        path = AppPages.Cards
+    }, new HomePageItems {
+        name = "Transactions",
+        path = AppPages.Transactions
+    }, new HomePageItems {
+        name = "Beneficiaries",
+        path = AppPages.Beneficiaries
+    }];
 
-    public string? errorMessage = null;
 
-
-    protected override async Task OnInitializedAsync()
+    public void OnClickItem(string path)
     {
-        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
-        if (user != null)
-        {
-            userName = user.UserName;
-        }
-        this.StateHasChanged();
-    }
-
-    public void OnChangeUserName(string value)
-    {
-        userName = value;
-        this.StateHasChanged();
-    }
-
-    public void OnChangePassword(string value)
-    {
-        password = value;
-        this.StateHasChanged();
-    }
-
-    public async void OnClickLoginButton()
-    {
-        isFetching = true;
-        errorMessage = null;
-        this.StateHasChanged();
-
-        var result = await ServiceSignIn.CallAsync(new ServiceSignInInput
-        {
-            UserName = userName,
-            Password = password,
-        });
-
-        if (result.Metadata.Success)
-        {
-            await browserStorage.SetInLocalStorage("user", result?.Data?.User);
-            await browserStorage.SetInSessionStorage("token", result?.Data?.Token);
-
-            navManager.NavigateTo("/dashboard");
-        }
-        else
-        {
-            errorMessage = result.Metadata.Message;
-            isFetching = false;
-            this.StateHasChanged();
-        }
-    }
-
-    public void OnClickSignUpLink()
-    {
-        navManager.NavigateTo("/signUp");
+        navManager.NavigateTo(path);
     }
 }

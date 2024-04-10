@@ -1,0 +1,39 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits HomeNavigationItemLogic
+
+<div class="home-page-navigation-item">
+    <div class="home-page-navigation-item-icon">
+        @switch (path)
+        {
+            case AppPages.Accounts:
+                <IconFilePerson />
+                break;
+            case AppPages.Transfer:
+                <IconSend />
+                break;
+            case AppPages.PayMobile:
+                <IconPhone />
+                break;
+            case AppPages.PayBill:
+                <IconCash />
+                break;
+            case AppPages.Savings:
+                <IconPiggyBank />
+                break;
+            case AppPages.Cards:
+                <IconCreditCard />
+                break;
+            case AppPages.Transactions:
+                <IconPaperNotes />
+                break;
+            case AppPages.Beneficiaries:
+                <IconPersonRaisedHand />
+                break;
+            default:
+                <div />
+                break;
+        }
+    </div>
+   
+    <Typography classes="home-page-navigation-item-text">@name</Typography>
+</div>
