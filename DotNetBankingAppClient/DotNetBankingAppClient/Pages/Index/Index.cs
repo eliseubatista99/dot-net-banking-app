@@ -1,4 +1,5 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
 using Microsoft.AspNetCore.Components;
 
@@ -18,11 +19,11 @@ public class IndexPageLogic : ComponentBase
 
         if (storedUser != null && token != null)
         {
-            navManager.NavigateTo("/dashboard");
+            navManager.NavigateTo(AppPages.Home);
         }
         else
         {
-            navManager.NavigateTo("/signIn");
+            navManager.NavigateTo(AppPages.SignIn);
         }
     }
 }

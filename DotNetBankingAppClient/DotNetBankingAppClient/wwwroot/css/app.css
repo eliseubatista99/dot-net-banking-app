@@ -42,6 +42,17 @@ div {
     position: relative;
 }
 
+button {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
 
 
 

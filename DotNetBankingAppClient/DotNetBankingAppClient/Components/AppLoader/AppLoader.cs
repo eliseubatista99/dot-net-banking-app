@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Layout;
+namespace DotNetBankingAppClient.Components;
 
 public class AppLoaderLogic : ComponentBase
 {

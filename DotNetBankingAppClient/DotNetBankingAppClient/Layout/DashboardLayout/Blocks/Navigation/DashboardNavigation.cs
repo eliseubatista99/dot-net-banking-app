@@ -1,4 +1,5 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
@@ -15,19 +16,27 @@ public class DashboardNavigationLogic : ComponentBase
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
 
-    [Inject]
-    protected HttpClient httpClient { get; set; } = default!;
-
-    public string[] navOptions = ["Home", "Search", "Inbox", "Settings"];
-    public string selectedOption = "Home";
+    public string[] navOptions = [AppPages.Home, AppPages.Search, AppPages.Inbox, AppPages.Settings];
+    public string selectedOption = AppPages.Home;
+    public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 
     public void OnOptionSelected(string option)
     {
         if(option != selectedOption)
         {
             selectedOption = option;
+            navManager.NavigateTo(option);
             this.StateHasChanged();
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await windowHelper.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
+        {
+            windowSize = size;
+            this.StateHasChanged();
+        });
     }
 
 }

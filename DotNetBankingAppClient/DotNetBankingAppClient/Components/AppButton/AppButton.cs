@@ -5,7 +5,9 @@ namespace DotNetBankingAppClient.Components;
 public class AppButtonLogic : ComponentBase
 {
     [Parameter]
-    public string? classes { get; set; }
+    public string? defaultClasses { get; set; }
+    [Parameter]
+    public string? hoveredClasses { get; set; }
 
     [Parameter]
     public string text { get; set; } = "Button";
@@ -33,5 +35,17 @@ public class AppButtonLogic : ComponentBase
     {
         isHovered = false;
         this.StateHasChanged();
+    }
+
+    public string GetClasses()
+    {
+        string result = defaultClasses ?? "";
+
+        if(isHovered)
+        {
+            result += " " + hoveredClasses;
+        }
+
+        return result;
     }
 }

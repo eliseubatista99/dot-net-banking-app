@@ -6,7 +6,7 @@
     {
         bool isSelected = selectedOption == option;
         string optionClassIfSelected = isSelected ? "dashboard-navigation-option-selected" : "";
-        <div class="dashboard-navigation-option @optionClassIfSelected" onclick="@(() => OnOptionSelected(option))">
+        <button class="dashboard-navigation-option @optionClassIfSelected" onclick="@(() => OnOptionSelected(option))">
             <div  class="dashboard-navigation-option-icon">
                 @switch (option)
                 {
@@ -61,10 +61,10 @@
                         break;
                 }
             </div>
-            @if (isSelected)
+            @if (isSelected || windowSize == ResponsiveWindowSize.Desktop)
             {
                 @option
             }
-        </div>
+        </button>
     }
 </div>

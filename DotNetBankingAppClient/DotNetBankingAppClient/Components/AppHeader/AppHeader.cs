@@ -1,8 +1,6 @@
-﻿using DotNetBankingAppClient.Components;
-using Microsoft.AspNetCore.Components;
-using System.Drawing;
+﻿using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Layout;
+namespace DotNetBankingAppClient.Components;
 
 public enum AppHeaderVariant
 {

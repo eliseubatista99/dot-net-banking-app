@@ -1,4 +1,5 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -54,7 +55,7 @@ public class SignUpPageLogic : ComponentBase
             await browserStorage.SetInLocalStorage("user", result?.Data?.User);
             await browserStorage.SetInSessionStorage("token", result?.Data?.Token);
 
-            navManager.NavigateTo("/dashboard");
+            navManager.NavigateTo(AppPages.Home);
         }
         else
         {
@@ -66,6 +67,6 @@ public class SignUpPageLogic : ComponentBase
 
     public void OnClickSignInLink()
     {
-        navManager.NavigateTo("/signIn");
+        navManager.NavigateTo(AppPages.SignIn);
     }
 }

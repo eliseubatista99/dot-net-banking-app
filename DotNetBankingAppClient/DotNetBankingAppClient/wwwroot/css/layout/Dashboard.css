@@ -1,10 +1,10 @@
 ﻿.dashboard-app-screen {
-    background: #0077d1;
-    padding: 0;
+    background: #0077d1 !important;
+    padding: 0 !important;
 }
 
 .dashboard-app-screen-children {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .dashboard-header {
@@ -74,6 +74,8 @@
     color: #575757;
     min-width: fit-content;
     grid-column: auto / span 1;
+    cursor: pointer;
+    line-height: 0;
 }
 
 .dashboard-navigation-option-selected {
@@ -111,6 +113,7 @@
         bottom: unset;
         left: unset;
         box-shadow: unset;
+        padding: 24px 10px;
     }
 
     .dashboard-navigation-option {
@@ -121,6 +124,15 @@
         font-size: 14px;
         color: #ffffff;
         min-width: fit-content;
-        padding: 20px 5px;
+        padding: 15px 20px;
+        grid-column: unset;
+
+    }
+
+    .dashboard-navigation-option-selected {
+        color: #0077d1;
+        background: #ffffff;
+        border-radius: 16px;
+        grid-column: unset;
     }
 }
