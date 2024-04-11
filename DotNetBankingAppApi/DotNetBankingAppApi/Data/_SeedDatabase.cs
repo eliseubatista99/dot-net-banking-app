@@ -1,4 +1,5 @@
 ﻿using BankingAppApi.Models.User;
+using DotNetBankingAppApi.Models.Message;
 using Microsoft.EntityFrameworkCore;
 
 namespace BankingAppApi.Data
@@ -11,16 +12,14 @@ namespace BankingAppApi.Data
                 serviceProvider.GetRequiredService<
                     DbContextOptions<DatabaseContext>>()))
             {
-                // Look for any movies.
-               if (context.Users.Any())
+                if (context.Users.Any() || context.Messages.Any())
                 {
                     return;   // DB has been seeded
                 }
 
 
                 SeedUsers(context);
-                //SeedPolicies(context);
-                //SeedSinisters(context);
+                SeedMessages(context);
 
                 context.SaveChanges();
             }
@@ -40,6 +39,29 @@ namespace BankingAppApi.Data
                           UserName = "user2",
                           Password = "pass2",
                           PhoneNumber = "922222222"
+
+                      }
+                 );
+        }
+
+        public static void SeedMessages(DatabaseContext context)
+        {
+            context.Messages.AddRange(
+                     new Message
+                     {
+                         Id = "user1_12345",
+                         UserName = "user1",
+                         Date = new DateTime(2024, 04, 11, 19, 07, 59),
+                         Subject = "Test message subject",
+                         Content = "Test message content",
+                     },
+                      new Message
+                      {
+                          Id = "user1_6789",
+                          UserName = "user1",
+                          Date = new DateTime(2024, 04, 11, 19, 07, 59),
+                          Subject = "Test message subject",
+                          Content = "Test message content",
 
                       }
                  );

@@ -4,7 +4,7 @@ namespace BankingAppApi.Models.User
 {
     public class User
     {
-        [Key, DataType(DataType.EmailAddress)]
+        [Key]
         public string UserName { get; set; } = "";
 
         [Required, MinLength(9), DataType(DataType.PhoneNumber)]
@@ -12,7 +12,5 @@ namespace BankingAppApi.Models.User
 
         [Required, MinLength(8), RegularExpression("^[^\\s\\,]+$")]
         public string Password { get; set; } = "";
-
-       
     }
 }

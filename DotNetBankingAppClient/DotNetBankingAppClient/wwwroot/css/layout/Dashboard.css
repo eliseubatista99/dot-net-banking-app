@@ -139,4 +139,8 @@
         border-radius: 16px;
         grid-column: unset;
     }
+
+    .dashboard-content {
+        max-height:100%;
+    }
 }
