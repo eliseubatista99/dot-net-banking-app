@@ -1,8 +1,5 @@
 ﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Layout;
-using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -53,6 +50,6 @@ public class HomePageLogic : ComponentBase
 
     public void OnClickItem(string path)
     {
-        navManager.NavigateTo(path);
+        navManager.NavigateTo(path, replace: true);
     }
 }

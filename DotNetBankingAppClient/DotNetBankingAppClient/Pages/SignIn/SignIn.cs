@@ -59,7 +59,7 @@ public class SignInPageLogic : ComponentBase
             await browserStorage.SetInLocalStorage("user", result?.Data?.User);
             await browserStorage.SetInSessionStorage("token", result?.Data?.Token);
 
-            navManager.NavigateTo(AppPages.Home);
+            navManager.NavigateTo(AppPages.Home, replace: true);
         }
         else
         {
@@ -71,6 +71,6 @@ public class SignInPageLogic : ComponentBase
 
     public void OnClickSignUpLink()
     {
-        navManager.NavigateTo(AppPages.SignUp);
+        navManager.NavigateTo(AppPages.SignUp, replace: true);
     }
 }

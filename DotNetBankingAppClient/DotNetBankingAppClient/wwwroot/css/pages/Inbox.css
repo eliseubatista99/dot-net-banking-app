@@ -1,0 +1,56 @@
+﻿.page-inbox-title {
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.page-inbox-messages-list {
+    width: 100%;
+    margin-top: 26px;
+}
+
+.page-inbox-messages-list-group {
+    width: 100%;
+    padding: 14px 0 0 0;
+}
+
+.page-inbox-messages-list-date {
+    font-size: 16px;
+    color: #818181;
+    font-weight: 700;
+    margin-top: 26px;
+}
+
+.page-inbox-messages-list-separator {
+    width: 100%;
+    height: 1px;
+    background: #cfcfcf77;
+}
+
+.page-inbox-message-item{
+    width: 100%;
+    padding: 20px 0;
+    gap: 4px;
+}
+
+.page-inbox-message-item-heading {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-inbox-message-item-heading-subject{
+    font-size: 16px;
+    font-weight: 700;
+    max-width: calc(100% - 40px);
+}
+
+.page-inbox-message-item-heading-date {
+    font-size: 14px;
+    font-weight: 500;
+    color: #818181;
+    max-width: 40px;
+}
+
+@media only screen and (min-width: 769px) {
+}

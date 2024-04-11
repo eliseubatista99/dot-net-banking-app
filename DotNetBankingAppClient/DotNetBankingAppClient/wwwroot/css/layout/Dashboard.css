@@ -1,11 +1,15 @@
 ﻿.dashboard-app-screen {
     background: #0077d1 !important;
     padding: 0 !important;
+    max-height: 100%;
+    flex: 1;
 }
 
 .dashboard-app-screen-children {
     padding: 0 !important;
     overflow: hidden;
+    max-height: 100%;
+    flex: 1;
 }
 
 .dashboard-header {

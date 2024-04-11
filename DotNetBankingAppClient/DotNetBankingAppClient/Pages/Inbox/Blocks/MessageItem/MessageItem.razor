@@ -1,0 +1,12 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits MessageItemLogic
+
+<div class="page-inbox-message-item" onclick="@(() => onClickItem())">
+    <div class="page-inbox-message-item-heading">
+        <Typography overflowMode="@TypographyOverflow.Ellipsis" classes="page-inbox-message-item-heading-subject">@message.Subject</Typography>
+        <Typography classes="page-inbox-message-item-heading-date">@message.Date.ToString("HH:mm")</Typography>
+    </div>
+    
+    
+    @message.Content
+</div>

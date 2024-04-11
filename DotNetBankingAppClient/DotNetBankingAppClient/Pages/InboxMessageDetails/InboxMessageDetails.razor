@@ -1,0 +1,15 @@
+﻿@page "/InboxMessageDetails"
+@namespace DotNetBankingAppClient.Pages
+@inherits InboxMessageDetailsLogic
+
+<PageTitle>Banking App - Inbox Message</PageTitle>
+<AppScreen title="Inbox - Message" pageClasses="inbox-message-app-screen" contentClasses="inbox-message-app-screen-children" 
+    loading=@isFetching onClickBack="@(() => OnClickBack())">
+
+    <p>@message?.Subject</p>
+    <p>@message?.Date</p>
+    <p>@message?.Content</p>
+</AppScreen>
+
+
+

@@ -49,20 +49,51 @@ namespace BankingAppApi.Data
             context.Messages.AddRange(
                      new Message
                      {
-                         Id = "user1_12345",
+                         Id = "user1_11111",
                          UserName = "user1",
                          Date = new DateTime(2024, 04, 11, 19, 07, 59),
-                         Subject = "Test message subject",
-                         Content = "Test message content",
+                         Subject = "Money transfered successfully",
+                         Content = "You transfert to Contact1 was successfull",
                      },
                       new Message
                       {
-                          Id = "user1_6789",
+                          Id = "user1_22222",
                           UserName = "user1",
-                          Date = new DateTime(2024, 04, 11, 19, 07, 59),
-                          Subject = "Test message subject",
-                          Content = "Test message content",
-
+                          Date = new DateTime(2024, 04, 11, 19, 08, 59),
+                          Subject = "We were unable to send money",
+                          Content = "You attempt to send money to Contact1 failed. If you still want to transfer, please try again",
+                      },
+                      new Message
+                      {
+                          Id = "user1_33333",
+                          UserName = "user1",
+                          Date = new DateTime(2024, 04, 11, 19, 10, 59),
+                          Subject = "New login detected",
+                          Content = "New login was detected on 22/01/2024 at 19:45",
+                      },
+                      new Message
+                      {
+                          Id = "user1_444444",
+                          UserName = "user1",
+                          Date = new DateTime(2024, 03, 11, 19, 8, 59),
+                          Subject = "Keep saving with us",
+                          Content = "Your saving earned you 472€ this year. Stick with us next year to improve your wealth.",
+                      },
+                      new Message
+                      {
+                          Id = "user1_55555",
+                          UserName = "user1",
+                          Date = new DateTime(2024, 02, 11, 19, 10, 59),
+                          Subject = "Your account has a new card",
+                          Content = "Card 1234 5678 9101 1121 was added to your acount",
+                      },
+                      new Message
+                      {
+                          Id = "user1_66666",
+                          UserName = "user1",
+                          Date = new DateTime(2024, 02, 11, 19, 3, 59),
+                          Subject = "Welcome to DotNet Banking",
+                          Content = "Thank you for trying out this app!",
                       }
                  );
         }

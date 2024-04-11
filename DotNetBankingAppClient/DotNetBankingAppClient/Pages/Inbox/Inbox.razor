@@ -5,5 +5,32 @@
 @inherits InboxPageLogic
 
 <PageTitle>Banking App - Inbox</PageTitle>
-<div style="width: 100%; height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+
+<Typography classes="page-inbox-title">Inbox</Typography>
+<div class="page-inbox-messages-list">
+    @for(int i = 0; i < groupedMessages.Count; i++)
+    {
+        var group = groupedMessages[i];
+        var messages = group.messages;
+
+            if (i != 0)
+            {
+                <div class="page-inbox-messages-list-separator" />
+            }
+
+            <Typography classes="page-inbox-messages-list-date">@group.dateTime.ToString("MM/dd/yyyy")</Typography>
+        <div class="page-inbox-messages-list-group">
+            @for (int j = 0; j < messages.Count; j++)
+            {
+                var message = messages[j];
+                if(j != 0)
+                {
+                    <div class="page-inbox-messages-list-separator"/>
+                }
+                <MessageItem message=@message onClickItem=@(() => OnMessageClicked(message)) />
+
+            }
+        </div>
+    }
+</div>
 

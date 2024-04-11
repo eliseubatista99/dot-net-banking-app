@@ -4,16 +4,18 @@ using System.Runtime.Serialization;
 
 namespace DotNetBankingAppClient.Services
 {
-    public class ServiceGetInboxOutput
+    public class ServiceGetInboxInput
     {
-        public List<MessageDTO> Messages { get; set; } = new List<MessageDTO>();
+        public string? username { get; set; }
     }
 
     [DataContract]
-    public class ServiceGetInboxInput
+
+    public class ServiceGetInboxOutput
     {
         [DataMember]
-        public required string UserName { get; set; }
+
+        public required List<MessageDTOGroup> groupedMessages { get; set; }
     }
 
     public class ServiceGetInbox

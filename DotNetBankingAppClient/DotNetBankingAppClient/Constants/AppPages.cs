@@ -8,6 +8,7 @@
         public const string Home = "Home";
         public const string Search = "Search";
         public const string Inbox = "Inbox";
+        public const string InboxMessageDetails = "InboxMessageDetails";
         public const string Settings = "Settings";
         public const string Accounts = "Accounts";
         public const string Transfer = "Transfer";

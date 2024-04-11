@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BankingAppApi.Controllers
 {
+    public class ServiceGetInboxMessageGroup
+    {
+        public required DateTime dateTime { get; set; }
+        public required List<MessageDTO> messages { get; set; }
+
+    }
+
     public class ServiceGetInboxInput
     {
         public required string username { get; set; }
@@ -14,7 +21,7 @@ namespace BankingAppApi.Controllers
 
     public class ServiceGetInboxOutput
     {
-        public required List<MessageDTO> messages { get; set; }
+        public required List<ServiceGetInboxMessageGroup> groupedMessages { get; set; }
     }
 
     [Route("GetInbox")]
@@ -47,13 +54,41 @@ namespace BankingAppApi.Controllers
 
             var messages = await MessagesData.GetMessagesOfUser(_context, input.username);
 
+            var groupedMessages = new List<ServiceGetInboxMessageGroup>();
+
+            for (int i = 0; i < messages.Count; i++)
+            {
+                var dateText = messages[i].Date.ToString("MM/dd/yyyy");
+
+                var groupIndexForDate = GetGroupIndexForDate(groupedMessages, messages[i].Date);
+
+                if (groupIndexForDate != -1)
+                {
+                    groupedMessages[groupIndexForDate].messages.Add(messages[i]);
+                }
+                else
+                {
+                    groupedMessages.Add(new ServiceGetInboxMessageGroup { dateTime = messages[i].Date, messages = new List<MessageDTO>([messages[i]]) });
+                }
+            }
+
             response.SetData(new ServiceGetInboxOutput
             {
-                messages = messages
+                groupedMessages = groupedMessages
             });
 
             return response;
 
+        }
+
+        private int GetGroupIndexForDate(List<ServiceGetInboxMessageGroup> messages, DateTime date)
+        {
+            return messages.FindIndex((m) =>
+            {
+                var messageDateText = m.dateTime.ToString("MM/dd/yyyy");
+                var comparingDateText = date.ToString("MM/dd/yyyy");
+                return messageDateText == comparingDateText;
+            });
         }
     }
 }

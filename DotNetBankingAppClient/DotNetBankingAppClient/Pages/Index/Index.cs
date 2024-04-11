@@ -19,11 +19,11 @@ public class IndexPageLogic : ComponentBase
 
         if (storedUser != null && token != null)
         {
-            navManager.NavigateTo(AppPages.Home);
+            navManager.NavigateTo(AppPages.Home, replace: true);
         }
         else
         {
-            navManager.NavigateTo(AppPages.SignIn);
+            navManager.NavigateTo(AppPages.SignIn, replace: true);
         }
     }
 }

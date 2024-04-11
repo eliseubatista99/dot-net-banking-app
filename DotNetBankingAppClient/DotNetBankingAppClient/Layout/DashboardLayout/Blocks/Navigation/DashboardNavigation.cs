@@ -1,7 +1,5 @@
 ﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -22,10 +20,10 @@ public class DashboardNavigationLogic : ComponentBase
 
     public void OnOptionSelected(string option)
     {
-        if(option != selectedOption)
+        if (option != selectedOption)
         {
             selectedOption = option;
-            navManager.NavigateTo(option);
+            navManager.NavigateTo(uri: option, replace: true);
             this.StateHasChanged();
         }
     }

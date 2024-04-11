@@ -1,4 +1,5 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
@@ -17,9 +18,16 @@ public class InboxPageLogic : ComponentBase
 
     public bool isFetching = false;
     private UserDTO? currentUser;
-    public List<MessageDTO> messages { get; set; } = new List<MessageDTO>();
+    public List<MessageDTOGroup> groupedMessages { get; set; } = new List<MessageDTOGroup>();
 
+    public async void OnMessageClicked(MessageDTO message)
+    {
+        isFetching = true;
+        this.StateHasChanged();
+        await browserStorage.SetInSessionStorage("message", message);
 
+        navManager.NavigateTo(AppPages.InboxMessageDetails, replace: true);
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -27,11 +35,11 @@ public class InboxPageLogic : ComponentBase
         this.StateHasChanged();
         currentUser = await browserStorage.GetFromLocalStorage<UserDTO>("user");
 
-        var result = await ServiceGetInbox.CallAsync(new ServiceGetInboxInput { UserName = currentUser.UserName });
+        var result = await ServiceGetInbox.CallAsync(new ServiceGetInboxInput { username = currentUser.UserName });
 
         if (result.Metadata.Success)
         {
-            messages = result.Data?.Messages ?? new List<MessageDTO>();
+            groupedMessages = result.Data?.groupedMessages ?? new List<MessageDTOGroup>();
             isFetching = true;
             this.StateHasChanged();
         }
