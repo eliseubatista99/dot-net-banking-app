@@ -1,0 +1,30 @@
+﻿.settings-content {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: #ffffff;
+    width: 100%;
+    flex: 1;
+    padding: 24px 24px;
+    top: 100px;
+    position: relative;
+}
+
+.settings-avatar {
+    border-radius: 50%;
+    position: absolute;
+    width: 125px;
+    height: 125px;
+    object-fit: contain;
+    background: #212121;
+    align-items: flex-start;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 0px;
+}
+
+
+
+
+@media only screen and (min-width: 769px) {
+
+}

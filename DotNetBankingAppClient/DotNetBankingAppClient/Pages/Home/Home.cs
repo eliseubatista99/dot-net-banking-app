@@ -12,9 +12,6 @@ public class HomePageItems
 
 public class HomePageLogic : ComponentBase
 {
-    // Gets a reference to the DashboardLayout
-    [CascadingParameter]
-    public DashboardLayout DashboardLayout { get; set; }
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
     [Inject]

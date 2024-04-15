@@ -8,9 +8,6 @@ namespace DotNetBankingAppClient.Pages;
 
 public class InboxPageLogic : ComponentBase
 {
-    // Gets a reference to the DashboardLayout
-    [CascadingParameter]
-    public DashboardLayout DashboardLayout { get; set; }
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
     [Inject]

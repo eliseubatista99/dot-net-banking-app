@@ -1,0 +1,14 @@
+﻿.search-content {
+    background: #ffffff;
+    padding: 24px 0 0 0;
+    overflow: hidden;
+    max-height: 100%;
+    flex: 1;
+}
+
+@media only screen and (min-width: 769px) {
+    .search-content {
+        border-top-left-radius: 16px;
+        border-bottom-left-radius: 16px;
+    }
+}

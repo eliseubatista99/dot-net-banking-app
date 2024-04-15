@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class DashboardHeaderLogic : ComponentBase
+public class HomeHeaderLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;

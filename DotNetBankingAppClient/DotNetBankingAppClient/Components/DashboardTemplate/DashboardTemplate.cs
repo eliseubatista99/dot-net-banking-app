@@ -5,12 +5,18 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class DashboardLayoutLogic : LayoutComponentBase
+public class DashboardTemplateLogic : ComponentBase
 {
     [Inject]
     protected IWindowHelper windowHelper { get; set; } = default!;
 
     public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
+
+    [Parameter]
+    public RenderFragment? DashboardTopContent { get; set; }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
