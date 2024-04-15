@@ -1,0 +1,20 @@
+﻿.page-cards-content {
+    
+}
+
+.cards-tab-navigation {
+    flex-direction: row;
+}
+
+.cards-tab-navigation-item {
+    flex-direction: row;
+}
+
+.cards-tab-navigation-item-selected {
+    flex-direction: row;
+}
+
+
+
+@media only screen and (min-width: 769px) {
+}

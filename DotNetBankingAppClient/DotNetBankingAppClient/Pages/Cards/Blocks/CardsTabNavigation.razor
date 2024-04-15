@@ -1,7 +1,15 @@
-﻿@page "/Accounts"
-@namespace DotNetBankingAppClient.Pages
+﻿@namespace DotNetBankingAppClient.Pages
 @inherits CardsTabNavigationLogic
 
 <div class="cards-tab-navigation">
+    @foreach(var tab in tabs)
+    {
+        bool isSelected = selectedCardType == tab;
+        string optionClassIfSelected = isSelected ? "cards-tab-navigation-item-selected" : "";
+
+        <button class="cards-tab-navigation-item @optionClassIfSelected" onclick="@(() => OnClickTab(tab))">
+            @tab
+        </button>
+    }
 </div>
 
