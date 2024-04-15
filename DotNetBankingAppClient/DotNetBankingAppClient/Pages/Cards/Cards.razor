@@ -1,0 +1,13 @@
+﻿@page "/Cards"
+@namespace DotNetBankingAppClient.Pages
+@inherits CardsPageLogic
+
+<PageTitle>Banking App - Cards</PageTitle>
+
+<AppScreen title="Cards" loading=@isFetching onClickBack="@(() => OnClickBack())">
+    <div class="page-cards-content">
+        <CardsTabNavigation selectedCardType="@selectedCardType" onTabClicked="@((tab) => OnClickTab(tab))" />
+    </div>
+</AppScreen>
+
+
