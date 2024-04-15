@@ -1,94 +1,91 @@
-﻿using BankingAppApi.Data;
+﻿using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Models;
-using DotNetBankingAppApi.Models.Message;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace BankingAppApi.Controllers
+namespace DotNetBankingAppApi.Controllers;
+
+public class ServiceGetInboxMessageGroup
 {
-    public class ServiceGetInboxMessageGroup
-    {
-        public required DateTime dateTime { get; set; }
-        public required List<MessageDTO> messages { get; set; }
+    public required DateTime DateTime { get; set; }
+    public required List<MessageDTO> Messages { get; set; }
 
+}
+
+public class ServiceGetInboxInput
+{
+    public required string UserName { get; set; }
+}
+
+public class ServiceGetInboxOutput
+{
+    public required List<ServiceGetInboxMessageGroup> GroupedMessages { get; set; }
+}
+
+[Route("GetInbox")]
+[ApiController]
+public class GetInboxController : ControllerBase
+{
+    private readonly DatabaseContext _context;
+    private readonly IConfiguration _configs;
+
+    public GetInboxController(DatabaseContext context, IConfiguration configs)
+    {
+        _context = context;
+        _configs = configs;
     }
 
-    public class ServiceGetInboxInput
-    {
-        public required string username { get; set; }
-    }
 
-    public class ServiceGetInboxOutput
-    {
-        public required List<ServiceGetInboxMessageGroup> groupedMessages { get; set; }
-    }
+    /// <summary>
+    /// Get the messages of a specific user
+    /// </summary>
+    /// <param name="username" example="user"></param>
+    /// <returns>List of messages grouped by date</returns>
+    [HttpPost]
+    [Consumes("application/json")]
+    [Produces("application/json")]
 
-    [Route("GetInbox")]
-    [ApiController]
-    public class GetInboxController : ControllerBase
+    public async Task<ActionResult<ApiResponse<ServiceGetInboxOutput>>> GetInbox(ServiceGetInboxInput input)
     {
-        private readonly DatabaseContext _context;
-        private readonly IConfiguration _configs;
+        ApiResponse<ServiceGetInboxOutput> response = new ApiResponse<ServiceGetInboxOutput>();
 
-        public GetInboxController(DatabaseContext context, IConfiguration configs)
+        var messages = await MessagesData.GetMessagesOfUser(_context, input.UserName);
+
+        var groupedMessages = new List<ServiceGetInboxMessageGroup>();
+
+        for (int i = 0; i < messages.Count; i++)
         {
-            _context = context;
-            _configs = configs;
-        }
+            var dateText = messages[i].Date.ToString("MM/dd/yyyy");
 
+            var groupIndexForDate = GetGroupIndexForDate(groupedMessages, messages[i].Date);
 
-        /// <summary>
-        /// Get the messages of a specific user
-        /// </summary>
-        /// <param name="username" example="user"></param>
-        /// <returns>User data and token</returns>
-        [HttpPost]
-        [Consumes("application/json")]
-        [Produces("application/json")]
-        [AllowAnonymous]
-
-        public async Task<ActionResult<ApiResponse<ServiceGetInboxOutput>>> GetInbox(ServiceGetInboxInput input)
-        {
-            ApiResponse<ServiceGetInboxOutput> response = new ApiResponse<ServiceGetInboxOutput>();
-
-            var messages = await MessagesData.GetMessagesOfUser(_context, input.username);
-
-            var groupedMessages = new List<ServiceGetInboxMessageGroup>();
-
-            for (int i = 0; i < messages.Count; i++)
+            if (groupIndexForDate != -1)
             {
-                var dateText = messages[i].Date.ToString("MM/dd/yyyy");
-
-                var groupIndexForDate = GetGroupIndexForDate(groupedMessages, messages[i].Date);
-
-                if (groupIndexForDate != -1)
-                {
-                    groupedMessages[groupIndexForDate].messages.Add(messages[i]);
-                }
-                else
-                {
-                    groupedMessages.Add(new ServiceGetInboxMessageGroup { dateTime = messages[i].Date, messages = new List<MessageDTO>([messages[i]]) });
-                }
+                groupedMessages[groupIndexForDate].Messages.Add(messages[i]);
             }
-
-            response.SetData(new ServiceGetInboxOutput
+            else
             {
-                groupedMessages = groupedMessages
-            });
-
-            return response;
-
+                groupedMessages.Add(new ServiceGetInboxMessageGroup { DateTime = messages[i].Date, Messages = new List<MessageDTO>([messages[i]]) });
+            }
         }
 
-        private int GetGroupIndexForDate(List<ServiceGetInboxMessageGroup> messages, DateTime date)
+        response.SetData(new ServiceGetInboxOutput
         {
-            return messages.FindIndex((m) =>
-            {
-                var messageDateText = m.dateTime.ToString("MM/dd/yyyy");
-                var comparingDateText = date.ToString("MM/dd/yyyy");
-                return messageDateText == comparingDateText;
-            });
-        }
+            GroupedMessages = groupedMessages
+        });
+
+        return response;
+
+    }
+
+    private int GetGroupIndexForDate(List<ServiceGetInboxMessageGroup> messages, DateTime date)
+    {
+        return messages.FindIndex((m) =>
+        {
+            var messageDateText = m.DateTime.ToString("MM/dd/yyyy");
+            var comparingDateText = date.ToString("MM/dd/yyyy");
+            return messageDateText == comparingDateText;
+        });
     }
 }

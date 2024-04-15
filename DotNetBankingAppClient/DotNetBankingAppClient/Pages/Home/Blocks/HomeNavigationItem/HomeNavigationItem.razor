@@ -1,7 +1,7 @@
 ﻿@namespace DotNetBankingAppClient.Pages
 @inherits HomeNavigationItemLogic
 
-<div class="home-page-navigation-item">
+<div class="home-page-navigation-item" onclick="@(() => OnItemClicked())">
     <div class="home-page-navigation-item-icon">
         @switch (path)
         {

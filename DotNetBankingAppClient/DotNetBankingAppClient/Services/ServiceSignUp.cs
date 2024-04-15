@@ -25,7 +25,7 @@ namespace DotNetBankingAppClient.Services
     {
         public static async Task<ApiResponse<ServiceSignUpOutput>> CallAsync(ServiceSignUpInput input)
         {
-            return await ApiServices.Instance.CallService<ServiceSignUpInput, ServiceSignUpOutput>("signUp", input);
+            return await ApiServices.Instance.CallService<ServiceSignUpInput, ServiceSignUpOutput>("SignUp", input);
         }
     }
 }

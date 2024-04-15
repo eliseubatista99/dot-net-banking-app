@@ -6,7 +6,7 @@ namespace DotNetBankingAppClient.Services
 {
     public class ServiceGetInboxInput
     {
-        public string? username { get; set; }
+        public string? UserName { get; set; }
     }
 
     [DataContract]
@@ -15,7 +15,7 @@ namespace DotNetBankingAppClient.Services
     {
         [DataMember]
 
-        public required List<MessageDTOGroup> groupedMessages { get; set; }
+        public required List<MessageDTOGroup> GroupedMessages { get; set; }
     }
 
     public class ServiceGetInbox

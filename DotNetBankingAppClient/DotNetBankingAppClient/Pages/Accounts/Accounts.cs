@@ -6,25 +6,24 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class InboxPageLogic : ComponentBase
+public class AccountsPageLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
 
-    public bool isFetching = false;
     private UserDTO? currentUser;
-    public List<MessageDTOGroup> groupedMessages { get; set; } = new List<MessageDTOGroup>();
 
-    public async void OnMessageClicked(MessageDTO message)
+    public bool isFetching { get; set; } = false;
+    public List<AccountDTO> checkingAccounts { get; set; } = new List<AccountDTO>();
+    public List<AccountDTO> savingAccounts { get; set; } = new List<AccountDTO>();
+
+    public void OnClickBack()
     {
-        isFetching = true;
-        this.StateHasChanged();
-        await browserStorage.SetInSessionStorage("message", message);
-
-        navManager.NavigateTo(AppPages.InboxMessageDetails, replace: true);
+        navManager.NavigateTo(uri: AppPages.Home, replace: true);
     }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -32,11 +31,12 @@ public class InboxPageLogic : ComponentBase
         this.StateHasChanged();
         currentUser = await browserStorage.GetFromLocalStorage<UserDTO>("user");
 
-        var result = await ServiceGetInbox.CallAsync(new ServiceGetInboxInput { UserName = currentUser.UserName });
+        var result = await ServiceGetAccounts.CallAsync(new ServiceGetAccountsInput { UserName = currentUser.UserName });
 
         if (result.Metadata.Success)
         {
-            groupedMessages = result.Data?.GroupedMessages ?? new List<MessageDTOGroup>();
+            checkingAccounts = result.Data?.CheckingAccounts ?? new List<AccountDTO>();
+            savingAccounts = result.Data?.SavingAccounts ?? new List<AccountDTO>();
             isFetching = false;
             this.StateHasChanged();
         }

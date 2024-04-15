@@ -1,0 +1,17 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits AccountsAccountItemLogic
+
+<div class="accounts-account-item" onclick="@(() => OnItemClicked())">
+    <div class="accounts-account-item-row">
+        <Typography classes="accounts-account-item-name">@account.AccountName</Typography>
+        <Typography classes="accounts-account-item-name">@account.AccountId</Typography>
+    </div>
+    <div class="accounts-account-item-row">
+        <Typography classes="accounts-account-item-detail-text">Available balance</Typography>
+        <Typography classes="accounts-account-item-detail-value">@FormatHelper.FormatNumericValue(value: account.Balance, suffix: "€")</Typography>
+    </div>
+    <div class="accounts-account-item-row">
+        <Typography classes="accounts-account-item-detail-text">Interest</Typography>
+        <Typography classes="accounts-account-item-detail-value">@FormatHelper.FormatNumericValue(value: account.Interest, suffix: "%")</Typography>
+    </div>
+</div>

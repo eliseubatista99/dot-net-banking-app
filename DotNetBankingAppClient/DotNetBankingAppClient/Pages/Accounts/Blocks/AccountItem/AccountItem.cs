@@ -7,21 +7,19 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class HomeNavigationItemLogic : ComponentBase
+public class AccountsAccountItemLogic : ComponentBase
 {
     [Parameter]
-    public string name { get; set; } = "";
+    public required AccountDTO account { get; set; }
+   
     [Parameter]
-    public string path { get; set; } = "";
-
-    [Parameter]
-    public Action<string>? OnClickItem { get; set; } = null;
+    public Action<AccountDTO>? OnClickItem { get; set; } = null;
 
     public void OnItemClicked()
     {
         if(OnClickItem != null)
         {
-            OnClickItem(path);
+            OnClickItem(account);
         }
     }
 }

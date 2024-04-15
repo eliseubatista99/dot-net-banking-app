@@ -17,6 +17,7 @@
     width: 24px;
     height: 24px;
     color: inherit;
+    cursor: pointer;
 }
 
 .app-header-title {
