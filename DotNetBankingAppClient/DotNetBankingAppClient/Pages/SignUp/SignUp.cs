@@ -50,16 +50,16 @@ public class SignUpPageLogic : ComponentBase
             PhoneNumber = phoneNumber,
         });
 
-        if (result.Metadata.Success)
+        if (result.MetaData.Success)
         {
-            await browserStorage.SetInLocalStorage("user", result?.Data?.User);
-            await browserStorage.SetInSessionStorage("token", result?.Data?.Token);
+            await browserStorage.SetInLocalStorage(StoreKeys.User, result?.Data?.User);
+            await browserStorage.SetInSessionStorage(StoreKeys.AuthToken, result?.Data?.Token);
 
             navManager.NavigateTo(AppPages.Home, replace: true);
         }
         else
         {
-            errorMessage = result.Metadata.Message;
+            errorMessage = result.MetaData.Message;
             isFetching = false;
             this.StateHasChanged();
         }

@@ -34,7 +34,7 @@ public class InboxPageLogic : ComponentBase
 
         var result = await ServiceGetInbox.CallAsync(new ServiceGetInboxInput { UserName = currentUser.UserName });
 
-        if (result.Metadata.Success)
+        if (result.MetaData.Success)
         {
             groupedMessages = result.Data?.GroupedMessages ?? new List<MessageDTOGroup>();
             isFetching = false;

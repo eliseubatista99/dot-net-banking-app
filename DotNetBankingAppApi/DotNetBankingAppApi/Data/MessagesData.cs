@@ -5,29 +5,29 @@ namespace DotNetBankingAppApi.Data;
 
 public class MessagesData
 {
-    public static async Task<List<MessageDTO>> GetMessagesOfUser(DatabaseContext context, string username)
+    public static async Task<List<MessageDTO>> GetMessagesOfUser(DatabaseContext context, string UserName)
     {
-        var messages = await context.Messages.Where((m) => m.UserName == username).ToListAsync();
+        var result = await context.Messages.Where((item) => item.UserName == UserName).ToListAsync();
 
-        if (messages == null)
+        if (result == null)
         {
             return new List<MessageDTO>();
         }
 
-        return messages.Select((m) => MessageDTO.FromMessage(m)).ToList();
+        return result.Select((item) => MessageDTO.ToDTO(item)).ToList();
     }
 
-    public static async Task<MessageDTO> AddMessageToUser(DatabaseContext context, MessageDTO messageDTO, string username)
+    public static async Task<MessageDTO> AddMessageToUser(DatabaseContext context, MessageDTO data, string UserName)
     {
-        var message = MessageDTO.ToMessage(messageDTO);
+        var dataToAdd = MessageDTO.FromDTO(data);
 
-        message.UserName = username;
-        message.Id = username + "_" + DateTime.Now;
-        message.Date = DateTime.Now;
+        dataToAdd.UserName = UserName;
+        dataToAdd.Id = UserName + "_" + DateTime.Now;
+        dataToAdd.Date = DateTime.Now;
 
-        context.Messages.Add(message);
+        context.Messages.Add(dataToAdd);
         await context.SaveChangesAsync();
 
-        return MessageDTO.FromMessage(message);
+        return MessageDTO.ToDTO(dataToAdd);
     }
 }

@@ -6,37 +6,33 @@ using DotNetBankingAppApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DotNetBankingAppApi.Controllers;
+namespace DotNetBankingAppApi.Controllers.SignUp;
 
-public class ServiceSignUpInput
+public class SignUpInput
 {
-    public string UserName { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Password { get; set; }
+    public required string UserName { get; set; }
+    public required string PhoneNumber { get; set; }
+    public required string Password { get; set; }
 }
 
-public class ServiceSignUpOutput
+public class SignUpOutput
 {
-    public UserDTO User { get; set; }
-    public string Token { get; set; }
+    public required UserDTO User { get; set; }
+    public required string Token { get; set; }
 }
 
 [Route("SignUp")]
 [ApiController]
-public class SignUpController : ControllerBase
+public class SignUpController : DotNetBankingAppController
 {
-    private readonly DatabaseContext _context;
-    private readonly IConfiguration _configs;
-
-    public SignUpController(DatabaseContext context, IConfiguration configs)
+    public SignUpController(DatabaseContext context, IConfiguration configs) : base(context, configs)
     {
-        _context = context;
-        _configs = configs;
+
     }
 
 
     /// <summary>
-    /// Sign Up with username, phoneNumber and password
+    /// Sign Up with userName, phoneNumber and password
     /// </summary>
     /// <param name="username" example="user"></param>
     /// <param name="phoneNumber" example="911111111"></param>
@@ -47,9 +43,9 @@ public class SignUpController : ControllerBase
     [Produces("application/json")]
     [AllowAnonymous]
 
-    public async Task<ActionResult<ApiResponse<ServiceSignUpOutput>>> SignUp(ServiceSignUpInput input)
+    public async Task<ActionResult<ApiResponse<SignUpOutput>>> SignUp(SignUpInput input)
     {
-        ApiResponse<ServiceSignUpOutput> response = new ApiResponse<ServiceSignUpOutput>();
+        ApiResponse<SignUpOutput> response = new ApiResponse<SignUpOutput>();
 
         var existingUser = await UsersData.GetUser(_context, input.UserName);
 
@@ -65,11 +61,18 @@ public class SignUpController : ControllerBase
             PhoneNumber = input.PhoneNumber
         }, input.Password);
 
-        var authKey = _configs.GetSection("AuthKey")?.Value;
+        var authKey = _configs.GetSection("AuthKey")?.Value ?? "";
 
         var token = AuthHelper.GenerateToken(authKey, newUser.UserName);
 
-        response.SetData(new ServiceSignUpOutput
+        if (token == null)
+        {
+            response.SetError("Failed to generate authentication token");
+
+            return response;
+        }
+
+        response.SetData(new SignUpOutput
         {
             User = newUser,
             Token = token,
@@ -77,6 +80,4 @@ public class SignUpController : ControllerBase
 
         return response;
     }
-
-
 }

@@ -7,53 +7,46 @@ public class UsersData
 {
     public static async Task<List<UserDTO>> GetUsers(DatabaseContext context)
     {
-        var usersInDB = await context.Users.ToListAsync();
-        List<UserDTO> users = new List<UserDTO>();
+        var result = await context.Users.ToListAsync();
 
-        foreach (var user in usersInDB)
-        {
-            var userDTO = UserDTO.FromUser(user);
-            users.Add(userDTO);
-        }
-
-        return users;
+        return result.Select((item) => UserDTO.ToDTO(item)).ToList();
     }
 
-    public static async Task<UserDTO?> GetUser(DatabaseContext context, string username)
+    public static async Task<UserDTO?> GetUser(DatabaseContext context, string UserName)
     {
-        var user = await context.Users.FindAsync(username);
+        var result = await context.Users.FindAsync(UserName);
 
-        if (user == null)
+        if (result == null)
         {
             return null;
         }
 
-        return UserDTO.FromUser(user);
+        return UserDTO.ToDTO(result);
     }
 
-    public static async Task<UserDTO?> GetUserWithPassword(DatabaseContext context, string email, string password)
+    public static async Task<UserDTO?> GetUserWithPassword(DatabaseContext context, string UserName, string password)
     {
-        var user = await context.Users.FindAsync(email);
+        var result = await context.Users.FindAsync(UserName);
 
-        if (user == null)
+        if (result == null)
         {
             return null;
         }
 
-        if (password != user.Password)
+        if (password != result.Password)
         {
             return null;
         }
 
-        return UserDTO.FromUser(user);
+        return UserDTO.ToDTO(result);
     }
 
     public static async Task<UserDTO> CreateUser(DatabaseContext context, UserDTO userDTO, string password)
     {
-        var user = UserDTO.ToUser(userDTO);
-        user.Password = password;
+        var result = UserDTO.FromDTO(userDTO);
+        result.Password = password;
 
-        context.Users.Add(user);
+        context.Users.Add(result);
         await context.SaveChangesAsync();
 
         return userDTO;

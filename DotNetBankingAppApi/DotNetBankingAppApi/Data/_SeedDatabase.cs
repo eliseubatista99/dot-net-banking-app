@@ -20,6 +20,7 @@ public class SeedDatabase
             SeedUsers(context);
             SeedMessages(context);
             SeedAccounts(context);
+            SeedCards(context);
 
             context.SaveChanges();
         }
@@ -103,7 +104,7 @@ public class SeedDatabase
         context.Accounts.AddRange(
                  new Account
                  {
-                     AccountId = "1111 1111 1111",
+                     AccountId = "111111111111",
                      AccountName = "Checking Account",
                      UserName = "user1",
                      AccountType = AccountType.Checking,
@@ -111,7 +112,7 @@ public class SeedDatabase
                      Interest = 0,
                  }, new Account
                  {
-                     AccountId = "2222 2222 2222",
+                     AccountId = "222222222222",
                      AccountName = "Emergency Funds",
                      UserName = "user1",
                      AccountType = AccountType.Savings,
@@ -120,7 +121,7 @@ public class SeedDatabase
 
                  }, new Account
                  {
-                     AccountId = "3333 3333 3333",
+                     AccountId = "333333333333",
                      AccountName = "College Savings",
                      UserName = "user1",
                      AccountType = AccountType.Savings,
@@ -128,5 +129,49 @@ public class SeedDatabase
                      Interest = 3.5,
                  }
              );
+    }
+
+    public static void SeedCards(DatabaseContext context)
+    {
+        context.Cards.AddRange(
+                 new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "CC_Classic_111111111",
+                     CardName = "Classic",
+                     Embossing = "User One",
+                     CardType = CardType.Credit,
+                    
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "CC_Classic_222222222",
+                     CardName = "Classic",
+                     Embossing = "User One",
+                     CardType = CardType.Credit,
+
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "CC_Premium",
+                     CardName = "Premium",
+                     Embossing = "User One",
+                     CardType = CardType.Credit,
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "DBT_Carbon",
+                     CardName = "Carbon",
+                     Embossing = "User One",
+                     CardType = CardType.Debit,
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "DBT_Stellar",
+                     CardName = "Stellar",
+                     Embossing = "User One",
+                     CardType = CardType.PrePaid,
+                 }
+             );;
     }
 }

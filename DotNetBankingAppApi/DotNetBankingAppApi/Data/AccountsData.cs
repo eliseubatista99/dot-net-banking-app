@@ -5,27 +5,27 @@ namespace DotNetBankingAppApi.Data;
 
 public class AccountsData
 {
-    public static async Task<List<AccountDTO>> GetAccountsOfUser(DatabaseContext context, string username)
+    public static async Task<List<AccountDTO>> GetAccountsOfUser(DatabaseContext context, string UserName)
     {
-        var accounts = await context.Accounts.Where((a) => a.UserName == username).ToListAsync();
+        var result = await context.Accounts.Where((item) => item.UserName == UserName).ToListAsync();
 
-        if (accounts == null)
+        if (result == null)
         {
             return new List<AccountDTO>();
         }
 
-        return accounts.Select((a) => AccountDTO.FromAccount(a)).ToList();
+        return result.Select((item) => AccountDTO.ToDTO(item)).ToList();
     }
 
-    public static async Task<AccountDTO> AddAccountToUser(DatabaseContext context, AccountDTO accountDTO, string username)
+    public static async Task<AccountDTO> AddAccountToUser(DatabaseContext context, AccountDTO data, string UserName)
     {
-        var account = AccountDTO.ToAccount(accountDTO);
+        var dataToAdd = AccountDTO.FromDTO(data);
 
-        account.UserName = username;
+        dataToAdd.UserName = UserName;
 
-        context.Accounts.Add(account);
+        context.Accounts.Add(dataToAdd);
         await context.SaveChangesAsync();
 
-        return AccountDTO.FromAccount(account);
+        return AccountDTO.ToDTO(dataToAdd);
     }
 }

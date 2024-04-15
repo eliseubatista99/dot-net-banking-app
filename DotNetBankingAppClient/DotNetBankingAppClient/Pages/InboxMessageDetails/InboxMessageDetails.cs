@@ -24,7 +24,7 @@ public class InboxMessageDetailsLogic : ComponentBase
     {
         isFetching = true;
         this.StateHasChanged();
-        message = await browserStorage.GetFromSessionStorage<MessageDTO>("message");
+        message = await browserStorage.GetFromSessionStorage<MessageDTO>(StoreKeys.SelectedMessage);
         isFetching = false;
         this.StateHasChanged();
     }

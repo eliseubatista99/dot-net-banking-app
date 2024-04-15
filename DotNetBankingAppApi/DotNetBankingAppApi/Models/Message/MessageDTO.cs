@@ -6,13 +6,13 @@ public class MessageDTO
     public string Content { get; set; } = "";
     public DateTime Date { get; set; } = DateTime.Now;
 
-    public static MessageDTO FromMessage(Message message)
+    public static MessageDTO ToDTO(Message data)
     {
-        return new MessageDTO { Subject = message.Subject, Content = message.Content, Date = message.Date };
+        return new MessageDTO { Subject = data.Subject, Content = data.Content, Date = data.Date };
     }
 
-    public static Message ToMessage(MessageDTO messageDTO)
+    public static Message FromDTO(MessageDTO data)
     {
-        return new Message { Subject = messageDTO.Subject, Content = messageDTO.Content, Date = messageDTO.Date };
+        return new Message { Subject = data.Subject, Content = data.Content, Date = data.Date };
     }
 }

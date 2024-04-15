@@ -22,7 +22,7 @@ public class SignInPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>(StoreKeys.User);
         if (user != null)
         {
             userName = user.UserName;
@@ -54,16 +54,16 @@ public class SignInPageLogic : ComponentBase
             Password = password,
         });
 
-        if (result.Metadata.Success)
+        if (result.MetaData.Success)
         {
-            await browserStorage.SetInLocalStorage("user", result?.Data?.User);
-            await browserStorage.SetInSessionStorage("token", result?.Data?.Token);
+            await browserStorage.SetInLocalStorage(StoreKeys.User, result?.Data?.User);
+            await browserStorage.SetInSessionStorage(StoreKeys.AuthToken, result?.Data?.Token);
 
             navManager.NavigateTo(AppPages.Home, replace: true);
         }
         else
         {
-            errorMessage = result.Metadata.Message;
+            errorMessage = result.MetaData.Message;
             isFetching = false;
             this.StateHasChanged();
         }

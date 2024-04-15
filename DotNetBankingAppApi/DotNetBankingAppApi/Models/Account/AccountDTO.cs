@@ -11,13 +11,13 @@ public class AccountDTO
     public double Interest { get; set; }
 
 
-    public static AccountDTO FromAccount(Account account)
+    public static AccountDTO ToDTO(Account data)
     {
-        return new AccountDTO { AccountId = account.AccountId, AccountName = account.AccountName, AccountType = account.AccountType, Balance = account.Balance, Interest = account.Interest };
+        return new AccountDTO { AccountId = data.AccountId, AccountName = data.AccountName, AccountType = data.AccountType, Balance = data.Balance, Interest = data.Interest };
     }
 
-    public static Account ToAccount(AccountDTO accountDTO)
+    public static Account FromDTO(AccountDTO data)
     {
-        return new Account { AccountId = accountDTO.AccountId, AccountName = accountDTO.AccountName, AccountType = accountDTO.AccountType, Balance = accountDTO.Balance, Interest = accountDTO.Interest };
+        return new Account { AccountId = data.AccountId, AccountName = data.AccountName, AccountType = data.AccountType, Balance = data.Balance, Interest = data.Interest };
     }
 }

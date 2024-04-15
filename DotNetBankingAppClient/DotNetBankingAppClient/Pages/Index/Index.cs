@@ -14,8 +14,8 @@ public class IndexPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        UserDTO storedUser = await browserStorage.GetFromLocalStorage<UserDTO>("user");
-        string token = await browserStorage.GetFromSessionStorage<string>("token");
+        UserDTO storedUser = await browserStorage.GetFromLocalStorage<UserDTO>(StoreKeys.User);
+        string token = await browserStorage.GetFromSessionStorage<string>(StoreKeys.AuthToken);
 
         if (storedUser != null && token != null)
         {

@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace DotNetBankingAppClient.Helpers
 {
-    public class ApiResponseMetadata
+    public class ApiResponseMetaData
     {
         public bool Success { get; set; } = true;
         public string Message { get; set; } = "";
@@ -11,8 +11,8 @@ namespace DotNetBankingAppClient.Helpers
 
     public class ApiResponse<T>
     {
-        public T? Data { get; set; }
-        public required ApiResponseMetadata Metadata { get; set; }
+        public required T? Data { get; set; }
+        public required ApiResponseMetaData MetaData { get; set; }
     }
 
 
@@ -56,7 +56,7 @@ namespace DotNetBankingAppClient.Helpers
                     return new ApiResponse<TOutput>
                     {
                         Data = default,
-                        Metadata = new ApiResponseMetadata
+                        MetaData = new ApiResponseMetaData
                         {
                             Success = false,
                             Message = message
@@ -69,7 +69,7 @@ namespace DotNetBankingAppClient.Helpers
                     return new ApiResponse<TOutput>
                     {
                         Data = default,
-                        Metadata = new ApiResponseMetadata
+                        MetaData = new ApiResponseMetaData
                         {
                             Success = false,
                             Message = "No content"
@@ -81,6 +81,11 @@ namespace DotNetBankingAppClient.Helpers
 
                 var response = await JsonSerializer.DeserializeAsync<ApiResponse<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
 
+                if(response == null)
+                {
+                    throw new Exception("Failed to deserialize data");
+                }
+
                 return response;
             }
             catch (Exception ex)
@@ -88,7 +93,7 @@ namespace DotNetBankingAppClient.Helpers
                 return new ApiResponse<TOutput>
                 {
                     Data = default,
-                    Metadata = new ApiResponseMetadata
+                    MetaData = new ApiResponseMetaData
                     {
                         Success = false,
                         Message = ex.Message,

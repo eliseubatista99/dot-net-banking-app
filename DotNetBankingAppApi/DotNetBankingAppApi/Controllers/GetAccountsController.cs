@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DotNetBankingAppApi.Controllers;
+namespace DotNetBankingAppApi.Controllers.GetAccounts;
 
-public class ServiceGetAccountsInput
+public class GetAccountsInput
 {
     public required string UserName { get; set; }
 }
 
-public class ServiceGetAccountsOutput
+public class GetAccountsOutput
 {
     public required List<AccountDTO> CheckingAccounts { get; set; }
     public required List<AccountDTO> SavingAccounts { get; set; }
@@ -19,15 +19,11 @@ public class ServiceGetAccountsOutput
 
 [Route("GetAccounts")]
 [ApiController]
-public class GetAccountsController : ControllerBase
+public class GetAccountsController : DotNetBankingAppController
 {
-    private readonly DatabaseContext _context;
-    private readonly IConfiguration _configs;
-
-    public GetAccountsController(DatabaseContext context, IConfiguration configs)
+    public GetAccountsController(DatabaseContext context, IConfiguration configs) : base(context, configs)
     {
-        _context = context;
-        _configs = configs;
+
     }
 
 
@@ -40,9 +36,9 @@ public class GetAccountsController : ControllerBase
     [Consumes("application/json")]
     [Produces("application/json")]
 
-    public async Task<ActionResult<ApiResponse<ServiceGetAccountsOutput>>> GetAccounts(ServiceGetAccountsInput input)
+    public async Task<ActionResult<ApiResponse<GetAccountsOutput>>> GetAccounts(GetAccountsInput input)
     {
-        ApiResponse<ServiceGetAccountsOutput> response = new ApiResponse<ServiceGetAccountsOutput>();
+        ApiResponse<GetAccountsOutput> response = new ApiResponse<GetAccountsOutput>();
 
         var accounts = await AccountsData.GetAccountsOfUser(_context, input.UserName);
 
@@ -50,7 +46,7 @@ public class GetAccountsController : ControllerBase
         var savinbgsAccounts = accounts.Where(a => a.AccountType == AccountType.Savings).ToList();
 
 
-        response.SetData(new ServiceGetAccountsOutput
+        response.SetData(new GetAccountsOutput
         {
             CheckingAccounts = checkingAccounts,
             SavingAccounts = savinbgsAccounts,

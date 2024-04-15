@@ -4,36 +4,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DotNetBankingAppApi.Controllers;
+namespace DotNetBankingAppApi.Controllers.GetInbox;
 
-public class ServiceGetInboxMessageGroup
+public class GetInboxMessageGroup
 {
     public required DateTime DateTime { get; set; }
     public required List<MessageDTO> Messages { get; set; }
 
 }
 
-public class ServiceGetInboxInput
+public class GetInboxInput
 {
     public required string UserName { get; set; }
 }
 
-public class ServiceGetInboxOutput
+public class GetInboxOutput
 {
-    public required List<ServiceGetInboxMessageGroup> GroupedMessages { get; set; }
+    public required List<GetInboxMessageGroup> GroupedMessages { get; set; }
 }
 
 [Route("GetInbox")]
 [ApiController]
-public class GetInboxController : ControllerBase
+public class GetInboxController : DotNetBankingAppController
 {
-    private readonly DatabaseContext _context;
-    private readonly IConfiguration _configs;
-
-    public GetInboxController(DatabaseContext context, IConfiguration configs)
+    public GetInboxController(DatabaseContext context, IConfiguration configs) : base(context, configs)
     {
-        _context = context;
-        _configs = configs;
+
     }
 
 
@@ -46,13 +42,13 @@ public class GetInboxController : ControllerBase
     [Consumes("application/json")]
     [Produces("application/json")]
 
-    public async Task<ActionResult<ApiResponse<ServiceGetInboxOutput>>> GetInbox(ServiceGetInboxInput input)
+    public async Task<ActionResult<ApiResponse<GetInboxOutput>>> GetInbox(GetInboxInput input)
     {
-        ApiResponse<ServiceGetInboxOutput> response = new ApiResponse<ServiceGetInboxOutput>();
+        ApiResponse<GetInboxOutput> response = new ApiResponse<GetInboxOutput>();
 
         var messages = await MessagesData.GetMessagesOfUser(_context, input.UserName);
 
-        var groupedMessages = new List<ServiceGetInboxMessageGroup>();
+        var groupedMessages = new List<GetInboxMessageGroup>();
 
         for (int i = 0; i < messages.Count; i++)
         {
@@ -66,11 +62,11 @@ public class GetInboxController : ControllerBase
             }
             else
             {
-                groupedMessages.Add(new ServiceGetInboxMessageGroup { DateTime = messages[i].Date, Messages = new List<MessageDTO>([messages[i]]) });
+                groupedMessages.Add(new GetInboxMessageGroup { DateTime = messages[i].Date, Messages = new List<MessageDTO>([messages[i]]) });
             }
         }
 
-        response.SetData(new ServiceGetInboxOutput
+        response.SetData(new GetInboxOutput
         {
             GroupedMessages = groupedMessages
         });
@@ -79,7 +75,7 @@ public class GetInboxController : ControllerBase
 
     }
 
-    private int GetGroupIndexForDate(List<ServiceGetInboxMessageGroup> messages, DateTime date)
+    private int GetGroupIndexForDate(List<GetInboxMessageGroup> messages, DateTime date)
     {
         return messages.FindIndex((m) =>
         {

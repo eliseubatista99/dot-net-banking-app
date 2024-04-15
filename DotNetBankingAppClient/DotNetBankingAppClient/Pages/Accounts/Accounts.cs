@@ -1,7 +1,6 @@
 ﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -29,21 +28,10 @@ public class AccountsPageLogic : ComponentBase
     {
         isFetching = true;
         this.StateHasChanged();
-        currentUser = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        checkingAccounts = await browserStorage.GetFromLocalStorage<List<AccountDTO>>(StoreKeys.CheckingAccounts);
+        savingAccounts = await browserStorage.GetFromLocalStorage<List<AccountDTO>>(StoreKeys.SavingAccounts);
 
-        var result = await ServiceGetAccounts.CallAsync(new ServiceGetAccountsInput { UserName = currentUser.UserName });
-
-        if (result.Metadata.Success)
-        {
-            checkingAccounts = result.Data?.CheckingAccounts ?? new List<AccountDTO>();
-            savingAccounts = result.Data?.SavingAccounts ?? new List<AccountDTO>();
-            isFetching = false;
-            this.StateHasChanged();
-        }
-        else
-        {
-            isFetching = false;
-            this.StateHasChanged();
-        }
+        isFetching = false;
+        this.StateHasChanged();
     }
 }

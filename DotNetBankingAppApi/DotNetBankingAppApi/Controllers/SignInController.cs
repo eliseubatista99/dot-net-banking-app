@@ -5,36 +5,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace DotNetBankingAppApi.Controllers;
+namespace DotNetBankingAppApi.Controllers.SignIn;
 
-public class ServiceSignInInput
+public class SignInInput
 {
-    public string UserName { get; set; }
-    public string Password { get; set; }
+    public required string UserName { get; set; }
+    public required string Password { get; set; }
 }
 
-public class ServiceSignInOutput
+public class SignInOutput
 {
-    public UserDTO User { get; set; }
-    public string Token { get; set; }
+    public required UserDTO User { get; set; }
+    public required string Token { get; set; }
 }
 
 [Route("SignIn")]
 [ApiController]
-public class SignInController : ControllerBase
+public class SignInController : DotNetBankingAppController
 {
-    private readonly DatabaseContext _context;
-    private readonly IConfiguration _configs;
-
-    public SignInController(DatabaseContext context, IConfiguration configs)
+    public SignInController(DatabaseContext context, IConfiguration configs) : base(context, configs)
     {
-        _context = context;
-        _configs = configs;
+
     }
 
 
     /// <summary>
-    /// Sign In with username and password
+    /// Sign In with userName and password
     /// </summary>
     /// <param name="username" example="user"></param>
     /// <param name="password" example="pass"></param>
@@ -44,24 +40,31 @@ public class SignInController : ControllerBase
     [Produces("application/json")]
     [AllowAnonymous]
 
-    public async Task<ActionResult<ApiResponse<ServiceSignInOutput>>> SignIn(ServiceSignInInput input)
+    public async Task<ActionResult<ApiResponse<SignInOutput>>> SignIn(SignInInput input)
     {
-        ApiResponse<ServiceSignInOutput> response = new ApiResponse<ServiceSignInOutput>();
+        ApiResponse<SignInOutput> response = new ApiResponse<SignInOutput>();
 
         var user = await UsersData.GetUserWithPassword(_context, input.UserName, input.Password);
 
         if (user == null)
         {
-            response.SetError("Username or password invalid");
+            response.SetError("UserName or password invalid");
 
             return response;
         }
 
-        var authKey = _configs.GetSection("AuthKey")?.Value;
+        var authKey = _configs.GetSection("AuthKey")?.Value ?? "";
 
         var token = AuthHelper.GenerateToken(authKey, user.UserName);
 
-        response.SetData(new ServiceSignInOutput
+        if (token == null)
+        {
+            response.SetError("Failed to generate authentication token");
+
+            return response;
+        }
+
+        response.SetData(new SignInOutput
         {
             User = user,
             Token = token,
