@@ -1,0 +1,12 @@
+﻿.card-item {
+    width: 100%;
+    border: 16px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 20px 24px;
+}
+
+
+@media only screen and (min-width: 769px) {
+    .card-item {
+    }
+}
