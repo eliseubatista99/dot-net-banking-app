@@ -59,7 +59,7 @@ public class SignInPageLogic : ComponentBase
             await browserStorage.SetInLocalStorage(StoreKeys.User, result?.Data?.User);
             await browserStorage.SetInSessionStorage(StoreKeys.AuthToken, result?.Data?.Token);
 
-            navManager.NavigateTo(AppPages.Home, replace: true);
+            navManager.NavigateTo(AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
         }
         else
         {

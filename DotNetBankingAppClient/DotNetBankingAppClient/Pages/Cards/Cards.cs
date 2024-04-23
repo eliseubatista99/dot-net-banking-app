@@ -20,7 +20,7 @@ public class CardsPageLogic : ComponentBase
 
     public void OnClickBack()
     {
-        navManager.NavigateTo(uri: AppPages.Home, replace: true);
+        navManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
     }
 
     public void OnClickTab(CardType tab)

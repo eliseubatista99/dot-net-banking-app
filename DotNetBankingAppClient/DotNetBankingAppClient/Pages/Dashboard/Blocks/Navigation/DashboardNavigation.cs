@@ -1,7 +1,6 @@
 ﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Helpers;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 
 namespace DotNetBankingAppClient.Pages;
 
@@ -15,18 +14,24 @@ public class DashboardNavigationLogic : ComponentBase
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
 
-    public string[] navOptions = [AppPages.Home, AppPages.Search, AppPages.Inbox, AppPages.Settings];
-    public string selectedOption = AppPages.Home;
+    [Parameter]
+    public Action<string> onOptionSelected { get; set; }
+
+    [Parameter]
+    public string selectedOption { get; set; }
+
+    public string[] navOptions = [DashboardFragments.Home, DashboardFragments.Search, DashboardFragments.Inbox, DashboardFragments.Settings];
     public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 
     public void OnOptionSelected(string option)
     {
         if (option != selectedOption)
         {
-            navManager.NavigateTo(uri: option, replace: true);
+            onOptionSelected(option);
         }
     }
 
+    /*
     private string GetOptionFromUrl()
     {
         var baseUrl = navManager.BaseUri ?? "";
@@ -38,14 +43,14 @@ public class DashboardNavigationLogic : ComponentBase
     {
         selectedOption = GetOptionFromUrl();
         this.StateHasChanged();
-    }
+    }*/
 
 
     protected override async Task OnInitializedAsync()
     {
-        navManager.LocationChanged += OnUrlChanged;
+        //navManager.LocationChanged += OnUrlChanged;
 
-        selectedOption = GetOptionFromUrl();
+        //selectedOption = GetOptionFromUrl();
 
         await windowHelper.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
         {

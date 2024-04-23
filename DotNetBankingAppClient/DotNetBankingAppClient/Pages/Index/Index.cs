@@ -19,7 +19,7 @@ public class IndexPageLogic : ComponentBase
 
         if (storedUser != null && token != null)
         {
-            navManager.NavigateTo(AppPages.Home, replace: true);
+            navManager.NavigateTo(AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
         }
         else
         {

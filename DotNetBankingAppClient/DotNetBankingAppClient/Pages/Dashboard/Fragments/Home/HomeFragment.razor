@@ -1,0 +1,15 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits HomeFragmentLogic
+
+<PageTitle>Banking App - Home</PageTitle>
+
+<div class="home-fragment-content">
+
+    <div style="width: 100%; min-height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+    <div class="home-fragment-navigation-items-list">
+        @foreach (var item in HomeFragmentItems)
+        {
+            <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
+        }
+    </div>
+</div>

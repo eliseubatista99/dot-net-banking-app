@@ -2,7 +2,7 @@
 @inherits DashboardNavigationLogic
 
 <div class="dashboard-navigation">
-    @foreach(string option in navOptions)
+    @foreach(var option in navOptions)
     {
         bool isSelected = selectedOption == option;
         string optionClassIfSelected = isSelected ? "dashboard-navigation-option-selected" : "";
@@ -10,13 +10,13 @@
             <div  class="dashboard-navigation-option-icon">
                 @switch (option)
                 {
-                    case "Search":
+                    case DashboardFragments.Search:
                         <IconSearch filled=isSelected />
                         break;
-                    case "Inbox":
+                    case DashboardFragments.Inbox:
                         <IconMailClosed filled=isSelected />
                         break;
-                    case "Settings":
+                    case DashboardFragments.Settings:
                         <IconSettings filled=isSelected />
                         break;
                     default:

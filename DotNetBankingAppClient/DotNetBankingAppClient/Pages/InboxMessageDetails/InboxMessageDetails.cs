@@ -17,7 +17,7 @@ public class InboxMessageDetailsLogic : ComponentBase
 
     public void OnClickBack()
     {
-        navManager.NavigateTo(uri: AppPages.Inbox, replace: true);
+        navManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Inbox, replace: true);
     }
 
     protected override async Task OnInitializedAsync()
