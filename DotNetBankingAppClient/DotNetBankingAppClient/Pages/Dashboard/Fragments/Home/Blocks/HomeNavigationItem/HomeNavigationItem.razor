@@ -1,8 +1,8 @@
 ﻿@namespace DotNetBankingAppClient.Pages
 @inherits HomeNavigationItemLogic
 
-<div class="home-page-navigation-item" onclick="@(() => OnItemClicked())">
-    <div class="home-page-navigation-item-icon">
+<div class="home-fragment-navigation-item" onclick="@(() => OnItemClicked())">
+    <div class="home-fragment-navigation-item-icon">
         @switch (path)
         {
             case AppPages.Accounts:
@@ -35,5 +35,5 @@
         }
     </div>
    
-    <Typography classes="home-page-navigation-item-text">@name</Typography>
+    <Typography classes="home-fragment-navigation-item-text">@name</Typography>
 </div>

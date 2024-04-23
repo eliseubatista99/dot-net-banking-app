@@ -1,5 +1,6 @@
 @import url("layout/_index.css");
 @import url("components/_index.css");
+@import url("fragments/_index.css");
 @import url("pages/_index.css");
 
 * {

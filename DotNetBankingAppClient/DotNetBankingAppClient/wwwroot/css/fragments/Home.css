@@ -1,4 +1,4 @@
-﻿.home-page-navigation-items-list {
+﻿.home-fragment-navigation-items-list {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fit,100px);
@@ -7,7 +7,7 @@
     justify-content: center;
 }
 
-.home-page-navigation-item {
+.home-fragment-navigation-item {
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     padding: 12px;
     aspect-ratio: 1 / 1;
@@ -20,19 +20,19 @@
 }
 
 
-.home-page-navigation-item-icon {
+.home-fragment-navigation-item-icon {
     width: 40%;
     aspect-ratio: 1 / 1;
     color: #0077d1;
 }
 
 
-.home-page-navigation-item-text {
+.home-fragment-navigation-item-text {
     font-size: 14px;
     color: #272727;
 }
 
-.home-content {
+.home-fragment-content {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     background: #ffffff;

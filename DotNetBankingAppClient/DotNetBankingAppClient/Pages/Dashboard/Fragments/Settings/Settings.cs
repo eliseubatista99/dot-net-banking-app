@@ -1,13 +1,9 @@
-﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Layout;
-using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
+﻿using DotNetBankingAppClient.Helpers;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class SearchPageLogic : ComponentBase
+public class SettingsFragmentLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;

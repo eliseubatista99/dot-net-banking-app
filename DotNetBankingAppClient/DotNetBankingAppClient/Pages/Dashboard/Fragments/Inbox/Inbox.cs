@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class InboxPageLogic : ComponentBase
+public class InboxFragmentLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;

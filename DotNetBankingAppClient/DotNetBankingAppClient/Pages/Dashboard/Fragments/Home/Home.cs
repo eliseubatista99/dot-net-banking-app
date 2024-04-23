@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class HomePageItems
+public class HomeFragmentItems
 {
     public string name { get; set; } = "";
     public string path { get; set; } = "";
 }
 
-public class HomePageLogic : ComponentBase
+public class HomeFragmentLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;
@@ -24,29 +24,29 @@ public class HomePageLogic : ComponentBase
     public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 
 
-    public HomePageItems[] homePageItems = [
-       new HomePageItems {
+    public HomeFragmentItems[] HomeFragmentItems = [
+       new HomeFragmentItems {
         name = "Accounts",
         path = AppPages.Accounts
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "Transfers",
         path = AppPages.Transfer
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "PayMobile",
         path = AppPages.PayMobile
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "PayBill",
         path = AppPages.PayBill
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "Savings",
         path = AppPages.Savings
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "Cards",
         path = AppPages.Cards
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "Transactions",
         path = AppPages.Transactions
-    }, new HomePageItems {
+    }, new HomeFragmentItems {
         name = "Beneficiaries",
         path = AppPages.Beneficiaries
     }];

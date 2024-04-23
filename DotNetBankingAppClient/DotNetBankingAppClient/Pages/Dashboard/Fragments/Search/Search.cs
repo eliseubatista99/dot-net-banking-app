@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 
-public class SettingsPageLogic : ComponentBase
+public class SearchFragmentLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;

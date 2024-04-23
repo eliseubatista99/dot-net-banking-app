@@ -1,15 +1,15 @@
 ﻿@page "/Inbox"
 @namespace DotNetBankingAppClient.Pages
-@inherits InboxPageLogic
+@inherits InboxFragmentLogic
 
 <PageTitle>Banking App - Inbox</PageTitle>
 
 
 
 <DashboardTemplate>
-    <div class="page-inbox-content">
-        <Typography classes="page-inbox-title">Inbox</Typography>
-        <div class="page-inbox-messages-list">
+    <div class="inbox-fragment-content">
+        <Typography classes="inbox-fragment-title">Inbox</Typography>
+        <div class="inbox-fragment-messages-list">
             @for (int i = 0; i < groupedMessages.Count; i++)
             {
                 var group = groupedMessages[i];
@@ -17,17 +17,17 @@
 
                 if (i != 0)
                 {
-                    <div class="page-inbox-messages-list-separator" />
+                    <div class="inbox-fragment-messages-list-separator" />
                 }
 
-                <Typography classes="page-inbox-messages-list-date">@group.dateTime.ToString("MM/dd/yyyy")</Typography>
-                <div class="page-inbox-messages-list-group">
+                <Typography classes="inbox-fragment-messages-list-date">@group.dateTime.ToString("MM/dd/yyyy")</Typography>
+                <div class="inbox-fragment-messages-list-group">
                     @for (int j = 0; j < messages.Count; j++)
                     {
                         var message = messages[j];
                         if (j != 0)
                         {
-                            <div class="page-inbox-messages-list-separator" />
+                            <div class="inbox-fragment-messages-list-separator" />
                         }
                         <MessageItem message=@message onClickItem=@(() => OnMessageClicked(message)) />
 
