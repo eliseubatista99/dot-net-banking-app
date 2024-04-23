@@ -1,11 +1,10 @@
 ﻿using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Pages;
+namespace DotNetBankingAppClient.Components;
 
-public class HomeHeaderLogic : ComponentBase
+public class DashboardHeaderLogic : ComponentBase
 {
     [Inject]
     protected IBrowserStorage browserStorage { get; set; } = default!;

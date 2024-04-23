@@ -6,14 +6,13 @@
         @if (windowSize == ResponsiveWindowSize.Desktop)
         {
             <div class="dashboard-heading">
-                @DashboardTopContent
+                <DashboardHeader />
                 <DashboardNavigation />
             </div>
-        
-        }
-        else
+
+        } else if(showHeaderOnMobile == true)
         {
-            @DashboardTopContent
+            <DashboardHeader />      
         }
         <div class="dashboard-content">
             @ChildContent

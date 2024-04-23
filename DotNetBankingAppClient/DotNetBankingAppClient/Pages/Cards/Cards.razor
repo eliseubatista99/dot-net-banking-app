@@ -4,9 +4,18 @@
 
 <PageTitle>Banking App - Cards</PageTitle>
 
-<AppScreen title="Cards" loading=@isFetching onClickBack="@(() => OnClickBack())">
-    <div class="page-cards-content">
-        <CardsTabNavigation selectedCardType="@selectedCardType" onTabClicked="@((tab) => OnClickTab(tab))" />
+<AppScreen title="Cards" loading=@isFetching onClickBack="@(() => OnClickBack())" contentClasses="page-cards-content">
+    <CardsTabNavigation selectedCardType="@selectedCardType" onTabClicked="@((tab) => OnClickTab(tab))" />
+
+    <div class="page-cards-cards-list">
+        @{
+            var cards = GetCards();
+
+            foreach (var card in GetCards())
+            {
+                <p>@card.CardName</p>
+            }
+        }
     </div>
 </AppScreen>
 

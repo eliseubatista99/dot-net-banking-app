@@ -32,39 +32,6 @@
     color: #272727;
 }
 
-
-.home-header {
-    width: 100%;
-    flex-direction: row;
-    padding: 20px 20px;
-    align-items: center;
-    display: grid;
-    grid-template-columns: 40px auto 40px;
-}
-
-.home-header-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #212121;
-    align-items: flex-start;
-    margin-right: auto;
-    object-fit: contain;
-}
-
-.home-header-title {
-    padding: 0 20px;
-    font-size: 18px;
-}
-
-.home-header-notifications {
-    width: 25px;
-    height: 25px;
-    color: #ffffff;
-    margin-left: auto;
-    align-items: flex-end;
-}
-
 .home-content {
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;

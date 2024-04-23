@@ -14,9 +14,9 @@ public class CardsPageLogic : ComponentBase
 
     public bool isFetching { get; set; } = false;
     public CardType selectedCardType { get; set; } = CardType.Debit;
-    public List<CardDTO> debitCards { get; set; } = new List<CardDTO>();
-    public List<CardDTO> creditCards { get; set; } = new List<CardDTO>();
-    public List<CardDTO> prePaidCards { get; set; } = new List<CardDTO>();
+    private List<CardDTO> debitCards { get; set; } = new List<CardDTO>();
+    private List<CardDTO> creditCards { get; set; } = new List<CardDTO>();
+    private List<CardDTO> prePaidCards { get; set; } = new List<CardDTO>();
 
     public void OnClickBack()
     {
@@ -29,6 +29,20 @@ public class CardsPageLogic : ComponentBase
         this.StateHasChanged();
     }
 
+    public List<CardDTO> GetCards()
+    {
+        if (selectedCardType == CardType.Credit)
+        {
+            return creditCards;
+        }
+        else if (selectedCardType == CardType.PrePaid)
+        {
+            return prePaidCards;
+        }
+
+        return debitCards;
+    }
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -37,9 +51,11 @@ public class CardsPageLogic : ComponentBase
         var cards = await browserStorage.GetFromLocalStorage<List<CardDTO>>(StoreKeys.Cards);
         debitCards = cards.Where((card) => card.CardType == CardType.Debit).ToList();
         creditCards = cards.Where((card) => card.CardType == CardType.Credit).ToList();
-        creditCards = cards.Where((card) => card.CardType == CardType.PrePaid).ToList();
+        prePaidCards = cards.Where((card) => card.CardType == CardType.PrePaid).ToList();
 
         isFetching = false;
         this.StateHasChanged();
     }
+
+
 }

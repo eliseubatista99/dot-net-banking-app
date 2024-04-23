@@ -18,8 +18,10 @@ public class HomePageLogic : ComponentBase
     protected IBrowserStorage browserStorage { get; set; } = default!;
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
-
+    [Inject]
+    protected IWindowHelper windowHelper { get; set; } = default!;
     public bool isFetching { get; set; } = false;
+    public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 
 
     public HomePageItems[] homePageItems = [
@@ -93,6 +95,13 @@ public class HomePageLogic : ComponentBase
     protected override async Task OnInitializedAsync()
     {
         isFetching = true;
+
+        await windowHelper.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
+        {
+            windowSize = size;
+            this.StateHasChanged();
+        });
+
         this.StateHasChanged();
         var currentUser = await browserStorage.GetFromLocalStorage<UserDTO>(StoreKeys.User);
 
