@@ -5,10 +5,15 @@
 
 <div class="home-fragment-content">
 
-    @if(DisplayCard != null)
-    {
-        <CardItem Card=@DisplayCard Classes="dashboard-display-card"/>
-    }
+    <Carousel>
+        <Elements>
+            @foreach(var card in Cards)
+            {
+                <CardItem Card=@card Classes="dashboard-display-card" />
+            }
+        </Elements>
+    </Carousel>
+
     <div class="home-fragment-navigation-items-list">
         @foreach (var item in HomeFragmentItems)
         {

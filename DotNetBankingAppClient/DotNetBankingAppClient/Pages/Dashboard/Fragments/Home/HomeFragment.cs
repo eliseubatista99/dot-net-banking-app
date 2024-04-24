@@ -28,8 +28,7 @@ public class HomeFragmentLogic : ComponentBase
     public bool IsFetching { get; set; } = false;
     public ResponsiveWindowSize WindowSize = ResponsiveWindowSize.Mobile;
 
-    public CardDTO? DisplayCard { get; set; }
-
+    public List<CardDTO>? Cards { get; set; }
 
     public HomeFragmentItems[] HomeFragmentItems = [
        new HomeFragmentItems {
@@ -100,6 +99,13 @@ public class HomeFragmentLogic : ComponentBase
         return cards;
     }
 
+    public void OnCarouselChange(int index, object item)
+    {
+        CardDTO card = (CardDTO)item;
+
+        Logger.Log(card?.ToString() ?? "null");
+    }
+
     protected override async Task OnInitializedAsync()
     {
         IsFetching = true;
@@ -120,9 +126,8 @@ public class HomeFragmentLogic : ComponentBase
         await Store.PersistData(StoreKeys.CheckingAccounts, checkingAccounts);
         await Store.PersistData(StoreKeys.SavingAccounts, savingAccounts);
 
-        var cards = await GetAllCardsForAllAccounts(checkingAccounts);
-        DisplayCard = cards.Count > 0 ? cards[0] : null;
-        await Store.PersistData(StoreKeys.Cards, cards);
+        Cards = await GetAllCardsForAllAccounts(checkingAccounts);
+        await Store.PersistData(StoreKeys.Cards, Cards);
 
         IsFetching = false;
 
