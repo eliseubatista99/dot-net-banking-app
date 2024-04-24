@@ -2,6 +2,6 @@
 {
     public interface IAppNavigation
     {
-        public void NavigateTo(string uri, bool replace = true, bool responsive = true);
+        public void NavigateTo(string uri, bool replace = true);
     }
 }
