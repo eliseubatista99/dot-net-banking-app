@@ -1,0 +1,47 @@
+﻿.card-item {
+    flex-direction: column;
+    width: 300px;
+    min-height: 188px;
+    height: 188px;
+    aspect-ratio: 89/61;
+    border-radius: 6px;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 24px 24px;
+}
+
+.card-item-details {
+    width: 100%;
+    align-items: flex-start;
+    gap: 20px;
+    color: #ffffff;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.card-item-icons {
+    width: 100%;
+    align-items: flex-start;
+    gap: 10px;
+    color: #ffffff;
+    margin-bottom: auto;
+    flex-direction: row;
+}
+
+.card-item-contactLess-icon {
+    margin-left: auto;
+    width: 30px;
+    height: 30px;
+    transform: rotateZ(90deg);
+}
+
+.card-item-chip-icon {
+    width: 30px;
+    height: 30px;
+}
+
+
+@media only screen and (min-width: 769px) {
+    .card-item {
+    }
+}

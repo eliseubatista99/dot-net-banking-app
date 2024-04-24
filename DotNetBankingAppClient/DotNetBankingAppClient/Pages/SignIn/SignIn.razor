@@ -1,0 +1,29 @@
+﻿@page "/SignIn"
+
+@namespace DotNetBankingAppClient.Pages
+@inherits SignInPageLogic
+
+<PageTitle>Banking App - Sign In</PageTitle>
+<AppScreen title="Sign In" variant="AppHeaderVariant.Dark" pageClasses="signIn-app-screen" contentClasses="signIn-app-screen-children" loading=@isFetching>
+    <div class="signIn-content">
+        <Typography color="TypographyColor.Highlight" classes="signIn-title">Welcome Back!</Typography>
+        <Typography classes="signIn-subtitle">Sign in to continue</Typography>
+
+        <div class="signIn-icon"></div>
+
+        <div class="signIn-inputs">
+            <InputField value=@userName onChange="@OnChangeUserName" placeholder="UserName" />
+            <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
+        </div>
+        @if (errorMessage != null)
+        {
+            <Typography color="TypographyColor.Error" classes="signIn-error-message">@errorMessage</Typography>
+        }
+
+        <div class="signIn-bottom-content" styles="">
+            <AppButton text="Sign In" onClick="@OnClickLoginButton" defaultClasses="signIn-button" />
+            <Typography>Don't have an account? <span onclick="@OnClickSignUpLink" style="color: #0077d1; padding: 2px 0; font-weight: 600;">Sign Up</span></Typography>
+        </div>
+    </div>
+</AppScreen>
+      

@@ -1,4 +1,4 @@
-﻿<Fluxor.Blazor.Web.StoreInitializer />
+﻿@inject NavigationManager NavManager;
 
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
@@ -12,3 +12,10 @@
         </LayoutView>
     </NotFound>
 </Router>
+
+@code {
+    protected override void OnInitialized()
+    {
+        NavManager.NavigateTo("/", replace: true);
+    }
+}

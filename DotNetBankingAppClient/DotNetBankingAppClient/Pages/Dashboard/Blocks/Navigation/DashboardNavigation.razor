@@ -1,0 +1,33 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits DashboardNavigationLogic
+
+<div class="dashboard-navigation">
+    @foreach(var option in navOptions)
+    {
+        bool isSelected = SelectedOption == option;
+        string optionClassIfSelected = isSelected ? "dashboard-navigation-option-selected" : "";
+        <button class="dashboard-navigation-option @optionClassIfSelected" onclick="@(() => HandleOnOptionSelected(option))">
+            <div  class="dashboard-navigation-option-icon">
+                @switch (option)
+                {
+                    case DashboardFragments.Search:
+                        <IconSearch filled=isSelected />
+                        break;
+                    case DashboardFragments.Inbox:
+                        <IconMailClosed filled=isSelected />
+                        break;
+                    case DashboardFragments.Settings:
+                        <IconSettings filled=isSelected />
+                        break;
+                    default:
+                        <IconHome filled=isSelected/>
+                        break;
+                }
+            </div>
+            @if (isSelected || windowSize == ResponsiveWindowSize.Desktop)
+            {
+                @option
+            }
+        </button>
+    }
+</div>

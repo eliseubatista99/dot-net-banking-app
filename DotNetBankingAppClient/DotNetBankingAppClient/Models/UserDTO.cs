@@ -1,9 +1,8 @@
-﻿namespace BankingAppClient.Models
-{
-    public class UserDTO
-    {
-        public string UserName { get; set; } = "";
+﻿namespace DotNetBankingAppClient.Models;
 
-        public string PhoneNumber { get; set; } = "";
-    }
+public class UserDTO
+{
+    public string UserName { get; set; } = "";
+
+    public string PhoneNumber { get; set; } = "";
 }

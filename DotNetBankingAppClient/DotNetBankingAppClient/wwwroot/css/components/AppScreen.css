@@ -1,0 +1,42 @@
+﻿.app-screen {
+    background: #ffffff;
+    width: 100%;
+    flex: 1;
+    padding-top: 54px;
+    max-height: 100vh;
+}
+
+.app-screen-header {
+    position: absolute;
+    top: 0
+}
+
+.app-screen-children {
+    width: 100%;
+    min-height: 100%;
+    flex: 1;
+    padding: 24px 24px 32px 24px;
+}
+
+.app-screen-bottom-content {
+    width: 100%;
+    bottom: 0;
+}
+
+.app-screen-loader {
+    z-index: 9999;
+    background: #070b39d1;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (min-width: 769px) {
+    .app-screen-children {
+    }
+}

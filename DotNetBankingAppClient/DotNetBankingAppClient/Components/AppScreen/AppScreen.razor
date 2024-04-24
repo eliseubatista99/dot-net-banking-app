@@ -1,0 +1,19 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits AppScreenLogic
+
+<div class="app-screen @pageClasses">
+    @if (loading)
+    {
+        <div class="app-screen-loader">
+            <AppLoader />
+        </div>
+    }
+
+    @if (!withoutHeader)
+    {
+        <AppHeader title=@title variant="@variant" onClickBack="@onClickBack" classes="app-screen-header" />
+    }
+    <div class="app-screen-children @contentClasses">
+        @ChildContent
+    </div>
+</div>

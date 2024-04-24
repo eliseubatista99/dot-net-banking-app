@@ -1,0 +1,18 @@
+﻿@namespace DotNetBankingAppClient.Pages
+@inherits HomeFragmentLogic
+
+<PageTitle>Banking App - Home</PageTitle>
+
+<div class="home-fragment-content">
+
+    @if(DisplayCard != null)
+    {
+        <CardItem Card=@DisplayCard Classes="dashboard-display-card"/>
+    }
+    <div class="home-fragment-navigation-items-list">
+        @foreach (var item in HomeFragmentItems)
+        {
+            <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
+        }
+    </div>
+</div>

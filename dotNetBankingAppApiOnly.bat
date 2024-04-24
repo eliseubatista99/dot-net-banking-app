@@ -1,0 +1,1 @@
+START dotnet watch --project "DotNetBankingAppApi/DotNetBankingAppApi" 

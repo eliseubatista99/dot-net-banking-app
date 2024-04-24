@@ -1,0 +1,42 @@
+﻿@page "/Dashboard/{selectedFragment?}"
+@namespace DotNetBankingAppClient.Pages
+@inherits DashboardPageLogic
+
+<CascadingValue Value="this">
+    <AppScreen withoutHeader pageClasses="dashboard-app-screen" contentClasses="dashboard-app-screen-children">
+        <div class="dashboard-heading">
+            @if (windowSize == ResponsiveWindowSize.Desktop)
+            {
+                    <DashboardHeader />
+                    <DashboardNavigation SelectedOption=@SelectedFragment onOptionSelected=@OnFragmentSelected />
+            }
+            else if (SelectedFragment == DashboardFragments.Home)
+            {
+                <DashboardHeader />
+
+            }
+        </div>
+        
+        <div class="dashboard-content">
+            @switch (SelectedFragment)
+            {
+                case DashboardFragments.Search:
+                    <SearchFragment />
+                    break;
+                case DashboardFragments.Inbox:
+                    <InboxFragment />
+                    break;
+                case DashboardFragments.Settings:
+                    <SettingsFragment />
+                    break;
+                default:
+                    <HomeFragment />
+                    break;
+            }
+        </div>
+        @if (windowSize != ResponsiveWindowSize.Desktop)
+        {
+            <DashboardNavigation SelectedOption=@SelectedFragment onOptionSelected=@OnFragmentSelected />
+        }
+    </AppScreen>
+</CascadingValue>

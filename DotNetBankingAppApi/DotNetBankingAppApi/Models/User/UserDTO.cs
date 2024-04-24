@@ -1,18 +1,17 @@
-﻿namespace BankingAppApi.Models.User
+﻿namespace DotNetBankingAppApi.Models;
+
+public class UserDTO
 {
-    public class UserDTO
+    public string UserName { get; set; } = "";
+    public string PhoneNumber { get; set; } = "";
+
+    public static UserDTO ToDTO(User data)
     {
-        public string UserName { get; set; } = "";
-        public string PhoneNumber { get; set; } = "";
+        return new UserDTO { UserName = data.UserName, PhoneNumber = data.PhoneNumber };
+    }
 
-        public static UserDTO FromUser(User user)
-        {
-            return new UserDTO { UserName = user.UserName, PhoneNumber = user.PhoneNumber };
-        }
-
-        public static User ToUser(UserDTO userDTO)
-        {
-            return new User { UserName = userDTO.UserName, PhoneNumber = userDTO.PhoneNumber };
-        }
+    public static User FromDTO(UserDTO data)
+    {
+        return new User { UserName = data.UserName, PhoneNumber = data.PhoneNumber };
     }
 }

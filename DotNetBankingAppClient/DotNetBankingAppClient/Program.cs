@@ -1,4 +1,4 @@
-using DotNetBankingAppClient.Helpers;
+using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -19,8 +19,10 @@ namespace DotNetBankingAppClient
             HttpClient httpClient = new HttpClient { BaseAddress = new Uri(apiUri) };
 
             builder.Services.AddScoped(sp => httpClient);
-            builder.Services.AddScoped<IBrowserStorage, BrowserStorage>();
-            ApiServices.Initialize(httpClient);
+            builder.Services.AddScoped<IStore, BrowserStore>();
+            builder.Services.AddScoped<IApiCommunication, ApiServices>();
+            builder.Services.AddScoped<IAppResponsive, ResponsiveBrowser>();
+            builder.Services.AddScoped<IAppLogger, BrowserLogger>();
         }
 
 

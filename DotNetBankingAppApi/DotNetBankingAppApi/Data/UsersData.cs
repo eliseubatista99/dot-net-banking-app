@@ -1,62 +1,54 @@
-﻿using BankingAppApi.Models.User;
+﻿using DotNetBankingAppApi.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BankingAppApi.Data
+namespace DotNetBankingAppApi.Data;
+
+public class UsersData
 {
-    public class UsersData
+    public static async Task<List<UserDTO>> GetUsers(DatabaseContext context)
     {
-        public static async Task<List<UserDTO>> GetUsers(DatabaseContext context)
+        var result = await context.Users.ToListAsync();
+
+        return result.Select((item) => UserDTO.ToDTO(item)).ToList();
+    }
+
+    public static async Task<UserDTO?> GetUser(DatabaseContext context, string UserName)
+    {
+        var result = await context.Users.FindAsync(UserName);
+
+        if (result == null)
         {
-            var usersInDB = await context.Users.ToListAsync();
-            List<UserDTO> users = new List<UserDTO>();
-
-            foreach (var user in usersInDB)
-            {
-                var userDTO = UserDTO.FromUser(user);
-                users.Add(userDTO);
-            }
-
-            return users;
+            return null;
         }
 
-        public static async Task<UserDTO?> GetUser(DatabaseContext context, string username)
+        return UserDTO.ToDTO(result);
+    }
+
+    public static async Task<UserDTO?> GetUserWithPassword(DatabaseContext context, string UserName, string password)
+    {
+        var result = await context.Users.FindAsync(UserName);
+
+        if (result == null)
         {
-            var user = await context.Users.FindAsync(username);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            return UserDTO.FromUser(user);
+            return null;
         }
 
-        public static async Task<UserDTO?> GetUserWithPassword(DatabaseContext context, string email, string password)
+        if (password != result.Password)
         {
-            var user = await context.Users.FindAsync(email);
-
-            if (user == null)
-            {
-                return null;
-            }
-
-            if (password != user.Password)
-            {
-                return null;
-            }
-
-            return UserDTO.FromUser(user);
+            return null;
         }
 
-        public static async Task<UserDTO> CreateUser(DatabaseContext context, UserDTO userDTO, string password)
-        {
-            var user = UserDTO.ToUser(userDTO);
-            user.Password = password;
+        return UserDTO.ToDTO(result);
+    }
 
-            context.Users.Add(user);
-            await context.SaveChangesAsync();
+    public static async Task<UserDTO> CreateUser(DatabaseContext context, UserDTO userDTO, string password)
+    {
+        var result = UserDTO.FromDTO(userDTO);
+        result.Password = password;
 
-            return userDTO;
-        }
+        context.Users.Add(result);
+        await context.SaveChangesAsync();
+
+        return userDTO;
     }
 }
