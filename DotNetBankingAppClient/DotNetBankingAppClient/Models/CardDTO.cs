@@ -18,7 +18,7 @@ public enum CardTier
 
 public class CardDTO
 {
-    public string CardId { get; set; } = "";
+    public string CardNumber { get; set; } = "";
     public string AccountId { get; set; } = "";
     public CardTier CardTier { get; set; } = CardTier.Classic;
     public CardType CardType { get; set; } = CardType.Credit;

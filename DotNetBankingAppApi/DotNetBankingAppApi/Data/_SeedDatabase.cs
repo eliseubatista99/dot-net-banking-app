@@ -137,7 +137,7 @@ public class SeedDatabase
                  new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Classic_111111111",
+                     CardNumber = "0000000000000000",
                      CardTier = CardTier.Classic,
                      Embossing = "User One",
                      CardType = CardType.Credit,
@@ -145,7 +145,7 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Premium_222222222",
+                     CardNumber = "0000000000000001",
                      CardTier = CardTier.Premium,
                      Embossing = "User One",
                      CardType = CardType.Credit,
@@ -153,21 +153,21 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Carbon_111111111",
+                     CardNumber = "0000000000000002",
                      CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.Credit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Stellar_111111111",
+                     CardNumber = "0000000000000003",
                      CardTier = CardTier.Stellar,
                      Embossing = "User One",
                      CardType = CardType.Credit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Classic_111111111",
+                     CardNumber = "0000000000000004",
                      CardTier = CardTier.Classic,
                      Embossing = "User One",
                      CardType = CardType.Debit,
@@ -175,7 +175,7 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Premium_222222222",
+                     CardNumber = "0000000000000005",
                      CardTier = CardTier.Premium,
                      Embossing = "User One",
                      CardType = CardType.Debit,
@@ -183,21 +183,21 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Carbon_111111111",
+                     CardNumber = "0000000000000006",
                      CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.Debit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Stellar_111111111",
+                     CardNumber = "0000000000000007",
                      CardTier = CardTier.Stellar,
                      Embossing = "User One",
                      CardType = CardType.Debit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "PP_Classic_111111111",
+                     CardNumber = "0000000000000008",
                      CardTier = CardTier.Classic,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,
@@ -205,7 +205,7 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "PP_Premium_222222222",
+                     CardNumber = "0000000000000009",
                      CardTier = CardTier.Premium,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,
@@ -213,14 +213,14 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "PP_Carbon_111111111",
+                     CardNumber = "0000000000000010",
                      CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "PP_Stellar_111111111",
+                     CardNumber = "0000000000000011",
                      CardTier = CardTier.Stellar,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,

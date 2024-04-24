@@ -20,7 +20,7 @@ public enum CardTier
 public class Card
 {
     [Key]
-    public string CardId { get; set; } = "";
+    public string CardNumber { get; set; } = "";
     [Required]
     public string AccountId { get; set; } = "";
     [Required]
