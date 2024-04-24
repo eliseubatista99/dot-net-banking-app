@@ -13,7 +13,7 @@ public class InboxFragmentLogic : ComponentBase
     [Inject]
     protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     public bool IsFetching = false;
     private UserDTO? CurrentUser;

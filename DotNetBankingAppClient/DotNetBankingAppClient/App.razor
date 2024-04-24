@@ -1,4 +1,4 @@
-﻿@inject NavigationManager NavManager;
+﻿@inject IAppNavigation NavManager;
 
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
@@ -16,6 +16,6 @@
 @code {
     protected override void OnInitialized()
     {
-        NavManager.NavigateTo("/", replace: true);
+        NavManager.NavigateTo("/", replace: true, responsive: false);
     }
 }

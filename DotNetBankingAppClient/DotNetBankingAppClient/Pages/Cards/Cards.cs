@@ -10,7 +10,7 @@ public class CardsPageLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     public bool IsFetching { get; set; } = false;
     public CardType SelectedCardType { get; set; } = CardType.Debit;

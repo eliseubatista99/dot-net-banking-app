@@ -59,5 +59,10 @@ namespace DotNetBankingAppClient.Services
             //Log is a function declared in index.html
             await _jsRuntime.InvokeVoidAsync("AddWindowWidthListener", _objectReference);
         }
+
+        public ResponsiveWindowSize GetCurrentSize()
+        {
+            return currentWindowSize;
+        }
     }
 }

@@ -10,7 +10,7 @@ public class InboxMessageDetailsLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     public MessageDTO? Message { get; set; }
     public bool IsFetching { get; set; } = false;

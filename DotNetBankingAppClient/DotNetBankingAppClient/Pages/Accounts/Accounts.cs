@@ -10,7 +10,7 @@ public class AccountsPageLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     private UserDTO? CurrentUser;
 

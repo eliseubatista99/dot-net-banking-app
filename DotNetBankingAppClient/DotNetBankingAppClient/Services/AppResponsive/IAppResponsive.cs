@@ -9,6 +9,7 @@
 
     public interface IAppResponsive
     {
+        public ResponsiveWindowSize GetCurrentSize();
         public Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback);
     }
 }

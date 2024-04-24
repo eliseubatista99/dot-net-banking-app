@@ -23,6 +23,7 @@ namespace DotNetBankingAppClient
             builder.Services.AddScoped<IApiCommunication, ApiServices>();
             builder.Services.AddScoped<IAppResponsive, ResponsiveBrowser>();
             builder.Services.AddScoped<IAppLogger, BrowserLogger>();
+            builder.Services.AddScoped<IAppNavigation, AppNavigation>();
         }
 
 

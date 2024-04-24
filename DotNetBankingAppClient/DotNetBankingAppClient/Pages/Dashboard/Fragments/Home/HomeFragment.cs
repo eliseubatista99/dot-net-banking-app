@@ -21,7 +21,7 @@ public class HomeFragmentLogic : ComponentBase
     [Inject]
     protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
     [Inject]
     protected IAppResponsive AppResponsive { get; set; } = default!;
 

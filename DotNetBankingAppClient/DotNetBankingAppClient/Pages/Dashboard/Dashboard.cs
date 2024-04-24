@@ -7,7 +7,7 @@ namespace DotNetBankingAppClient.Pages;
 public class DashboardPageLogic : ComponentBase
 {
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected IAppNavigation navManager { get; set; } = default!;
     [Inject]
     protected IAppResponsive AppResponsive { get; set; } = default!;
 
