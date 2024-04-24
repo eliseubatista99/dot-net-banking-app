@@ -1,49 +1,31 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace DotNetBankingAppClient.Helpers
+namespace DotNetBankingAppClient.Services
 {
-    public class ApiResponseMetaData
+    public class ApiServices : IApiCommunication
     {
-        public bool Success { get; set; } = true;
-        public string Message { get; set; } = "";
-    }
-
-    public class ApiResponse<T>
-    {
-        public required T? Data { get; set; }
-        public required ApiResponseMetaData MetaData { get; set; }
-    }
-
-
-    public interface IApiServices
-    {
-        public Task<ApiResponse<TOutput?>> CallService<TInput, TOutput>(string endpoint, TInput input);
-    }
-
-    public class ApiServices : IApiServices
-    {
-        public static ApiServices Instance { get; private set; }
         private readonly HttpClient _httpClient;
 
-        private ApiServices(HttpClient httpClient)
+        public ApiServices(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public static void Initialize(HttpClient httpClient)
-        {
-            if (Instance == null)
-            {
-                Instance = new ApiServices(httpClient);
-            }
-        }
-
-        public async Task<ApiResponse<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
+        public async Task<BaseEndpointOutput<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
         {
             try
             {
-                string jsonInput = JsonSerializer.Serialize(input);
+                BaseEndpointInput<TInput> endpointInput = new BaseEndpointInput<TInput>
+                {
+                    Data = input,
+                    MetaData = new BaseEndpointInputMetaData
+                    {
+                        Language = Language.English,
+                    }
+                };
+
+                string jsonInput = JsonSerializer.Serialize(endpointInput);
                 var serviceBody = new StringContent(jsonInput, Encoding.UTF8, "application/json");
                 var serviceResponse = await _httpClient.PostAsync(endpoint, serviceBody);
                 var serviceResponseContent = serviceResponse.Content;
@@ -53,10 +35,10 @@ namespace DotNetBankingAppClient.Helpers
                 if (!serviceResponse.IsSuccessStatusCode)
                 {
                     string message = await serviceResponse.Content.ReadAsStringAsync() ?? "Invalid Response";
-                    return new ApiResponse<TOutput>
+                    return new BaseEndpointOutput<TOutput>
                     {
                         Data = default,
-                        MetaData = new ApiResponseMetaData
+                        MetaData = new BaseEndpointOutputMetaData
                         {
                             Success = false,
                             Message = message
@@ -66,10 +48,10 @@ namespace DotNetBankingAppClient.Helpers
 
                 if (serviceResponseContent == null || serviceResponseContent?.Headers.ContentType?.MediaType != "application/json")
                 {
-                    return new ApiResponse<TOutput>
+                    return new BaseEndpointOutput<TOutput>
                     {
                         Data = default,
-                        MetaData = new ApiResponseMetaData
+                        MetaData = new BaseEndpointOutputMetaData
                         {
                             Success = false,
                             Message = "No content"
@@ -79,9 +61,9 @@ namespace DotNetBankingAppClient.Helpers
 
                 var contentStream = await serviceResponseContent.ReadAsStreamAsync();
 
-                var response = await JsonSerializer.DeserializeAsync<ApiResponse<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                var response = await JsonSerializer.DeserializeAsync<BaseEndpointOutput<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
 
-                if(response == null)
+                if (response == null)
                 {
                     throw new Exception("Failed to deserialize data");
                 }
@@ -90,10 +72,10 @@ namespace DotNetBankingAppClient.Helpers
             }
             catch (Exception ex)
             {
-                return new ApiResponse<TOutput>
+                return new BaseEndpointOutput<TOutput>
                 {
                     Data = default,
-                    MetaData = new ApiResponseMetaData
+                    MetaData = new BaseEndpointOutputMetaData
                     {
                         Success = false,
                         Message = ex.Message,

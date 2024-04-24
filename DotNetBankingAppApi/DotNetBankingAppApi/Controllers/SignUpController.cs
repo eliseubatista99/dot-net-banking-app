@@ -3,6 +3,7 @@
 using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Helpers;
 using DotNetBankingAppApi.Models;
+using DotNetBankingAppApi.Models._Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,11 +44,11 @@ public class SignUpController : DotNetBankingAppController
     [Produces("application/json")]
     [AllowAnonymous]
 
-    public async Task<ActionResult<ApiResponse<SignUpOutput>>> SignUp(SignUpInput input)
+    public async Task<ActionResult<BaseEndpointOutput<SignUpOutput>>> SignUp(BaseEndpointInput<SignUpInput> input)
     {
-        ApiResponse<SignUpOutput> response = new ApiResponse<SignUpOutput>();
+        BaseEndpointOutput<SignUpOutput> response = new BaseEndpointOutput<SignUpOutput>();
 
-        var existingUser = await UsersData.GetUser(_context, input.UserName);
+        var existingUser = await UsersData.GetUser(_context, input.Data.UserName);
 
         if (existingUser != null)
         {
@@ -57,9 +58,9 @@ public class SignUpController : DotNetBankingAppController
 
         var newUser = await UsersData.CreateUser(_context, new UserDTO
         {
-            UserName = input.UserName,
-            PhoneNumber = input.PhoneNumber
-        }, input.Password);
+            UserName = input.Data.UserName,
+            PhoneNumber = input.Data.PhoneNumber
+        }, input.Data.Password);
 
         var authKey = _configs.GetSection("AuthKey")?.Value ?? "";
 

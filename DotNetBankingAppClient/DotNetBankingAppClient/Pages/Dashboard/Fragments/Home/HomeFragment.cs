@@ -1,5 +1,5 @@
-﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Api;
+using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
@@ -15,13 +15,16 @@ public class HomeFragmentItems
 public class HomeFragmentLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
-    protected IWindowHelper windowHelper { get; set; } = default!;
-    public bool isFetching { get; set; } = false;
-    public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
+    protected NavigationManager NavManager { get; set; } = default!;
+    [Inject]
+    protected IAppResponsive AppResponsive { get; set; } = default!;
+
+    public bool IsFetching { get; set; } = false;
+    public ResponsiveWindowSize WindowSize = ResponsiveWindowSize.Mobile;
 
 
     public HomeFragmentItems[] HomeFragmentItems = [
@@ -54,12 +57,13 @@ public class HomeFragmentLogic : ComponentBase
 
     public void OnClickItem(string path)
     {
-        navManager.NavigateTo(path, replace: true);
+        NavManager.NavigateTo(path, replace: true);
     }
 
     private async Task<List<AccountDTO>> GetAllAccounts(UserDTO user)
     {
-        var result = await ServiceGetAccounts.CallAsync(new ServiceGetAccountsInput { UserName = user.UserName });
+        var result = await ApiCommunication.CallService<ServiceGetAccountsInput, ServiceGetAccountsOutput>(ApiEndpoints.GetAccounts, new ServiceGetAccountsInput { UserName = user.UserName });
+
 
         List<AccountDTO> accounts = new List<AccountDTO>();
 
@@ -81,7 +85,7 @@ public class HomeFragmentLogic : ComponentBase
 
         foreach (var account in accounts)
         {
-            var result = await ServiceGetCards.CallAsync(new ServiceGetCardsInput { AccountID = account.AccountId });
+            var result = await ApiCommunication.CallService<ServiceGetCardsInput, ServiceGetCardsOutput>(ApiEndpoints.GetCards, new ServiceGetCardsInput { AccountID = account.AccountId });
 
             if (result.MetaData.Success && result.Data != null)
             {
@@ -94,28 +98,28 @@ public class HomeFragmentLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        isFetching = true;
+        IsFetching = true;
 
-        await windowHelper.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
         {
-            windowSize = size;
+            WindowSize = size;
             this.StateHasChanged();
         });
 
         this.StateHasChanged();
-        var currentUser = await browserStorage.GetFromLocalStorage<UserDTO>(StoreKeys.User);
+        var currentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
         var accounts = await GetAllAccounts(currentUser);
         var checkingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
         var savingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
 
-        await browserStorage.SetInLocalStorage(StoreKeys.CheckingAccounts, checkingAccounts);
-        await browserStorage.SetInLocalStorage(StoreKeys.SavingAccounts, savingAccounts);
+        await Store.PersistData(StoreKeys.CheckingAccounts, checkingAccounts);
+        await Store.PersistData(StoreKeys.SavingAccounts, savingAccounts);
 
         var cards = await GetAllCardsForAllAccounts(checkingAccounts);
-        await browserStorage.SetInLocalStorage(StoreKeys.Cards, cards);
+        await Store.PersistData(StoreKeys.Cards, cards);
 
-        isFetching = false;
+        IsFetching = false;
         this.StateHasChanged();
     }
 }

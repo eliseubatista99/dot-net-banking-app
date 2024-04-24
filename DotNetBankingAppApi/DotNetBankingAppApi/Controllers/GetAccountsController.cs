@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Models;
-using Microsoft.AspNetCore.Authorization;
+using DotNetBankingAppApi.Models._Base;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -36,11 +36,11 @@ public class GetAccountsController : DotNetBankingAppController
     [Consumes("application/json")]
     [Produces("application/json")]
 
-    public async Task<ActionResult<ApiResponse<GetAccountsOutput>>> GetAccounts(GetAccountsInput input)
+    public async Task<ActionResult<BaseEndpointOutput<GetAccountsOutput>>> GetAccounts(BaseEndpointInput<GetAccountsInput> input)
     {
-        ApiResponse<GetAccountsOutput> response = new ApiResponse<GetAccountsOutput>();
+        BaseEndpointOutput<GetAccountsOutput> response = new BaseEndpointOutput<GetAccountsOutput>();
 
-        var accounts = await AccountsData.GetAccountsOfUser(_context, input.UserName);
+        var accounts = await AccountsData.GetAccountsOfUser(_context, input.Data.UserName);
 
         var checkingAccounts = accounts.Where(a => a.AccountType == AccountType.Checking).ToList();
         var savinbgsAccounts = accounts.Where(a => a.AccountType == AccountType.Savings).ToList();

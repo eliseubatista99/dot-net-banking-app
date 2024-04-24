@@ -1,8 +1,7 @@
-﻿using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClient.Models;
 using System.Runtime.Serialization;
 
-namespace DotNetBankingAppClient.Services;
+namespace DotNetBankingAppClient.Api;
 
 public class ServiceSignUpOutput
 {
@@ -19,12 +18,4 @@ public class ServiceSignUpInput
     public required string Password { get; set; }
     [DataMember]
     public required string PhoneNumber { get; set; }
-}
-
-public class ServiceSignUp
-{
-    public static async Task<ApiResponse<ServiceSignUpOutput>> CallAsync(ServiceSignUpInput input)
-    {
-        return await ApiServices.Instance.CallService<ServiceSignUpInput, ServiceSignUpOutput>("SignUp", input);
-    }
 }

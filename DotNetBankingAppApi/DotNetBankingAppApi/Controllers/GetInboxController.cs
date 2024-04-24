@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Models;
-using Microsoft.AspNetCore.Authorization;
+using DotNetBankingAppApi.Models._Base;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -42,11 +42,11 @@ public class GetInboxController : DotNetBankingAppController
     [Consumes("application/json")]
     [Produces("application/json")]
 
-    public async Task<ActionResult<ApiResponse<GetInboxOutput>>> GetInbox(GetInboxInput input)
+    public async Task<ActionResult<BaseEndpointOutput<GetInboxOutput>>> GetInbox(BaseEndpointInput<GetInboxInput> input)
     {
-        ApiResponse<GetInboxOutput> response = new ApiResponse<GetInboxOutput>();
+        BaseEndpointOutput<GetInboxOutput> response = new BaseEndpointOutput<GetInboxOutput>();
 
-        var messages = await MessagesData.GetMessagesOfUser(_context, input.UserName);
+        var messages = await MessagesData.GetMessagesOfUser(_context, input.Data.UserName);
 
         var groupedMessages = new List<GetInboxMessageGroup>();
 

@@ -1,6 +1,4 @@
 ﻿using DotNetBankingAppApi.Data;
-using DotNetBankingAppApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 

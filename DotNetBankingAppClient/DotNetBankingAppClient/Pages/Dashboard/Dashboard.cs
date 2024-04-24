@@ -1,5 +1,5 @@
 ﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
+using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -9,14 +9,14 @@ public class DashboardPageLogic : ComponentBase
     [Inject]
     protected NavigationManager navManager { get; set; } = default!;
     [Inject]
-    protected IWindowHelper windowHelper { get; set; } = default!;
+    protected IAppResponsive AppResponsive { get; set; } = default!;
 
     public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 
     [Parameter]
     public string? SelectedFragment { get; set; }
 
-    public async void OnFragmentSelected(string fragment)
+    public void OnFragmentSelected(string fragment)
     {
         navManager.NavigateTo(AppPages.Dashboard + "/" + fragment, replace: true);
 
@@ -36,7 +36,7 @@ public class DashboardPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await windowHelper.ListenForResponsiveChanges(async (ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges(async (ResponsiveWindowSize size) =>
         {
             windowSize = size;
             this.StateHasChanged();

@@ -1,6 +1,7 @@
 ﻿using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Helpers;
 using DotNetBankingAppApi.Models;
+using DotNetBankingAppApi.Models._Base;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,11 +41,11 @@ public class SignInController : DotNetBankingAppController
     [Produces("application/json")]
     [AllowAnonymous]
 
-    public async Task<ActionResult<ApiResponse<SignInOutput>>> SignIn(SignInInput input)
+    public async Task<ActionResult<BaseEndpointOutput<SignInOutput>>> SignIn(BaseEndpointInput<SignInInput> input)
     {
-        ApiResponse<SignInOutput> response = new ApiResponse<SignInOutput>();
+        BaseEndpointOutput<SignInOutput> response = new BaseEndpointOutput<SignInOutput>();
 
-        var user = await UsersData.GetUserWithPassword(_context, input.UserName, input.Password);
+        var user = await UsersData.GetUserWithPassword(_context, input.Data.UserName, input.Data.Password);
 
         if (user == null)
         {

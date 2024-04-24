@@ -6,9 +6,9 @@
 <div class="inbox-fragment-content">
     <Typography classes="inbox-fragment-title">Inbox</Typography>
     <div class="inbox-fragment-messages-list">
-        @for (int i = 0; i < groupedMessages.Count; i++)
+        @for (int i = 0; i < GroupedMessages.Count; i++)
         {
-            var group = groupedMessages[i];
+            var group = GroupedMessages[i];
             var messages = group.messages;
 
             if (i != 0)

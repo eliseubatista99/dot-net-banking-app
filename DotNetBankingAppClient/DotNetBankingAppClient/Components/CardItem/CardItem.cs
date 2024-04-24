@@ -32,4 +32,9 @@ public class CardItemLogic : ComponentBase
         isHovered = false;
         this.StateHasChanged();
     }
+
+    public string GetCardName(CardTier tier)
+    {
+        return tier.ToString();
+    }
 }

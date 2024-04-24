@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
+using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -8,52 +8,52 @@ namespace DotNetBankingAppClient.Pages;
 public class CardsPageLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected NavigationManager NavManager { get; set; } = default!;
 
-    public bool isFetching { get; set; } = false;
-    public CardType selectedCardType { get; set; } = CardType.Debit;
-    private List<CardDTO> debitCards { get; set; } = new List<CardDTO>();
-    private List<CardDTO> creditCards { get; set; } = new List<CardDTO>();
-    private List<CardDTO> prePaidCards { get; set; } = new List<CardDTO>();
+    public bool IsFetching { get; set; } = false;
+    public CardType SelectedCardType { get; set; } = CardType.Debit;
+    private List<CardDTO> DebitCards { get; set; } = new List<CardDTO>();
+    private List<CardDTO> CreditCards { get; set; } = new List<CardDTO>();
+    private List<CardDTO> PrePaidCards { get; set; } = new List<CardDTO>();
 
     public void OnClickBack()
     {
-        navManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
+        NavManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
     }
 
     public void OnClickTab(CardType tab)
     {
-        selectedCardType = tab;
+        SelectedCardType = tab;
         this.StateHasChanged();
     }
 
     public List<CardDTO> GetCards()
     {
-        if (selectedCardType == CardType.Credit)
+        if (SelectedCardType == CardType.Credit)
         {
-            return creditCards;
+            return CreditCards;
         }
-        else if (selectedCardType == CardType.PrePaid)
+        else if (SelectedCardType == CardType.PrePaid)
         {
-            return prePaidCards;
+            return PrePaidCards;
         }
 
-        return debitCards;
+        return DebitCards;
     }
 
 
     protected override async Task OnInitializedAsync()
     {
-        isFetching = true;
+        IsFetching = true;
         this.StateHasChanged();
-        var cards = await browserStorage.GetFromLocalStorage<List<CardDTO>>(StoreKeys.Cards);
-        debitCards = cards.Where((card) => card.CardType == CardType.Debit).ToList();
-        creditCards = cards.Where((card) => card.CardType == CardType.Credit).ToList();
-        prePaidCards = cards.Where((card) => card.CardType == CardType.PrePaid).ToList();
+        var cards = await Store.GetData<List<CardDTO>>(StoreKeys.Cards);
+        DebitCards = cards.Where((card) => card.CardType == CardType.Debit).ToList();
+        CreditCards = cards.Where((card) => card.CardType == CardType.Credit).ToList();
+        PrePaidCards = cards.Where((card) => card.CardType == CardType.PrePaid).ToList();
 
-        isFetching = false;
+        IsFetching = false;
         this.StateHasChanged();
     }
 

@@ -1,5 +1,5 @@
-﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Api;
+using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
@@ -9,40 +9,42 @@ namespace DotNetBankingAppClient.Pages;
 public class InboxFragmentLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected IApiCommunication ApiCommunication { get; set; } = default!;
+    [Inject]
+    protected NavigationManager NavManager { get; set; } = default!;
 
-    public bool isFetching = false;
-    private UserDTO? currentUser;
-    public List<MessageDTOGroup> groupedMessages { get; set; } = new List<MessageDTOGroup>();
+    public bool IsFetching = false;
+    private UserDTO? CurrentUser;
+    public List<MessageDTOGroup> GroupedMessages { get; set; } = new List<MessageDTOGroup>();
 
     public async void OnMessageClicked(MessageDTO message)
     {
-        isFetching = true;
+        IsFetching = true;
         this.StateHasChanged();
-        await browserStorage.SetInSessionStorage("message", message);
+        await Store.CacheData("message", message);
 
-        navManager.NavigateTo(AppPages.InboxMessageDetails, replace: true);
+        NavManager.NavigateTo(AppPages.InboxMessageDetails, replace: true);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        isFetching = true;
+        IsFetching = true;
         this.StateHasChanged();
-        currentUser = await browserStorage.GetFromLocalStorage<UserDTO>("user");
+        CurrentUser = await Store.GetData<UserDTO>("user");
 
-        var result = await ServiceGetInbox.CallAsync(new ServiceGetInboxInput { UserName = currentUser.UserName });
+        var result = await ApiCommunication.CallService<ServiceGetInboxInput, ServiceGetInboxOutput>(ApiEndpoints.GetInbox, new ServiceGetInboxInput { UserName = CurrentUser.UserName });
 
         if (result.MetaData.Success)
         {
-            groupedMessages = result.Data?.GroupedMessages ?? new List<MessageDTOGroup>();
-            isFetching = false;
+            GroupedMessages = result.Data?.GroupedMessages ?? new List<MessageDTOGroup>();
+            IsFetching = false;
             this.StateHasChanged();
         }
         else
         {
-            isFetching = false;
+            IsFetching = false;
             this.StateHasChanged();
         }
     }

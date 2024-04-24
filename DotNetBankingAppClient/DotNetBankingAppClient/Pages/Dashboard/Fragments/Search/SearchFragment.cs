@@ -1,4 +1,4 @@
-﻿using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -6,7 +6,7 @@ namespace DotNetBankingAppClient.Pages;
 public class SearchFragmentLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected NavigationManager NavManager { get; set; } = default!;
 }

@@ -9,6 +9,14 @@ public enum CardType
     PrePaid,
 }
 
+public enum CardTier
+{
+    Classic,
+    Premium,
+    Carbon,
+    Stellar,
+}
+
 public class Card
 {
     [Key]
@@ -16,7 +24,7 @@ public class Card
     [Required]
     public string AccountId { get; set; } = "";
     [Required]
-    public string CardName { get; set; } = "";
+    public CardTier CardTier { get; set; } = CardTier.Classic;
     [Required]
     public CardType CardType { get; set; } = CardType.Credit;
     public string Embossing { get; set; } = "";

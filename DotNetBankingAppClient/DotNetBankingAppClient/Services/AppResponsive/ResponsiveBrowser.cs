@@ -1,29 +1,14 @@
 ﻿using Microsoft.JSInterop;
-using System.Drawing;
-using System.Text.Json;
 
-namespace DotNetBankingAppClient.Helpers
+namespace DotNetBankingAppClient.Services
 {
-    public enum ResponsiveWindowSize
-    {
-        Mobile,
-        Tablet,
-        Desktop,
-    }
-
-    public interface IWindowHelper
-    {
-        public Task Log(object value);
-        public Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback);
-    }
-
-    public class WindowHelper : IWindowHelper
+    public class ResponsiveBrowser : IAppResponsive
     {
         private readonly IJSRuntime _jsRuntime;
         private List<Action<ResponsiveWindowSize>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize>>();
         private ResponsiveWindowSize currentWindowSize = ResponsiveWindowSize.Mobile;
 
-        public WindowHelper(IJSRuntime jsRuntime)
+        public ResponsiveBrowser(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
         }
@@ -54,7 +39,7 @@ namespace DotNetBankingAppClient.Helpers
                 {
                     onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
                     currentWindowSize = size;
-                    foreach(var callback  in onWindowWidthChangedCallbacks)
+                    foreach (var callback in onWindowWidthChangedCallbacks)
                     {
                         callback(size);
                     }
@@ -65,7 +50,7 @@ namespace DotNetBankingAppClient.Helpers
         public async Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback)
         {
             onWindowWidthChangedCallbacks.Add(callback);
-            DotNetObjectReference<WindowHelper> _objectReference = DotNetObjectReference.Create(this);
+            DotNetObjectReference<ResponsiveBrowser> _objectReference = DotNetObjectReference.Create(this);
 
             int currentWidth = await _jsRuntime.InvokeAsync<int>("getWidth");
             ResponsiveWindowSize size = CalculateWindowSize(currentWidth);
@@ -73,12 +58,6 @@ namespace DotNetBankingAppClient.Helpers
 
             //Log is a function declared in index.html
             await _jsRuntime.InvokeVoidAsync("AddWindowWidthListener", _objectReference);
-        }
-
-        public async Task Log(object value)
-        {
-            //Log is a function declared in index.html
-            await _jsRuntime.InvokeVoidAsync("log", value);
         }
     }
 }

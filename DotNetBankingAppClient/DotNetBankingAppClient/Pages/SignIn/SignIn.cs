@@ -1,5 +1,5 @@
-﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
+﻿using DotNetBankingAppClient.Api;
+using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
@@ -9,9 +9,11 @@ namespace DotNetBankingAppClient.Pages;
 public class SignInPageLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected IApiCommunication ApiCommunication { get; set; } = default!;
+    [Inject]
+    protected NavigationManager NavManager { get; set; } = default!;
 
     public bool isFetching = false;
     public string userName = "";
@@ -22,7 +24,7 @@ public class SignInPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        UserDTO user = await browserStorage.GetFromLocalStorage<UserDTO>(StoreKeys.User);
+        UserDTO user = await Store.GetData<UserDTO>(StoreKeys.User);
         if (user != null)
         {
             userName = user.UserName;
@@ -48,18 +50,20 @@ public class SignInPageLogic : ComponentBase
         errorMessage = null;
         this.StateHasChanged();
 
-        var result = await ServiceSignIn.CallAsync(new ServiceSignInInput
+
+        var result = await ApiCommunication.CallService<ServiceSignInInput, ServiceSignInOutput>(ApiEndpoints.SignIn, new ServiceSignInInput
         {
             UserName = userName,
             Password = password,
         });
 
+
         if (result.MetaData.Success)
         {
-            await browserStorage.SetInLocalStorage(StoreKeys.User, result?.Data?.User);
-            await browserStorage.SetInSessionStorage(StoreKeys.AuthToken, result?.Data?.Token);
+            await Store.PersistData(StoreKeys.User, result?.Data?.User);
+            await Store.CacheData(StoreKeys.AuthToken, result?.Data?.Token);
 
-            navManager.NavigateTo(AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
+            NavManager.NavigateTo(AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
         }
         else
         {
@@ -71,6 +75,6 @@ public class SignInPageLogic : ComponentBase
 
     public void OnClickSignUpLink()
     {
-        navManager.NavigateTo(AppPages.SignUp, replace: true);
+        NavManager.NavigateTo(AppPages.SignUp, replace: true);
     }
 }

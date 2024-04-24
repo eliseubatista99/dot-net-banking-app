@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
+using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -8,11 +8,11 @@ namespace DotNetBankingAppClient.Pages;
 public class AccountsPageLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected NavigationManager NavManager { get; set; } = default!;
 
-    private UserDTO? currentUser;
+    private UserDTO? CurrentUser;
 
     public bool isFetching { get; set; } = false;
     public List<AccountDTO> checkingAccounts { get; set; } = new List<AccountDTO>();
@@ -20,7 +20,7 @@ public class AccountsPageLogic : ComponentBase
 
     public void OnClickBack()
     {
-        navManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
+        NavManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
     }
 
 
@@ -28,8 +28,8 @@ public class AccountsPageLogic : ComponentBase
     {
         isFetching = true;
         this.StateHasChanged();
-        checkingAccounts = await browserStorage.GetFromLocalStorage<List<AccountDTO>>(StoreKeys.CheckingAccounts);
-        savingAccounts = await browserStorage.GetFromLocalStorage<List<AccountDTO>>(StoreKeys.SavingAccounts);
+        checkingAccounts = await Store.GetData<List<AccountDTO>>(StoreKeys.CheckingAccounts);
+        savingAccounts = await Store.GetData<List<AccountDTO>>(StoreKeys.SavingAccounts);
 
         isFetching = false;
         this.StateHasChanged();

@@ -1,30 +1,18 @@
 ﻿using Microsoft.JSInterop;
 using System.Text.Json;
 
-namespace DotNetBankingAppClient.Helpers
+namespace DotNetBankingAppClient.Services
 {
-    public interface IBrowserStorage
-    {
-        public Task SetInLocalStorage(string key, object? value);
-        public Task SetInSessionStorage(string key, object? value);
-        public Task<T> GetFromLocalStorage<T>(string key);
-        public Task<T> GetFromSessionStorage<T>(string key);
-        public Task RemoveFromLocalStorage(string key);
-        public Task RemoveFromSessionStorage(string key);
-        public Task ClearLocalStorage();
-        public Task ClearSessionStorage();
-    }
-
-    public class BrowserStorage : IBrowserStorage
+    public class BrowserStore : IStore
     {
         private readonly IJSRuntime _jsRuntime;
 
-        public BrowserStorage(IJSRuntime jsRuntime)
+        public BrowserStore(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
         }
 
-        public async Task SetInLocalStorage(string key, object? value)
+        public async Task PersistData(string key, object? value)
         {
             string jsVal = null;
             if (value != null)
@@ -33,7 +21,7 @@ namespace DotNetBankingAppClient.Helpers
                 new object[] { key, jsVal });
         }
 
-        public async Task SetInSessionStorage(string key, object? value)
+        public async Task CacheData(string key, object? value)
         {
             string jsVal = null;
             if (value != null)
@@ -42,7 +30,7 @@ namespace DotNetBankingAppClient.Helpers
                 new object[] { key, jsVal });
         }
 
-        public async Task<T> GetFromLocalStorage<T>(string key)
+        public async Task<T> GetData<T>(string key)
         {
             string val = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", key);
             if (val == null) return default;
@@ -50,7 +38,7 @@ namespace DotNetBankingAppClient.Helpers
             return result;
         }
 
-        public async Task<T> GetFromSessionStorage<T>(string key)
+        public async Task<T> GetCachedData<T>(string key)
         {
             string val = await _jsRuntime.InvokeAsync<string>("sessionStorage.getItem", key);
             if (val == null) return default;
@@ -58,22 +46,22 @@ namespace DotNetBankingAppClient.Helpers
             return result;
         }
 
-        public async Task RemoveFromLocalStorage(string key)
+        public async Task RemoveData(string key)
         {
             await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", key);
         }
 
-        public async Task RemoveFromSessionStorage(string key)
+        public async Task RemoveCachedData(string key)
         {
             await _jsRuntime.InvokeVoidAsync("sessionStorage.removeItem", key);
         }
 
-        public async Task ClearLocalStorage()
+        public async Task ClearData()
         {
             await _jsRuntime.InvokeVoidAsync("localStorage.clear");
         }
 
-        public async Task ClearSessionStorage()
+        public async Task ClearCachedData()
         {
             await _jsRuntime.InvokeVoidAsync("sessionStorage.clear");
         }

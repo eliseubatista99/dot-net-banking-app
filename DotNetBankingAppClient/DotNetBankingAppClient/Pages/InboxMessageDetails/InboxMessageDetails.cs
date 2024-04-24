@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
 using DotNetBankingAppClient.Models;
+using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -8,24 +8,24 @@ namespace DotNetBankingAppClient.Pages;
 public class InboxMessageDetailsLogic : ComponentBase
 {
     [Inject]
-    protected IBrowserStorage browserStorage { get; set; } = default!;
+    protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected NavigationManager NavManager { get; set; } = default!;
 
-    public MessageDTO? message { get; set; }
-    public bool isFetching { get; set; } = false;
+    public MessageDTO? Message { get; set; }
+    public bool IsFetching { get; set; } = false;
 
     public void OnClickBack()
     {
-        navManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Inbox, replace: true);
+        NavManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Inbox, replace: true);
     }
 
     protected override async Task OnInitializedAsync()
     {
-        isFetching = true;
+        IsFetching = true;
         this.StateHasChanged();
-        message = await browserStorage.GetFromSessionStorage<MessageDTO>(StoreKeys.SelectedMessage);
-        isFetching = false;
+        Message = await Store.GetCachedData<MessageDTO>(StoreKeys.SelectedMessage);
+        IsFetching = false;
         this.StateHasChanged();
     }
 }

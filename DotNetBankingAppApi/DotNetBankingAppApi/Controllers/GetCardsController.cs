@@ -1,6 +1,6 @@
 ﻿using DotNetBankingAppApi.Data;
 using DotNetBankingAppApi.Models;
-using Microsoft.AspNetCore.Authorization;
+using DotNetBankingAppApi.Models._Base;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -20,9 +20,9 @@ public class GetCardsOutput
 [ApiController]
 public class GetCardsController : DotNetBankingAppController
 {
-    public GetCardsController(DatabaseContext context, IConfiguration configs): base(context, configs)
+    public GetCardsController(DatabaseContext context, IConfiguration configs) : base(context, configs)
     {
-        
+
     }
 
 
@@ -35,11 +35,11 @@ public class GetCardsController : DotNetBankingAppController
     [Consumes("application/json")]
     [Produces("application/json")]
 
-    public async Task<ActionResult<ApiResponse<GetCardsOutput>>> GetCards(GetCardsInput input)
+    public async Task<ActionResult<BaseEndpointOutput<GetCardsOutput>>> GetCards(BaseEndpointInput<GetCardsInput> input)
     {
-        ApiResponse<GetCardsOutput> response = new ApiResponse<GetCardsOutput>();
+        BaseEndpointOutput<GetCardsOutput> response = new BaseEndpointOutput<GetCardsOutput>();
 
-        var cards = await CardsData.GetCardsOfAccounts(_context, input.AccountID);
+        var cards = await CardsData.GetCardsOfAccounts(_context, input.Data.AccountID);
 
         response.SetData(new GetCardsOutput
         {

@@ -4,9 +4,9 @@
 <div class="dashboard-navigation">
     @foreach(var option in navOptions)
     {
-        bool isSelected = selectedOption == option;
+        bool isSelected = SelectedOption == option;
         string optionClassIfSelected = isSelected ? "dashboard-navigation-option-selected" : "";
-        <button class="dashboard-navigation-option @optionClassIfSelected" onclick="@(() => OnOptionSelected(option))">
+        <button class="dashboard-navigation-option @optionClassIfSelected" onclick="@(() => HandleOnOptionSelected(option))">
             <div  class="dashboard-navigation-option-icon">
                 @switch (option)
                 {

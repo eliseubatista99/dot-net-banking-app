@@ -4,7 +4,7 @@
 @inherits SignUpPageLogic
 
 <PageTitle>Banking App - Sign Up</PageTitle>
-<AppScreen title="Sign Up" variant="AppHeaderVariant.Dark" pageClasses="signUp-app-screen" contentClasses="signUp-app-screen-children" loading=@isFetching>
+<AppScreen title="Sign Up" variant="AppHeaderVariant.Dark" pageClasses="signUp-app-screen" contentClasses="signUp-app-screen-children" loading=@IsFetching>
     <div class="signUp-content">
         <Typography color="TypographyColor.Highlight" classes="signUp-title">Welcome To Dot Net Banking!</Typography>
         <Typography classes="signUp-subtitle">Create an account to get started</Typography>
@@ -12,13 +12,13 @@
         <div class="signUp-icon"></div>
 
         <div class="signUp-inputs">
-            <InputField value=@userName onChange="@OnChangeUserName" placeholder="User Name" />
-            <InputField value=@password onChange="@OnChangePassword" placeholder="Password" />
-            <InputField value=@phoneNumber onChange="@OnChangePhoneNumber" placeholder="Phone Number" />
+            <InputField value=@UserName onChange="@OnChangeUserName" placeholder="User Name" />
+            <InputField value=@Password onChange="@OnChangePassword" placeholder="Password" />
+            <InputField value=@PhoneNumber onChange="@OnChangePhoneNumber" placeholder="Phone Number" />
         </div>
-        @if(errorMessage != null)
+        @if(ErrorMessage != null)
         {
-            <Typography color="TypographyColor.Error" classes="signUp-error-message">@errorMessage</Typography>
+            <Typography color="TypographyColor.Error" classes="signUp-error-message">@ErrorMessage</Typography>
         }
 
         <div class="signUp-bottom-content" styles="">

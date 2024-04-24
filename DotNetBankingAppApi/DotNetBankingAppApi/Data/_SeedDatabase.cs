@@ -138,15 +138,15 @@ public class SeedDatabase
                  {
                      AccountId = "111111111111",
                      CardId = "CC_Classic_111111111",
-                     CardName = "Classic",
+                     CardTier = CardTier.Classic,
                      Embossing = "User One",
                      CardType = CardType.Credit,
-                    
+
                  }, new Card
                  {
                      AccountId = "111111111111",
                      CardId = "CC_Classic_222222222",
-                     CardName = "Classic",
+                     CardTier = CardTier.Classic,
                      Embossing = "User One",
                      CardType = CardType.Credit,
 
@@ -154,24 +154,24 @@ public class SeedDatabase
                  {
                      AccountId = "111111111111",
                      CardId = "CC_Premium",
-                     CardName = "Premium",
+                     CardTier = CardTier.Premium,
                      Embossing = "User One",
                      CardType = CardType.Credit,
                  }, new Card
                  {
                      AccountId = "111111111111",
                      CardId = "DBT_Carbon",
-                     CardName = "Carbon",
+                     CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.Debit,
                  }, new Card
                  {
                      AccountId = "111111111111",
                      CardId = "DBT_Stellar",
-                     CardName = "Stellar",
+                     CardTier = CardTier.Stellar,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,
                  }
-             );;
+             ); ;
     }
 }
