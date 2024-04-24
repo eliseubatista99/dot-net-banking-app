@@ -145,29 +145,82 @@ public class SeedDatabase
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Classic_222222222",
-                     CardTier = CardTier.Classic,
+                     CardId = "CC_Premium_222222222",
+                     CardTier = CardTier.Premium,
                      Embossing = "User One",
                      CardType = CardType.Credit,
 
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "CC_Premium",
-                     CardTier = CardTier.Premium,
+                     CardId = "CC_Carbon_111111111",
+                     CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.Credit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Carbon",
+                     CardId = "CC_Stellar_111111111",
+                     CardTier = CardTier.Stellar,
+                     Embossing = "User One",
+                     CardType = CardType.Credit,
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "DBT_Classic_111111111",
+                     CardTier = CardTier.Classic,
+                     Embossing = "User One",
+                     CardType = CardType.Debit,
+
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "DBT_Premium_222222222",
+                     CardTier = CardTier.Premium,
+                     Embossing = "User One",
+                     CardType = CardType.Debit,
+
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "DBT_Carbon_111111111",
                      CardTier = CardTier.Carbon,
                      Embossing = "User One",
                      CardType = CardType.Debit,
                  }, new Card
                  {
                      AccountId = "111111111111",
-                     CardId = "DBT_Stellar",
+                     CardId = "DBT_Stellar_111111111",
+                     CardTier = CardTier.Stellar,
+                     Embossing = "User One",
+                     CardType = CardType.Debit,
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "PP_Classic_111111111",
+                     CardTier = CardTier.Classic,
+                     Embossing = "User One",
+                     CardType = CardType.PrePaid,
+
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "PP_Premium_222222222",
+                     CardTier = CardTier.Premium,
+                     Embossing = "User One",
+                     CardType = CardType.PrePaid,
+
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "PP_Carbon_111111111",
+                     CardTier = CardTier.Carbon,
+                     Embossing = "User One",
+                     CardType = CardType.PrePaid,
+                 }, new Card
+                 {
+                     AccountId = "111111111111",
+                     CardId = "PP_Stellar_111111111",
                      CardTier = CardTier.Stellar,
                      Embossing = "User One",
                      CardType = CardType.PrePaid,

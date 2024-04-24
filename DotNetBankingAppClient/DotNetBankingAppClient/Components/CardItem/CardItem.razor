@@ -1,6 +1,18 @@
 ﻿@namespace DotNetBankingAppClient.Components
 @inherits CardItemLogic
 
-<button class="card-item" type="button" onclick="@HandleOnItemClicked" onmouseover="@HandleOnItemHovered" onmouseout="@HandleOnItemUnhovered">
-    <p>@GetCardName(card.CardTier)</p>
+<button class="card-item @Classes" type="button" onclick="@HandleOnItemClicked" onmouseover="@HandleOnItemHovered" onmouseout="@HandleOnItemUnhovered" style="background: @Card.GetCardColors()">
+    <div class="card-item-icons">
+        <div class="card-item-chip-icon">
+            <IconCPU />
+        </div>
+        <div class="card-item-contactLess-icon">
+            <IconWifi />
+        </div>
+    </div>
+    <div class="card-item-details">
+        <p class="card-item-details-number">@Card.CardId</p>
+        <p class="card-item-details-embossing">@Card.Embossing</p>
+    </div>
+   
 </button>

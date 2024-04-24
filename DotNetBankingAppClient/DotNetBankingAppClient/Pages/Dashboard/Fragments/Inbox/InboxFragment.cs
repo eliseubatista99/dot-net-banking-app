@@ -23,7 +23,7 @@ public class InboxFragmentLogic : ComponentBase
     {
         IsFetching = true;
         this.StateHasChanged();
-        await Store.CacheData("message", message);
+        await Store.CacheData(StoreKeys.SelectedMessage, message);
 
         NavManager.NavigateTo(AppPages.InboxMessageDetails, replace: true);
     }
@@ -32,7 +32,7 @@ public class InboxFragmentLogic : ComponentBase
     {
         IsFetching = true;
         this.StateHasChanged();
-        CurrentUser = await Store.GetData<UserDTO>("user");
+        CurrentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
         var result = await ApiCommunication.CallService<ServiceGetInboxInput, ServiceGetInboxOutput>(ApiEndpoints.GetInbox, new ServiceGetInboxInput { UserName = CurrentUser.UserName });
 

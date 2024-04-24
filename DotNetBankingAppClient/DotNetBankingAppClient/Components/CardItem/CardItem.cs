@@ -6,30 +6,33 @@ namespace DotNetBankingAppClient.Components;
 public class CardItemLogic : ComponentBase
 {
     [Parameter]
-    public required CardDTO card { get; set; }
+    public required CardDTO Card { get; set; }
 
     [Parameter]
-    public Action? onClick { get; set; }
+    public Action? OnClick { get; set; }
 
-    public bool isHovered { get; set; } = false;
+    public bool IsHovered { get; set; } = false;
+
+    [Parameter]
+    public string Classes { get; set; } = "";
 
     public void HandleOnItemClicked()
     {
-        if (onClick != null)
+        if (OnClick != null)
         {
-            onClick();
+            OnClick();
         }
     }
 
     public void HandleOnItemHovered()
     {
-        isHovered = true;
+        IsHovered = true;
         this.StateHasChanged();
     }
 
     public void HandleOnItemUnhovered()
     {
-        isHovered = false;
+        IsHovered = false;
         this.StateHasChanged();
     }
 
@@ -37,4 +40,5 @@ public class CardItemLogic : ComponentBase
     {
         return tier.ToString();
     }
+
 }

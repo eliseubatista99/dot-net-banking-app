@@ -5,7 +5,10 @@
 
 <div class="home-fragment-content">
 
-    <div style="width: 100%; min-height: 200px; background: #0a0a0a; border-radius: 16px;"></div>
+    @if(DisplayCard != null)
+    {
+        <CardItem Card=@DisplayCard Classes="dashboard-display-card"/>
+    }
     <div class="home-fragment-navigation-items-list">
         @foreach (var item in HomeFragmentItems)
         {

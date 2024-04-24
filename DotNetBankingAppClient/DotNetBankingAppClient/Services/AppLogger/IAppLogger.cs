@@ -2,6 +2,6 @@
 {
     public interface IAppLogger
     {
-        public Task Log(object value);
+        public Task Log(string value);
     }
 }

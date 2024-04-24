@@ -12,4 +12,9 @@ public class MessageDTO
     public string Subject { get; set; } = "";
     public string Content { get; set; } = "";
     public DateTime Date { get; set; } = DateTime.Now;
+
+    public override string ToString()
+    {
+        return "Message: {\nSubject: " + Subject + ",\nContent: " + Content + "\nDate: " + Date.ToString() + "\n}";
+    }
 }

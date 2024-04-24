@@ -9,6 +9,8 @@
     public class BaseEndpointInputMetaData
     {
         public Language Language { get; set; }
+        public string? Token { get; set; }
+
     }
 
     public class BaseEndpointOutputMetaData
