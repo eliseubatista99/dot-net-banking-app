@@ -1,4 +1,12 @@
 ﻿.carousel {
     width: 100%;
+    overflow: visible;
+}
+
+.carousel-track {
+    width: 100%;
     flex-direction: row;
+    overflow-x: auto;
+    padding: 0 24px;
+    gap: 20px;
 }

@@ -3,21 +3,21 @@
 
 <PageTitle>Banking App - Home</PageTitle>
 
-<div class="home-fragment-content">
-
+<div class="home-fragment">
     <Carousel>
         <Elements>
-            @foreach(var card in Cards)
+            @foreach (var card in Cards)
             {
                 <CardItem Card=@card Classes="dashboard-display-card" />
             }
         </Elements>
     </Carousel>
-
-    <div class="home-fragment-navigation-items-list">
-        @foreach (var item in HomeFragmentItems)
-        {
-            <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
-        }
+    <div class="home-fragment-content">
+        <div class="home-fragment-navigation-items-list">
+            @foreach (var item in HomeFragmentItems)
+            {
+                <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
+            }
+        </div>
     </div>
 </div>
