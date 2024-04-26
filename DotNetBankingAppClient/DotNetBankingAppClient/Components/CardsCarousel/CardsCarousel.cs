@@ -8,12 +8,7 @@ namespace DotNetBankingAppClient.Components;
 public class CardsCarouselLogic : ComponentBase
 {
     [Inject]
-    public IAppResponsive AppResponsive { get; set; } = default!;
-
-    [Inject]
     public IAppLogger Logger { get; set; } = default!;
-
-    public ElementReference CarouselRef;
 
     [Parameter]
     public required Action<int> OnChange { get; set; }
@@ -25,20 +20,14 @@ public class CardsCarouselLogic : ComponentBase
     public required List<CardDTO> Cards { get; set; } = new List<CardDTO>();
 
     [Parameter]
-    public int? SideSpacing { get; set; } = 24;
-    [Parameter]
     public int? Gap { get; set; } = 20;
 
-    [Parameter]
-    public bool? FullWidthItem { get; set; } = true;
 
     [Parameter]
     public string? Classes { get; set; }
 
     [Parameter]
     public int ItemWidth { get; set; } = 300;
-
-    private int TotalWidth { get; set; } = 400;
 
     private double? _xDown;
     private double? _yDown;
@@ -201,21 +190,10 @@ public class CardsCarouselLogic : ComponentBase
 
     public float CalculateHorizontalTranslation()
     {
-        Logger.Log("ZAU " + CarouselRef);
-        float differenceInSpacing = (TotalWidth - ItemWidth) / 2;
         int gapValue = (SelectedCard * (Gap ?? 0));
 
         int itemValue = SelectedCard * ItemWidth;
 
-        return differenceInSpacing - itemValue - gapValue;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size, int width) =>
-        {
-            var space = GetSideSpacing();
-            TotalWidth = width;
-        });
+        return -itemValue - gapValue;
     }
 }

@@ -1,7 +1,7 @@
 ﻿@namespace DotNetBankingAppClient.Components
 @inherits CardsCarouselLogic
 
-<div @ref=CarouselRef class="cards-carousel">
+<div class="cards-carousel @Classes">
     <div class="cards-carousel-container" 
          ontouchstart=@OnTouchStart ontouchstart:stopPropagation
          ontouchend=@OnTouchEnd ontouchend:stopPropagation
@@ -26,7 +26,11 @@
                     var card = cardsToDisplay[i];
 
                     
-                    <div class="cards-carousel-wrapper" style=@("min-width: "+ ItemWidth + "px;" + "max-width: " + ItemWidth + "px;")>
+                    <div class="cards-carousel-wrapper" style=@(
+                        "min-width: "+ ItemWidth + "px;" +
+                        "max-width: " + ItemWidth + "px;" + 
+                        "margin-left: " + (i==0? "calc(50% - " + ItemWidth/2 + "px)" : "0px") + ";"
+                    )>
                         <CardItem Card=@card Classes="cards-carousel-item" />
                     </div>
                     

@@ -18,6 +18,9 @@ public class CardsPageLogic : ComponentBase
     private List<CardDTO> CreditCards { get; set; } = new List<CardDTO>();
     private List<CardDTO> PrePaidCards { get; set; } = new List<CardDTO>();
 
+    public int SelectedCard { get; set; } = 0;
+
+
     public void OnClickBack()
     {
         NavManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
@@ -43,6 +46,22 @@ public class CardsPageLogic : ComponentBase
         return DebitCards;
     }
 
+    public void OnCardSelected(int index)
+    {
+        var newIndex = index;
+        var currentCards = GetCards();
+
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+        else if (currentCards != null && newIndex > currentCards.Count - 1)
+        {
+            newIndex = currentCards.Count - 1;
+        }
+        SelectedCard = newIndex;
+        this.StateHasChanged();
+    }
 
     protected override async Task OnInitializedAsync()
     {
