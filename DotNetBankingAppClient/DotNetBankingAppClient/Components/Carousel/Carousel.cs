@@ -1,11 +1,10 @@
-﻿using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
+﻿using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 namespace DotNetBankingAppClient.Components;
 
-public class CardsCarouselLogic : ComponentBase
+public class CarouselLogic : ComponentBase
 {
     [Inject]
     public IAppLogger Logger { get; set; } = default!;
@@ -14,14 +13,10 @@ public class CardsCarouselLogic : ComponentBase
     public required Action<int> OnChange { get; set; }
 
     [Parameter]
-    public required int SelectedCard { get; set; } = 0;
-
-    [Parameter]
-    public required List<CardDTO> Cards { get; set; } = new List<CardDTO>();
+    public required int Value { get; set; } = 0;
 
     [Parameter]
     public int? Gap { get; set; } = 20;
-
 
     [Parameter]
     public string? Classes { get; set; }
@@ -29,14 +24,12 @@ public class CardsCarouselLogic : ComponentBase
     [Parameter]
     public int ItemWidth { get; set; } = 300;
 
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     private double? _xDown;
     private double? _yDown;
 
-
-    public List<CardDTO> GetCards()
-    {
-        return Cards ?? new List<CardDTO>();
-    }
 
     private void HandleInteractionStart(double posX, double posY)
     {
@@ -71,14 +64,14 @@ public class CardsCarouselLogic : ComponentBase
             if (xDiff > 0)
             {
                 Logger.Log("Swipe left");
-                OnChange(SelectedCard + 1);
+                OnChange(Value + 1);
 
                 //InvokeAsync(() => OnSwipe(SwipeDirection.RightToLeft));
             }
             else
             {
                 Logger.Log("Swipe right");
-                OnChange(SelectedCard - 1);
+                OnChange(Value - 1);
 
                 //InvokeAsync(() => OnSwipe(SwipeDirection.LeftToRight));
             }
@@ -126,68 +119,15 @@ public class CardsCarouselLogic : ComponentBase
 
     public void OnMouseEnd(MouseEventArgs args)
     {
-        if (OnChange == null)
-        {
-            return;
-        }
+        HandleInteractionEnd(args.ClientX, args.ClientY);
 
-        if (_xDown == null || _yDown == null)
-        {
-            return;
-        }
-
-        var xDiff = _xDown.Value - args.ClientX;
-        var yDiff = _yDown.Value - args.ClientY;
-
-        if (Math.Abs(xDiff) < 100 && Math.Abs(yDiff) < 100)
-        {
-            _xDown = null;
-            _yDown = null;
-            return;
-        }
-
-        if (Math.Abs(xDiff) > Math.Abs(yDiff))
-        {
-            if (xDiff > 0)
-            {
-                Logger.Log("Swipe left");
-                OnChange(SelectedCard + 1);
-
-                //InvokeAsync(() => OnSwipe(SwipeDirection.RightToLeft));
-            }
-            else
-            {
-                Logger.Log("Swipe right");
-                OnChange(SelectedCard - 1);
-
-                //InvokeAsync(() => OnSwipe(SwipeDirection.LeftToRight));
-            }
-        }
-        else
-        {
-            if (yDiff > 0)
-            {
-                Logger.Log("Swipe up");
-                //InvokeAsync(() => OnSwipe(SwipeDirection.BottomToTop));
-            }
-            else
-            {
-                Logger.Log("Swipe down");
-
-                //InvokeAsync(() => OnSwipe(SwipeDirection.TopToBottom));
-            }
-        }
-
-        _xDown = null;
-        _yDown = null;
     }
-
 
     public float CalculateHorizontalTranslation()
     {
-        int gapValue = (SelectedCard * (Gap ?? 0));
+        int gapValue = (Value * (Gap ?? 0));
 
-        int itemValue = SelectedCard * ItemWidth;
+        int itemValue = Value * ItemWidth;
 
         return -itemValue - gapValue;
     }

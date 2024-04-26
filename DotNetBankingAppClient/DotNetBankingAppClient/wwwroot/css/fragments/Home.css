@@ -33,9 +33,6 @@
 }
 
 .home-fragment {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    background: #ffffff;
     width: 100%;
     flex: 1;
     padding: 24px 0;

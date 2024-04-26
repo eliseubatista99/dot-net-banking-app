@@ -1,42 +1,27 @@
 ﻿@namespace DotNetBankingAppClient.Components
 @inherits CardsCarouselLogic
 
-<div class="cards-carousel @Classes">
-    <div class="cards-carousel-container" 
-         ontouchstart=@OnTouchStart ontouchstart:stopPropagation
-         ontouchend=@OnTouchEnd ontouchend:stopPropagation
-         ontouchcancel=@OnTouchCancel ontouchcancel:stopPropagation
-         onmousedown=@OnMouseStart onmousedown:stopPropagation
-         onmouseup=@OnMouseEnd onmouseup:stopPropagation
-    >
-        <div class="cards-carousel-track"  
-                
-                style=@(
-                "transform: translateX(" + CalculateHorizontalTranslation() + "px);" + 
-                "gap: " + Gap + "px;"
-                )
-        
-        
-        >
-            @{
-                var cardsToDisplay = GetCards();
 
-                for (int i = 0; i < cardsToDisplay.Count; i++)
-                {
-                    var card = cardsToDisplay[i];
 
-                    
-                    <div class="cards-carousel-wrapper" style=@(
-                        "min-width: "+ ItemWidth + "px;" +
-                        "max-width: " + ItemWidth + "px;" + 
-                        "margin-left: " + (i==0? "calc(50% - " + ItemWidth/2 + "px)" : "0px") + ";"
-                    )>
-                        <CardItem Card=@card Classes="cards-carousel-item" />
-                    </div>
-                    
-                }
-            }
-        </div>
-    </div>
+
+@{
+    var cardsToDisplay = GetCards();
+
+    <Carousel Value=@SelectedCard OnChange=@OnChange>
+        @for (int i = 0; i < cardsToDisplay.Count; i++)
+        {
+            var card = cardsToDisplay[i];
+
+
+            <div class="cards-carousel-wrapper" style=@(
+             "min-width: "+ ItemWidth + "px;" +
+             "max-width: " + ItemWidth + "px;" +
+             "margin-left: " + (i==0? "calc(50% - " + ItemWidth/2 + "px)" : "0px") + ";"
+             )>
+                <CardItem Card=@card Classes="cards-carousel-item" />
+            </div>
+
+        }
+    </Carousel>
     
-</div>
+}

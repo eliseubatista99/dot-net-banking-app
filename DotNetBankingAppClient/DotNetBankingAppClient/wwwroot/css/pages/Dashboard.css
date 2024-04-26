@@ -1,5 +1,5 @@
 ﻿.dashboard-app-screen {
-    background: #0077d1 !important;
+    background: var(--app-background-color) !important;
     padding: 0 !important;
     max-height: 100%;
     flex: 1;
@@ -71,30 +71,24 @@
     padding: 20px 20px;
     align-items: center;
     display: grid;
-    grid-template-columns: 40px auto 40px;
+    grid-template-columns: auto 40px;
 }
 
 .dashboard-header-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #212121;
+    background: #00000000;
     align-items: flex-start;
     margin-right: auto;
     object-fit: contain;
+    margin-left: auto;
+    align-items: flex-end;
 }
 
 .dashboard-header-title {
     padding: 0 20px;
     font-size: 18px;
-}
-
-.dashboard-header-notifications {
-    width: 25px;
-    height: 25px;
-    color: #ffffff;
-    margin-left: auto;
-    align-items: flex-end;
 }
 
 .dashboard-display-card {

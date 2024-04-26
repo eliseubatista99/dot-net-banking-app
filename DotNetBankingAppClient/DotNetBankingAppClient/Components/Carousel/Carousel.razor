@@ -1,0 +1,25 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits CarouselLogic
+
+<div class="carousel @Classes">
+    <div class="carousel-container" 
+         ontouchstart=@OnTouchStart ontouchstart:stopPropagation
+         ontouchend=@OnTouchEnd ontouchend:stopPropagation
+         ontouchcancel=@OnTouchCancel ontouchcancel:stopPropagation
+         onmousedown=@OnMouseStart onmousedown:stopPropagation
+         onmouseup=@OnMouseEnd onmouseup:stopPropagation
+    >
+        <div class="carousel-track"  
+                
+                style=@(
+                "transform: translateX(" + CalculateHorizontalTranslation() + "px);" + 
+                "gap: " + Gap + "px;"
+                )
+        
+        
+        >
+            @ChildContent
+        </div>
+    </div>
+    
+</div>
