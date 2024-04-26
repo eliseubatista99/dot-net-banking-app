@@ -8,8 +8,20 @@ public class CarouselLogic : ComponentBase
     public Action<int, object>? OnChange { get; set; }
 
     [Parameter]
-    public required RenderFragment Elements { get; set; }
+    public RenderFragment Elements { get; set; }
 
     [Parameter]
     public string? Classes { get; set; }
+    [Parameter]
+    public Func<RenderFragment>? RenderContent { get; set; }
+
+    public RenderFragment? RenderCarouselItem()
+    {
+        if (RenderContent != null)
+        {
+            return RenderContent();
+        }
+
+        return null;
+    }
 }

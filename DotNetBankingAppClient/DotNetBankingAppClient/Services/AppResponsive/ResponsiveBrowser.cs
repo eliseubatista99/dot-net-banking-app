@@ -13,7 +13,7 @@ namespace DotNetBankingAppClient.Services
             _jsRuntime = jsRuntime;
         }
 
-        private ResponsiveWindowSize CalculateWindowSize(int windowWidth)
+        public ResponsiveWindowSize CalculateWindowSize(int windowWidth)
         {
             ResponsiveWindowSize size = ResponsiveWindowSize.Mobile;
             if (windowWidth > 768)
@@ -37,11 +37,16 @@ namespace DotNetBankingAppClient.Services
 
                 if (size != currentWindowSize)
                 {
-                    onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
                     currentWindowSize = size;
-                    foreach (var callback in onWindowWidthChangedCallbacks)
+                    for (int i = 0; i < onWindowWidthChangedCallbacks.Count; i++)
                     {
-                        callback(size);
+                        var callback = onWindowWidthChangedCallbacks[i];
+
+                        if (callback != null)
+                        {
+                            callback(size);
+
+                        }
                     }
                 }
             }
@@ -49,6 +54,7 @@ namespace DotNetBankingAppClient.Services
 
         public async Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback)
         {
+            onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
             onWindowWidthChangedCallbacks.Add(callback);
             DotNetObjectReference<ResponsiveBrowser> _objectReference = DotNetObjectReference.Create(this);
 

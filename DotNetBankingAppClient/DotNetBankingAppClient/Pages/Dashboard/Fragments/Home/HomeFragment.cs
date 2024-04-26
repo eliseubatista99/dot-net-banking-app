@@ -22,11 +22,8 @@ public class HomeFragmentLogic : ComponentBase
     protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
     protected IAppNavigation NavManager { get; set; } = default!;
-    [Inject]
-    protected IAppResponsive AppResponsive { get; set; } = default!;
 
     public bool IsFetching { get; set; } = false;
-    public ResponsiveWindowSize WindowSize = ResponsiveWindowSize.Mobile;
 
     public List<CardDTO>? Cards { get; set; }
 
@@ -110,11 +107,6 @@ public class HomeFragmentLogic : ComponentBase
     {
         IsFetching = true;
 
-        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
-        {
-            WindowSize = size;
-            this.StateHasChanged();
-        });
 
         this.StateHasChanged();
         var currentUser = await Store.GetData<UserDTO>(StoreKeys.User);
