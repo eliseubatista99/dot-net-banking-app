@@ -11,6 +11,7 @@
     {
         public ResponsiveWindowSize CalculateWindowSize(int windowWidth);
         public ResponsiveWindowSize GetCurrentSize();
-        public Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback);
+        public Task<int> GetWindowWidth();
+        public Task ListenForResponsiveChanges(Action<ResponsiveWindowSize, int> callback);
     }
 }

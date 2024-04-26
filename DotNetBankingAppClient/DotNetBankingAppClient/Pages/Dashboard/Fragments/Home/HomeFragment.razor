@@ -3,23 +3,15 @@
 
 <PageTitle>Banking App - Home</PageTitle>
 
-<ResponsiveRenderer>
-    <MobileContent>
-        <div class="home-fragment">
-            <Carousel />
+<div class="home-fragment">
+    <CardsCarousel Cards=@Cards SelectedCard=@SelectedCard OnChange=@OnCardSelected/>
 
-            <div class="home-fragment-content">
-                <div class="home-fragment-navigation-items-list">
-                    @foreach (var item in HomeFragmentItems)
-                    {
-                        <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
-                    }
-                </div>
-            </div>
+    <div class="home-fragment-content">
+        <div class="home-fragment-navigation-items-list">
+            @foreach (var item in HomeFragmentItems)
+            {
+                <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
+            }
         </div>
-
-    </MobileContent>
-    <TabletContent>Tablet</TabletContent>
-    <DesktopContent>Desktop</DesktopContent>
-</ResponsiveRenderer>
-
+    </div>
+</div>

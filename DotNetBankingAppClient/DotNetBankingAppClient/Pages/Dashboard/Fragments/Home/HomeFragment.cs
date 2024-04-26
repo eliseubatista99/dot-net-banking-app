@@ -26,6 +26,7 @@ public class HomeFragmentLogic : ComponentBase
     public bool IsFetching { get; set; } = false;
 
     public List<CardDTO>? Cards { get; set; }
+    public int SelectedCard { get; set; } = 0;
 
     public HomeFragmentItems[] HomeFragmentItems = [
        new HomeFragmentItems {
@@ -96,11 +97,20 @@ public class HomeFragmentLogic : ComponentBase
         return cards;
     }
 
-    public void OnCarouselChange(int index, object item)
+    public void OnCardSelected(int index)
     {
-        CardDTO card = (CardDTO)item;
+        var newIndex = index;
 
-        Logger.Log(card?.ToString() ?? "null");
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+        else if (Cards != null && newIndex > Cards.Count - 1)
+        {
+            newIndex = Cards.Count - 1;
+        }
+        SelectedCard = newIndex;
+        this.StateHasChanged();
     }
 
     protected override async Task OnInitializedAsync()

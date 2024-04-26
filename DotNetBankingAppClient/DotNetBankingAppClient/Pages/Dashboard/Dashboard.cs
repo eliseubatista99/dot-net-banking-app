@@ -36,7 +36,7 @@ public class DashboardPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await AppResponsive.ListenForResponsiveChanges(async (ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges(async (ResponsiveWindowSize size, int _) =>
         {
             windowSize = size;
             this.StateHasChanged();

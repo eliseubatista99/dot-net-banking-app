@@ -52,7 +52,7 @@ public class DashboardNavigationLogic : ComponentBase
 
         //selectedOption = GetOptionFromUrl();
 
-        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size, int _) =>
         {
             windowSize = size;
             this.StateHasChanged();

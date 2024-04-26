@@ -1,0 +1,25 @@
+﻿.cards-carousel {
+    width: 100%;
+    overflow: hidden;
+}
+
+.cards-carousel-container {
+    width: 100%;
+    overflow: visible;
+}
+
+.cards-carousel-track {
+    min-width: 100%;
+    flex-direction: row;
+    overflow: visible;
+    transition: transform .3s ease;
+}
+
+.cards-carousel-wrapper {
+    width: 100%;
+}
+
+
+.cards-carousel-item {
+    width: 100%;
+}

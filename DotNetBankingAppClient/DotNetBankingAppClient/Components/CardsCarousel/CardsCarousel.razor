@@ -1,0 +1,36 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits CardsCarouselLogic
+
+<div class="cards-carousel">
+    <div class="cards-carousel-container" 
+         @ontouchstart="OnTouchStart" @ontouchstart:stopPropagation
+         @ontouchend="OnTouchEnd" @ontouchend:stopPropagation
+         @ontouchcancel="OnTouchCancel" @ontouchcancel:stopPropagation
+    >
+        <div class="cards-carousel-track"  
+                
+                style=@(
+                "transform: translateX(" + CalculateHorizontalTranslation() + "px);" + 
+                "gap: " + Gap + "px;"
+                )
+        
+        
+        >
+            @{
+                var cardsToDisplay = GetCards();
+
+                for (int i = 0; i < cardsToDisplay.Count; i++)
+                {
+                    var card = cardsToDisplay[i];
+
+                    
+                    <div class="cards-carousel-wrapper" style=@("min-width: "+ ItemWidth + "px;" + "max-width: " + ItemWidth + "px;")>
+                        <CardItem Card=@card Classes="cards-carousel-item" />
+                    </div>
+                    
+                }
+            }
+        </div>
+    </div>
+    
+</div>
