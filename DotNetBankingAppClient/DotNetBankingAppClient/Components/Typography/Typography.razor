@@ -1,6 +1,9 @@
 ﻿@namespace DotNetBankingAppClient.Components
 @inherits TypographyLogic
 
-<p class="typography @GetClasses()">
+<p class="typography @GetClasses()" 
+    style=@("cursor: " + (OnClick != null? "pointer" : "auto") + ";" + 
+    @Styles)
+>
     @ChildContent
 </p>

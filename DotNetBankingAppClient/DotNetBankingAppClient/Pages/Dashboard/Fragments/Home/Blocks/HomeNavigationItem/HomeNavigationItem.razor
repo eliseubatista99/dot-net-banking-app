@@ -2,38 +2,41 @@
 @inherits HomeNavigationItemLogic
 
 <div class="home-fragment-navigation-item" onclick="@(() => OnItemClicked())">
-    <div class="home-fragment-navigation-item-icon">
-        @switch (path)
-        {
-            case AppPages.Accounts:
-                <IconFilePerson />
-                break;
-            case AppPages.Transfer:
-                <IconSend />
-                break;
-            case AppPages.PayMobile:
-                <IconPhone />
-                break;
-            case AppPages.PayBill:
-                <IconCash />
-                break;
-            case AppPages.Savings:
-                <IconPiggyBank />
-                break;
-            case AppPages.Cards:
-                <IconCreditCard />
-                break;
-            case AppPages.Transactions:
-                <IconPaperNotes />
-                break;
-            case AppPages.Beneficiaries:
-                <IconPersonRaisedHand />
-                break;
-            default:
-                <div />
-                break;
-        }
+    <div class="home-fragment-navigation-item-icon-container">
+        <div class="home-fragment-navigation-item-icon">
+            @switch (path)
+            {
+                case AppPages.Accounts:
+                    <IconFilePerson />
+                    break;
+                case AppPages.Transfer:
+                    <IconSend />
+                    break;
+                case AppPages.PayMobile:
+                    <IconPhone />
+                    break;
+                case AppPages.PayBill:
+                    <IconCash />
+                    break;
+                case AppPages.Savings:
+                    <IconPiggyBank />
+                    break;
+                case AppPages.Cards:
+                    <IconCreditCard />
+                    break;
+                case AppPages.Transactions:
+                    <IconPaperNotes />
+                    break;
+                case AppPages.Beneficiaries:
+                    <IconPersonRaisedHand />
+                    break;
+                default:
+                    <div />
+                    break;
+            }
+        </div>
     </div>
+    
    
     <Typography classes="home-fragment-navigation-item-text">@name</Typography>
 </div>

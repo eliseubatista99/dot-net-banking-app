@@ -23,10 +23,13 @@ html {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    --app-background-color: #0d1f3c;
-    --app-text-highlight-color: #61add6;
-    --app-text-primary-100-color: #ffffff;
-    --app-text-primary-80-color: #d1d1d1;
+    --app-background-01-color: #0d1f3c;
+    --app-background-02-color: #1d3f57;
+    --app-background-03-color: #162a43;
+    --app-text-highlight-01-color: #61add6;
+    --app-text-default-01-color: #ffffff;
+    --app-text-default-02-color: #d1d1d1;
+    --app-text-error-01-color: #c63030;
 }
 
 body {

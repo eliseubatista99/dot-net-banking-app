@@ -7,31 +7,31 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    background: var(--app-background-color);
+    background: var(--app-background-01-color);
 }
 
 .account-item-name {
-    color: var(--app-text-highlight-color);
+    color: var(--app-text-highlight-01-color);
     font-size: 18px;
     font-weight: 700;
 }
 
 .account-item-number {
-    color: var(--app-text-primary-80-color);
+    color: var(--app-text-default-02-color);
     font-size: 15px;
     font-weight: 500;
     margin-top: 8px;
 }
 
 .account-item-type {
-    color: var(--app-text-primary-80-color);
+    color: var(--app-text-default-02-color);
     font-size: 15px;
     font-weight: 400;
     margin-top: 4px;
 }
 
 .account-item-balance {
-    color: var(--app-text-primary-100-color);
+    color: var(--app-text-default-01-color);
     font-size: 18px;
     font-weight: 700;
     margin-top: 12px;

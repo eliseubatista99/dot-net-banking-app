@@ -25,6 +25,12 @@ public class TypographyLogic : ComponentBase
     public string? classes { get; set; } = "";
 
     [Parameter]
+    public string? Styles { get; set; } = "";
+
+    [Parameter]
+    public Action? OnClick { get; set; }
+
+    [Parameter]
     public TypographyOverflow overflowMode { get; set; } = TypographyOverflow.LineBreak;
 
     [Parameter]

@@ -6,12 +6,24 @@
 <div class="home-fragment">
     <AccountsCarousel Items=@Accounts Value=@SelectedAccount OnChange=@OnAccountSelected/>
 
-    <div class="home-fragment-content">
-        <div class="home-fragment-navigation-items-list">
-            @foreach (var item in HomeFragmentItems)
-            {
-                <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
-            }
-        </div>
+    <div class="home-fragment-navigation-items-list">
+        @foreach (var item in HomeFragmentItems)
+        {
+            <HomeNavigationItem name="@item.name" path="@item.path" OnClickItem="@OnClickItem" />
+        }
     </div>
+
+    <div class="home-fragment-content">
+        <div class="home-fragment-transactions-section">
+            <div class="home-fragment-transactions-section-heading">
+                <Typography Classes="home-fragment-transactions-section-heading-text">Last transactions</Typography>
+                <Typography color=@TypographyColor.Highlight OnClick=@OnClickSeeAllTransactions Classes="home-fragment-transactions-section-heading-action">See all</Typography>
+            </div>
+
+            <div class="home-fragment-transactions-section-list">
+            </div>
+        </div>
+       
+    </div>
+
 </div>

@@ -114,6 +114,11 @@ public class HomeFragmentLogic : ComponentBase
         this.StateHasChanged();
     }
 
+    public void OnClickSeeAllTransactions()
+    {
+
+    }
+
     protected override async Task OnInitializedAsync()
     {
         IsFetching = true;

@@ -4,6 +4,7 @@
     height: fit-content;
     width: fit-content;
     max-width: 100%;
+    color: var(--app-text-default-01-color);
 }
 
 .typography-overflow-ellipsis {
@@ -13,11 +14,11 @@
 }
 
 .typography-color-highlight {
-    color: var(--app-text-highlight-color);
+    color: var(--app-text-highlight-01-color);
 }
 
 .typography.error {
-    color: #c63030;
+    color: var(--app-text-error-01-color);
 }
 
 .typography-color-dark {
