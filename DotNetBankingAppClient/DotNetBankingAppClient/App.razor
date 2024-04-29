@@ -1,4 +1,7 @@
 ﻿@inject IAppNavigation NavManager;
+@inject IStore Store;
+@inject IAppResponsive AppResponsive;
+@inject IAppLogger Logger;
 
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
@@ -16,6 +19,12 @@
 @code {
     protected override void OnInitialized()
     {
+        AppResponsive.ListenForResponsiveChanges(async (size, width) =>
+        {
+            await Store.CacheData(StoreKeys.Responsive, size);
+            await Store.CacheData(StoreKeys.WindowWidth, width);
+        });
+
         NavManager.NavigateTo("/", replace: true);
     }
 }

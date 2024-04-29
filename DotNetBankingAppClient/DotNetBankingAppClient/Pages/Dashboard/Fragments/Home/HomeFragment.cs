@@ -25,8 +25,9 @@ public class HomeFragmentLogic : ComponentBase
 
     public bool IsFetching { get; set; } = false;
 
+    public List<AccountDTO>? Accounts { get; set; }
     public List<CardDTO>? Cards { get; set; }
-    public int SelectedCard { get; set; } = 0;
+    public int SelectedAccount { get; set; } = 0;
 
     public HomeFragmentItems[] HomeFragmentItems = [
        new HomeFragmentItems {
@@ -97,7 +98,7 @@ public class HomeFragmentLogic : ComponentBase
         return cards;
     }
 
-    public void OnCardSelected(int index)
+    public void OnAccountSelected(int index)
     {
         var newIndex = index;
 
@@ -109,7 +110,7 @@ public class HomeFragmentLogic : ComponentBase
         {
             newIndex = Cards.Count - 1;
         }
-        SelectedCard = newIndex;
+        SelectedAccount = newIndex;
         this.StateHasChanged();
     }
 
@@ -121,9 +122,9 @@ public class HomeFragmentLogic : ComponentBase
         this.StateHasChanged();
         var currentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
-        var accounts = await GetAllAccounts(currentUser);
-        var checkingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
-        var savingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
+        Accounts = await GetAllAccounts(currentUser);
+        var checkingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
+        var savingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
 
         await Store.PersistData(StoreKeys.CheckingAccounts, checkingAccounts);
         await Store.PersistData(StoreKeys.SavingAccounts, savingAccounts);

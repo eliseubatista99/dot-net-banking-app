@@ -9,6 +9,9 @@ public class AccountsCarouselLogic : ComponentBase
     [Inject]
     public IAppLogger Logger { get; set; } = default!;
 
+    [Inject]
+    public IAppResponsive AppResponsive { get; set; } = default!;
+
     [Parameter]
     public required Action<int> OnChange { get; set; }
 
@@ -16,21 +19,22 @@ public class AccountsCarouselLogic : ComponentBase
     public required int Value { get; set; } = 0;
 
     [Parameter]
-    public required List<CardDTO> Items { get; set; } = new List<CardDTO>();
+    public required List<AccountDTO> Items { get; set; } = new List<AccountDTO>();
 
     [Parameter]
     public int? Gap { get; set; } = 20;
 
-
     [Parameter]
     public string? Classes { get; set; }
 
-    [Parameter]
     public int ItemWidth { get; set; } = 300;
 
+    [Parameter]
+    public bool FullWidthItem { get; set; } = true;
 
-    public List<CardDTO> GetItems()
+    public List<AccountDTO> GetItems()
     {
-        return Items ?? new List<CardDTO>();
+        return Items ?? new List<AccountDTO>();
     }
+
 }

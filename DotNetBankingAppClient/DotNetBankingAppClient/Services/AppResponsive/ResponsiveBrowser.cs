@@ -8,6 +8,7 @@ namespace DotNetBankingAppClient.Services
         private List<Action<ResponsiveWindowSize, int>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize, int>>();
         private ResponsiveWindowSize currentWindowSize = ResponsiveWindowSize.Mobile;
         private int currentWindowWidth = 0;
+        protected int cachedWindowWidth = 0;
 
         public ResponsiveBrowser(IJSRuntime jsRuntime)
         {
@@ -46,10 +47,14 @@ namespace DotNetBankingAppClient.Services
         {
             if (onWindowWidthChangedCallbacks.Count > 0)
             {
-                ResponsiveWindowSize size = CalculateWindowSize(windowWidth);
+                cachedWindowWidth = windowWidth;
+                await Task.Delay(300);
 
-                if (size != currentWindowSize)
+                //If no change was made after 300ms
+                if (cachedWindowWidth == windowWidth)
                 {
+                    ResponsiveWindowSize size = CalculateWindowSize(windowWidth);
+
                     currentWindowSize = size;
                     currentWindowWidth = windowWidth;
                     for (int i = 0; i < onWindowWidthChangedCallbacks.Count; i++)

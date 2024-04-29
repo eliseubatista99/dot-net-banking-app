@@ -12,7 +12,7 @@
             <div class="page-accounts-list">
                 @foreach (var acc in checkingAccounts)
                 {
-                    <AccountItem account="@acc"/>
+                    <AccountItem Value="@acc" Styles="max-width: 100%;"/>
                 }
             </div>
         }
@@ -22,7 +22,7 @@
             <div class="page-accounts-list">
                 @foreach (var acc in savingAccounts)
                 {
-                    <AccountItem account="@acc" />
+                    <AccountItem Value="@acc" Styles="max-width: 100%;" />
                 }
             </div>
         }

@@ -10,13 +10,10 @@
          onmouseup=@OnMouseEnd onmouseup:stopPropagation
     >
         <div class="carousel-track"  
-                
                 style=@(
                 "transform: translateX(" + CalculateHorizontalTranslation() + "px);" + 
                 "gap: " + Gap + "px;"
                 )
-        
-        
         >
             @ChildContent
         </div>

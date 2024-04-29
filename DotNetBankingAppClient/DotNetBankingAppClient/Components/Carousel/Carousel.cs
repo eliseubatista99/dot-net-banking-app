@@ -22,7 +22,7 @@ public class CarouselLogic : ComponentBase
     public string? Classes { get; set; }
 
     [Parameter]
-    public int ItemWidth { get; set; } = 300;
+    public required int ItemWidth { get; set; } = 300;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

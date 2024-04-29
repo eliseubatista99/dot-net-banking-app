@@ -13,7 +13,7 @@
 }
 
 .typography-color-highlight {
-    color: #0077d1;
+    color: var(--app-text-highlight-color);
 }
 
 .typography.error {

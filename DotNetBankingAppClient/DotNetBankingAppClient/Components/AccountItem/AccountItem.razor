@@ -1,0 +1,9 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits AccountItemLogic
+
+<button class="account-item @Classes" type="button" onclick="@HandleOnItemClicked" onmouseover="@HandleOnItemHovered" onmouseout="@HandleOnItemUnhovered" style="@Styles">
+    <Typography classes="account-item-name">@Value.AccountName</Typography>
+    <Typography classes="account-item-number">@Value.AccountId</Typography>
+    <Typography classes="account-item-type">Account Type: @GetAccountType()</Typography>
+    <Typography classes="account-item-balance">@FormatHelper.FormatNumericValue(Value.Balance, suffix: "€")</Typography>
+</button>
