@@ -2,8 +2,7 @@
 @namespace DotNetBankingAppClient.Pages
 @inherits DashboardPageLogic
 
-<CascadingValue Value="this">
-    <AppScreen withoutHeader pageClasses="dashboard-app-screen" contentClasses="dashboard-app-screen-children">
+<AppScreen withoutHeader pageClasses="dashboard-app-screen" contentClasses="dashboard-app-screen-children">
         <div class="dashboard-heading">
             @if (windowSize == ResponsiveWindowSize.Desktop)
             {
@@ -38,5 +37,4 @@
         {
             <DashboardNavigation SelectedOption=@SelectedFragment onOptionSelected=@OnFragmentSelected />
         }
-    </AppScreen>
-</CascadingValue>
+</AppScreen>
