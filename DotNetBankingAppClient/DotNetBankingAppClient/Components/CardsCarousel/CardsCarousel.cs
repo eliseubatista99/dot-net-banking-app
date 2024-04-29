@@ -32,4 +32,20 @@ public class CardsCarouselLogic : ComponentBase
     {
         return Cards ?? new List<CardDTO>();
     }
+
+    public void HandleOnChange(int index)
+    {
+        var newIndex = index;
+
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+        else if (Cards != null && newIndex > Cards.Count - 1)
+        {
+            newIndex = Cards.Count - 1;
+        }
+
+        OnChange(newIndex);
+    }
 }

@@ -100,17 +100,7 @@ public class HomeFragmentLogic : ComponentBase
 
     public void OnAccountSelected(int index)
     {
-        var newIndex = index;
-
-        if (newIndex < 0)
-        {
-            newIndex = 0;
-        }
-        else if (Cards != null && newIndex > Cards.Count - 1)
-        {
-            newIndex = Cards.Count - 1;
-        }
-        SelectedAccount = newIndex;
+        SelectedAccount = index;
         this.StateHasChanged();
     }
 

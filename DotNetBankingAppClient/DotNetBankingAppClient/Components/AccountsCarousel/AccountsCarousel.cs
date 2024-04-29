@@ -37,4 +37,19 @@ public class AccountsCarouselLogic : ComponentBase
         return Items ?? new List<AccountDTO>();
     }
 
+    public void HandleOnChange(int index)
+    {
+        var newIndex = index;
+
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+        else if (Items != null && newIndex > Items.Count - 1)
+        {
+            newIndex = Items.Count - 1;
+        }
+
+        OnChange(newIndex);
+    }
 }

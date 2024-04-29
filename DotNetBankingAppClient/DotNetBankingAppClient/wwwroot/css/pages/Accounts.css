@@ -8,35 +8,5 @@
     gap: 12px;
 }
 
-.accounts-account-item {
-    border-radius: 12px;
-    background: #ffffff;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    padding: 16px;
-    gap: 14px;
-}
-
-.accounts-account-item-row {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.accounts-account-item-name {
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.accounts-account-item-detail-text {
-    font-size: 14px;
-    color: #818181;
-}
-
-.accounts-account-item-detail-value {
-    font-size: 14px;
-    color: #0077d1;
-    font-weight: 600;
-}
-
 @media only screen and (min-width: 769px) {
 }

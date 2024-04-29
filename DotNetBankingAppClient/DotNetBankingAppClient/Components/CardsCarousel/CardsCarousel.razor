@@ -7,7 +7,7 @@
 @{
     var cardsToDisplay = GetCards();
 
-    <Carousel Value=@SelectedCard OnChange=@OnChange>
+    <Carousel Value=@SelectedCard OnChange=@HandleOnChange>
         @for (int i = 0; i < cardsToDisplay.Count; i++)
         {
             var card = cardsToDisplay[i];

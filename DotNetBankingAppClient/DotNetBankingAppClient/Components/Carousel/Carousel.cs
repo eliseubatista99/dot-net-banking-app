@@ -31,6 +31,19 @@ public class CarouselLogic : ComponentBase
     private double? _yDown;
 
 
+    private void HandleOnChange(int direction)
+    {
+        var newIndex = Value + direction;
+
+        if (newIndex < 0)
+        {
+            newIndex = 0;
+        }
+
+        OnChange(newIndex);
+
+    }
+
     private void HandleInteractionStart(double posX, double posY)
     {
         _xDown = posX;
@@ -64,14 +77,14 @@ public class CarouselLogic : ComponentBase
             if (xDiff > 0)
             {
                 Logger.Log("Swipe left");
-                OnChange(Value + 1);
+                HandleOnChange(1);
 
                 //InvokeAsync(() => OnSwipe(SwipeDirection.RightToLeft));
             }
             else
             {
                 Logger.Log("Swipe right");
-                OnChange(Value - 1);
+                HandleOnChange(-1);
 
                 //InvokeAsync(() => OnSwipe(SwipeDirection.LeftToRight));
             }

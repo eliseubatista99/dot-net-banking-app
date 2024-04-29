@@ -1,5 +1,4 @@
 ﻿.dashboard-app-screen {
-    background: var(--app-background-01-color) !important;
     padding: 0 !important;
     max-height: 100%;
     flex: 1;
