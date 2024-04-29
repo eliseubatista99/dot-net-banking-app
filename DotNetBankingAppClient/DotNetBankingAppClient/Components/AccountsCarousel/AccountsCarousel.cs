@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Components;
 
-public class CardsCarouselLogic : ComponentBase
+public class AccountsCarouselLogic : ComponentBase
 {
     [Inject]
     public IAppLogger Logger { get; set; } = default!;
@@ -13,10 +13,10 @@ public class CardsCarouselLogic : ComponentBase
     public required Action<int> OnChange { get; set; }
 
     [Parameter]
-    public required int SelectedCard { get; set; } = 0;
+    public required int Value { get; set; } = 0;
 
     [Parameter]
-    public required List<CardDTO> Cards { get; set; } = new List<CardDTO>();
+    public required List<CardDTO> Items { get; set; } = new List<CardDTO>();
 
     [Parameter]
     public int? Gap { get; set; } = 20;
@@ -28,8 +28,9 @@ public class CardsCarouselLogic : ComponentBase
     [Parameter]
     public int ItemWidth { get; set; } = 300;
 
-    public List<CardDTO> GetCards()
+
+    public List<CardDTO> GetItems()
     {
-        return Cards ?? new List<CardDTO>();
+        return Items ?? new List<CardDTO>();
     }
 }
