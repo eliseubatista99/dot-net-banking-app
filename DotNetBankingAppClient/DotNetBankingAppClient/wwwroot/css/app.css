@@ -31,6 +31,7 @@ html {
     --app-text-default-02-color: #828282;
     --app-text-dark-01-color: #ffffff;
     --app-text-error-01-color: #c63030;
+    --app-text-disabled-01-color: #575757;
 }
 
 body {

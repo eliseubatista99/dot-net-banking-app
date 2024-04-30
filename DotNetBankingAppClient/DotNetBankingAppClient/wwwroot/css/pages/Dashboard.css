@@ -42,7 +42,7 @@
     justify-content: center;
     gap: 8px;
     font-size: 14px;
-    color: #575757;
+    color: var(--app-text-disabled-01-color);
     min-width: fit-content;
     grid-column: auto / span 1;
     cursor: pointer;
@@ -51,7 +51,7 @@
 
 .dashboard-navigation-option-selected {
     color: #ffffff;
-    background: #0077d1;
+    background: var(--app-text-highlight-01-color);
     padding: 7px 12px;
     border-radius: 16px;
     grid-column: auto / span 2;
