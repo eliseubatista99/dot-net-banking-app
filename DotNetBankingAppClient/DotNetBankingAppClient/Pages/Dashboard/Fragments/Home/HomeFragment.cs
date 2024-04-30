@@ -123,9 +123,14 @@ public class HomeFragmentLogic : ComponentBase
         this.StateHasChanged();
     }
 
+    public void OnClickTransaction()
+    {
+        NavManager.NavigateTo(AppPages.TransactionDetails);
+    }
+
     public void OnClickSeeAllTransactions()
     {
-
+        NavManager.NavigateTo(AppPages.Transactions);
     }
 
     protected override async Task OnInitializedAsync()
@@ -146,10 +151,9 @@ public class HomeFragmentLogic : ComponentBase
         Cards = await GetAllCardsForAllAccounts(checkingAccounts);
         await Store.CacheData(StoreKeys.Cards, Cards);
 
-        var allTransactions = await GetTransactions(currentUser);
-        await Store.CacheData(StoreKeys.Transactions, allTransactions);
+        Transactions = await GetTransactions(currentUser);
+        await Store.CacheData(StoreKeys.Transactions, Transactions);
 
-        Transactions = allTransactions.Slice(0, 3);
 
         IsFetching = false;
 

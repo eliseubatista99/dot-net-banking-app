@@ -14,15 +14,26 @@
     </div>
 
     <div class="home-fragment-content">
-        <div class="home-fragment-transactions-section">
-            <div class="home-fragment-transactions-section-heading">
-                <Typography Classes="home-fragment-transactions-section-heading-text">Last transactions</Typography>
-                <Typography color=@TypographyColor.Highlight OnClick=@OnClickSeeAllTransactions Classes="home-fragment-transactions-section-heading-action">See all</Typography>
-            </div>
+        @{
+            if (Transactions != null && Transactions.Count > 0)
+            {
+                <div class="home-fragment-transactions-section">
+                    <div class="home-fragment-transactions-section-heading">
+                        <Typography Classes="home-fragment-transactions-section-heading-text">Last transactions</Typography>
+                        <Typography color=@TypographyColor.Highlight OnClick=@OnClickSeeAllTransactions Classes="home-fragment-transactions-section-heading-action">See all</Typography>
+                    </div>
 
-            <div class="home-fragment-transactions-section-list">
-            </div>
-        </div>
+                    <div class="home-fragment-transactions-section-list">
+                        @foreach (var item in Transactions)
+                        {
+                            <TransactionItem Value=@item OnClick=@OnClickTransaction />
+                        }
+                    </div>
+
+                </div>
+            }
+        }
+        
        
     </div>
 

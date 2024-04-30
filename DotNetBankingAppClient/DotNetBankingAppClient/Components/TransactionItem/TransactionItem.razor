@@ -1,0 +1,10 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits TransactionItemLogic
+
+<button class="transaction-item @Classes" type="button" onclick="@HandleOnItemClicked" style="@Styles">
+    <div class="transaction-item-details">
+        <Typography classes="transaction-item-description">@Value.Description</Typography>
+        <Typography classes="transaction-item-date">@Value.Date</Typography>
+    </div>
+    <Typography classes="transaction-item-amount">@FormatHelper.FormatNumericValue(Value.Amount, suffix: "€")</Typography>
+</button>

@@ -1,0 +1,19 @@
+﻿.transaction-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.transaction-item-details {
+    flex: 1;
+    gap: 6px;
+    flex-direction: column;
+    text-align: start;
+}
+
+.transaction-item-amount {
+    flex: 1;
+    min-width: fit-content;
+}
