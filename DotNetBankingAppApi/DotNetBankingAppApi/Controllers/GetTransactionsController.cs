@@ -42,13 +42,12 @@ public class GetTransactionsController : DotNetBankingAppController
         var userTransactions = new List<TransactionDTO>();
         var userAccounts = await AccountsData.GetAccountsOfUser(_context, input.Data.UserName);
 
-        userAccounts.ForEach(async (account) =>
+        for (int i = 0; i < userAccounts.Count; i++)
         {
-            var accountTransactions = await TransactionsData.GetTransactionsOfAccount(_context, account.AccountId);
+            var accountTransactions = await TransactionsData.GetTransactionsOfAccount(_context, userAccounts[i].AccountId);
 
             userTransactions.AddRange(accountTransactions);
-        });
-
+        }
 
         response.SetData(new GetTransactionsOutput
         {
