@@ -6,6 +6,7 @@ public enum TypographyColor
 {
     DefaultLight,
     DefaultDark,
+    Default02,
     Highlight,
     Error,
 }
@@ -55,6 +56,9 @@ public class TypographyLogic : ComponentBase
                 break;
             case TypographyColor.Error:
                 result += " typography-color-error";
+                break;
+            case TypographyColor.Default02:
+                result += " typography-color-default-02";
                 break;
             default:
                 break;

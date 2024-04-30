@@ -24,4 +24,14 @@ public class TransactionItemLogic : ComponentBase
             OnClick();
         }
     }
+
+    public double GetTransactionAmount()
+    {
+        if (Value.TransactionType == TransactionType.Debit || Value.TransactionType == TransactionType.Whitdrawal)
+        {
+            return -Value.Amount;
+        }
+
+        return Value.Amount;
+    }
 }

@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     gap: 14px;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .transaction-item-details {
@@ -13,7 +13,13 @@
     text-align: start;
 }
 
+
+.transaction-item-date {
+    font-size: 14px;
+}
+
+
 .transaction-item-amount {
-    flex: 1;
     min-width: fit-content;
+    font-weight: 600;
 }

@@ -151,9 +151,10 @@ public class HomeFragmentLogic : ComponentBase
         Cards = await GetAllCardsForAllAccounts(checkingAccounts);
         await Store.CacheData(StoreKeys.Cards, Cards);
 
-        Transactions = await GetTransactions(currentUser);
-        await Store.CacheData(StoreKeys.Transactions, Transactions);
+        var allTransactions = await GetTransactions(currentUser);
+        await Store.CacheData(StoreKeys.Transactions, allTransactions);
 
+        Transactions = allTransactions.Slice(0, 3);
 
         IsFetching = false;
 

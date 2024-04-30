@@ -24,3 +24,8 @@
 .typography-color-dark {
     color: #ffffff;
 }
+
+.typography-color-default-02 {
+    color: var(--app-text-default-02-color);
+}
+
