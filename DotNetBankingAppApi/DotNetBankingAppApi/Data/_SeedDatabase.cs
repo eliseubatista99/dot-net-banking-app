@@ -21,6 +21,7 @@ public class SeedDatabase
             SeedMessages(context);
             SeedAccounts(context);
             SeedCards(context);
+            SeedTransactions(context);
 
             context.SaveChanges();
         }
@@ -226,5 +227,89 @@ public class SeedDatabase
                      CardType = CardType.PrePaid,
                  }
              ); ;
+    }
+
+    public static void SeedTransactions(DatabaseContext context)
+    {
+        context.Transactions.AddRange(
+                 new Transaction
+                 {
+                     Id = "0",
+                     Amount = 42.19,
+                     Description = "Internet",
+                     Date = new DateTime(2024, 04, 29),
+                     TransactionType = TransactionType.Debit,
+                     Entity = "Meo Sa",
+                     ReceiverAccount = "111111111111",
+                     SenderAccount = "",
+                     Comment = "",
+                     BalanceBeforeTransaction = 1283.75,
+                     BalanceAfterTransaction = 1241.56,
+                     Method = null,
+                     CardNumber = "",
+                 },
+                 new Transaction
+                 {
+                     Id = "1",
+                     Amount = 100,
+                     Description = "CTT Withdrawal",
+                     Date = new DateTime(2024, 04, 26),
+                     TransactionType = TransactionType.Whitdrawal,
+                     Entity = "Street 1 ATM",
+                     ReceiverAccount = "",
+                     SenderAccount = "111111111111",
+                     Comment = "",
+                     BalanceAfterTransaction = 1183.75,
+                     BalanceBeforeTransaction = 1283.75,
+                     Method = null,
+                     CardNumber = "0000000000000000",
+                 },
+                 new Transaction
+                 {
+                     Id = "2",
+                     Amount = 44,
+                     Description = "Amazon Shopping",
+                     Date = new DateTime(2024, 04, 25),
+                     TransactionType = TransactionType.Debit,
+                     Entity = "Amazon",
+                     ReceiverAccount = "",
+                     SenderAccount = "111111111111",
+                     Comment = "",
+                     BalanceAfterTransaction = 1139.75,
+                     BalanceBeforeTransaction = 1183.75,
+                     Method = TransactionMethod.Card,
+                     CardNumber = "0000000000000000",
+                 },
+                 new Transaction
+                 {
+                     Id = "3",
+                     Amount = 1000.02,
+                     Description = "Monthly Savings",
+                     Date = new DateTime(2024, 04, 25),
+                     TransactionType = TransactionType.Debit,
+                     Entity = "DotNet Bank",
+                     ReceiverAccount = "333333333333",
+                     SenderAccount = "111111111111",
+                     Comment = "",
+                     BalanceBeforeTransaction = 2183.77,
+                     BalanceAfterTransaction = 1183.75,
+                     Method = TransactionMethod.Homebanking,
+                 },
+                 new Transaction
+                 {
+                     Id = "4",
+                     Amount = 1457,
+                     Description = "Salary",
+                     Date = new DateTime(2024, 04, 24),
+                     TransactionType = TransactionType.Credit,
+                     Entity = "Company 01",
+                     ReceiverAccount = "111111111111",
+                     SenderAccount = "",
+                     Comment = "Employee 01",
+                     BalanceBeforeTransaction = 725.77,
+                     BalanceAfterTransaction = 2183.77,
+                     Method = TransactionMethod.Homebanking,
+                 }
+             );
     }
 }

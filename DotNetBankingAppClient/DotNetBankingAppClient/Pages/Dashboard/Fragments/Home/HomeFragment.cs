@@ -27,6 +27,7 @@ public class HomeFragmentLogic : ComponentBase
 
     public List<AccountDTO>? Accounts { get; set; }
     public List<CardDTO>? Cards { get; set; }
+    public List<TransactionDTO>? Transactions { get; set; }
     public int SelectedAccount { get; set; } = 0;
 
     public HomeFragmentItems[] HomeFragmentItems = [
@@ -81,6 +82,24 @@ public class HomeFragmentLogic : ComponentBase
         }
     }
 
+    private async Task<List<TransactionDTO>> GetTransactions(UserDTO user)
+    {
+        var result = await ApiCommunication.CallService<GetTransactionsInput, GetTransactionsOutput>(ApiEndpoints.GetTransactions, new GetTransactionsInput { UserName = user.UserName });
+
+
+        List<TransactionDTO> transactions = new List<TransactionDTO>();
+
+        if (result.MetaData.Success)
+        {
+            transactions = result.Data.Transactions;
+            return transactions;
+        }
+        else
+        {
+            return new List<TransactionDTO>();
+        }
+    }
+
     private async Task<List<CardDTO>> GetAllCardsForAllAccounts(List<AccountDTO> accounts)
     {
         List<CardDTO> cards = new List<CardDTO>();
@@ -121,11 +140,16 @@ public class HomeFragmentLogic : ComponentBase
         var checkingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
         var savingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
 
-        await Store.PersistData(StoreKeys.CheckingAccounts, checkingAccounts);
-        await Store.PersistData(StoreKeys.SavingAccounts, savingAccounts);
+        await Store.CacheData(StoreKeys.CheckingAccounts, checkingAccounts);
+        await Store.CacheData(StoreKeys.SavingAccounts, savingAccounts);
 
         Cards = await GetAllCardsForAllAccounts(checkingAccounts);
-        await Store.PersistData(StoreKeys.Cards, Cards);
+        await Store.CacheData(StoreKeys.Cards, Cards);
+
+        var allTransactions = await GetTransactions(currentUser);
+        await Store.CacheData(StoreKeys.Transactions, allTransactions);
+
+        Transactions = allTransactions.Slice(0, 3);
 
         IsFetching = false;
 

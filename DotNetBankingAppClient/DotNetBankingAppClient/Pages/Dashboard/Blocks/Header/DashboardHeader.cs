@@ -1,4 +1,5 @@
-﻿using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Models;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
 
@@ -13,7 +14,7 @@ public class DashboardHeaderLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        user = await Store.GetData<UserDTO>("user");
+        user = await Store.GetData<UserDTO>(StoreKeys.User);
 
         this.StateHasChanged();
     }

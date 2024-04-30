@@ -67,7 +67,7 @@ public class CardsPageLogic : ComponentBase
     {
         IsFetching = true;
         this.StateHasChanged();
-        var cards = await Store.GetData<List<CardDTO>>(StoreKeys.Cards);
+        var cards = await Store.GetCachedData<List<CardDTO>>(StoreKeys.Cards);
         DebitCards = cards.Where((card) => card.CardType == CardType.Debit).ToList();
         CreditCards = cards.Where((card) => card.CardType == CardType.Credit).ToList();
         PrePaidCards = cards.Where((card) => card.CardType == CardType.PrePaid).ToList();

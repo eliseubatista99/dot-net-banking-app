@@ -17,8 +17,8 @@
 }
 
 .home-fragment-navigation-item-icon-container {
-    max-width: 65px;
-    min-width: 65px;
+    max-width: 55px;
+    min-width: 55px;
     aspect-ratio: 1/1;
     background: var(--app-background-03-color);
     align-items: center;
@@ -36,7 +36,7 @@
 
 
 .home-fragment-navigation-item-text {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--app-text-highlight-01-color);
 }

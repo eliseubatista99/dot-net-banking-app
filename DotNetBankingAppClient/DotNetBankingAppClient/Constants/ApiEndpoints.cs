@@ -7,5 +7,6 @@
         public const string GetInbox = "GetInbox";
         public const string GetCards = "GetCards";
         public const string GetAccounts = "GetAccounts";
+        public const string GetTransactions = "GetTransactions";
     }
 }

@@ -33,8 +33,8 @@ public class AccountsPageLogic : ComponentBase
     {
         isFetching = true;
         this.StateHasChanged();
-        Accounts = await Store.GetData<List<AccountDTO>>(StoreKeys.CheckingAccounts);
-        Accounts.AddRange(await Store.GetData<List<AccountDTO>>(StoreKeys.SavingAccounts));
+        Accounts = await Store.GetCachedData<List<AccountDTO>>(StoreKeys.CheckingAccounts);
+        Accounts.AddRange(await Store.GetCachedData<List<AccountDTO>>(StoreKeys.SavingAccounts));
 
         isFetching = false;
         this.StateHasChanged();
