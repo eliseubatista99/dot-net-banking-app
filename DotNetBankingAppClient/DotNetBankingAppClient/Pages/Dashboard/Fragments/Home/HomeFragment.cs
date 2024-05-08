@@ -21,15 +21,14 @@ public class HomeFragmentLogic : ComponentBase
     [Inject]
     protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
-    [Inject]
-    protected IAppResponsive AppResponsive { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     public bool IsFetching { get; set; } = false;
-    public ResponsiveWindowSize WindowSize = ResponsiveWindowSize.Mobile;
 
-    public CardDTO? DisplayCard { get; set; }
-
+    public List<AccountDTO>? Accounts { get; set; }
+    public List<CardDTO>? Cards { get; set; }
+    public List<TransactionDTO>? Transactions { get; set; }
+    public int SelectedAccount { get; set; } = 0;
 
     public HomeFragmentItems[] HomeFragmentItems = [
        new HomeFragmentItems {
@@ -83,6 +82,24 @@ public class HomeFragmentLogic : ComponentBase
         }
     }
 
+    private async Task<List<TransactionDTO>> GetTransactions(UserDTO user)
+    {
+        var result = await ApiCommunication.CallService<GetTransactionsInput, GetTransactionsOutput>(ApiEndpoints.GetTransactions, new GetTransactionsInput { UserName = user.UserName });
+
+
+        List<TransactionDTO> transactions = new List<TransactionDTO>();
+
+        if (result.MetaData.Success)
+        {
+            transactions = result.Data.Transactions;
+            return transactions;
+        }
+        else
+        {
+            return new List<TransactionDTO>();
+        }
+    }
+
     private async Task<List<CardDTO>> GetAllCardsForAllAccounts(List<AccountDTO> accounts)
     {
         List<CardDTO> cards = new List<CardDTO>();
@@ -100,29 +117,44 @@ public class HomeFragmentLogic : ComponentBase
         return cards;
     }
 
+    public void OnAccountSelected(int index)
+    {
+        SelectedAccount = index;
+        this.StateHasChanged();
+    }
+
+    public void OnClickTransaction()
+    {
+        NavManager.NavigateTo(AppPages.TransactionDetails);
+    }
+
+    public void OnClickSeeAllTransactions()
+    {
+        NavManager.NavigateTo(AppPages.Transactions);
+    }
+
     protected override async Task OnInitializedAsync()
     {
         IsFetching = true;
 
-        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
-        {
-            WindowSize = size;
-            this.StateHasChanged();
-        });
 
         this.StateHasChanged();
         var currentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
-        var accounts = await GetAllAccounts(currentUser);
-        var checkingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
-        var savingAccounts = accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
+        Accounts = await GetAllAccounts(currentUser);
+        var checkingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Checking).ToList();
+        var savingAccounts = Accounts.Where((acc) => acc.AccountType == AccountType.Savings).ToList();
 
-        await Store.PersistData(StoreKeys.CheckingAccounts, checkingAccounts);
-        await Store.PersistData(StoreKeys.SavingAccounts, savingAccounts);
+        await Store.CacheData(StoreKeys.CheckingAccounts, checkingAccounts);
+        await Store.CacheData(StoreKeys.SavingAccounts, savingAccounts);
 
-        var cards = await GetAllCardsForAllAccounts(checkingAccounts);
-        DisplayCard = cards.Count > 0 ? cards[0] : null;
-        await Store.PersistData(StoreKeys.Cards, cards);
+        Cards = await GetAllCardsForAllAccounts(checkingAccounts);
+        await Store.CacheData(StoreKeys.Cards, Cards);
+
+        var allTransactions = await GetTransactions(currentUser);
+        await Store.CacheData(StoreKeys.Transactions, allTransactions);
+
+        Transactions = allTransactions.Slice(0, 3);
 
         IsFetching = false;
 

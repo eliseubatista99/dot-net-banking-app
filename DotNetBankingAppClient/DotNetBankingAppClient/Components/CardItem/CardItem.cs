@@ -16,6 +16,9 @@ public class CardItemLogic : ComponentBase
     [Parameter]
     public string Classes { get; set; } = "";
 
+    [Parameter]
+    public string? Styles { get; set; } = "";
+
     public void HandleOnItemClicked()
     {
         if (OnClick != null)

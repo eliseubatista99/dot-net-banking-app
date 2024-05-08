@@ -5,28 +5,8 @@
 <PageTitle>Banking App - Accounts</PageTitle>
 
 <AppScreen title="Accounts" loading=@isFetching onClickBack="@(() => OnClickBack())">
-    <div class="page-accounts-content">
-        @if (checkingAccounts.Count > 0)
-        {
-            <Typography classes="page-accounts-group-title">Checking Accounts</Typography>
-            <div class="page-accounts-list">
-                @foreach (var acc in checkingAccounts)
-                {
-                    <AccountItem account="@acc"/>
-                }
-            </div>
-        }
-        @if (savingAccounts.Count > 0)
-        {
-            <Typography classes="page-accounts-group-title">Saving Accounts</Typography>
-            <div class="page-accounts-list">
-                @foreach (var acc in savingAccounts)
-                {
-                    <AccountItem account="@acc" />
-                }
-            </div>
-        }
-    </div>
+    <AccountsCarousel Items=@Accounts Value=@SelectedAccount OnChange=@OnAccountSelected />
+
 </AppScreen>
 
 

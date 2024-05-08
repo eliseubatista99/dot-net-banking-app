@@ -9,9 +9,17 @@ public class FormatHelper
         return new string(inputArray);
     }
 
-    public static string FormatNumericValue(double value, int decimalScale = 2, string suffix = "")
+    public static string FormatNumericValue(double value, int decimalScale = 2, string suffix = "", bool signed = false)
     {
-        string stringValue = value.ToString();
+        double modValue = Math.Abs(value);
+        string sign = "";
+
+        if (signed)
+        {
+            sign = value < 0 ? "-" : "+";
+        }
+
+        string stringValue = modValue.ToString();
         stringValue = stringValue.Replace(".", ",");
 
         var split = stringValue.Split(",");
@@ -57,7 +65,7 @@ public class FormatHelper
             decimalPart = decimalPart.Substring(0, decimalScale);
         }
 
-        return formattedIntegerPart + "," + decimalPart + suffix;
+        return sign + " " + formattedIntegerPart + "," + decimalPart + suffix;
     }
 
     public static string FormatCardNumber(string cardNumber)

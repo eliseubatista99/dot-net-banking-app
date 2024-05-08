@@ -1,0 +1,28 @@
+﻿@namespace DotNetBankingAppClient.Components
+@inherits AccountsCarouselLogic
+
+
+
+
+@{
+    var itemsToDisplay = GetItems();
+
+    <Carousel Value=@Value OnChange=@HandleOnChange ItemWidth=@ItemWidth>
+        @for (int i = 0; i < itemsToDisplay.Count; i++)
+        {
+            var item = itemsToDisplay[i];
+
+
+            <div class="accounts-carousel-wrapper" style=@(
+                 "width: 100%;" +
+                 "min-width: "+ ItemWidth + "px;" +
+                 "max-width: " + ItemWidth + "px;" +
+                 "margin-left: " + (i==0? "calc(50% - " + ItemWidth/2 + "px)" : "0px") + ";"
+             )>
+                <AccountItem Value=@item Styles="max-width: 100%;" />
+            </div>
+
+        }
+    </Carousel>
+    
+}

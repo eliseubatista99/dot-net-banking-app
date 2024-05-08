@@ -3,6 +3,8 @@
 @import url("fragments/_index.css");
 @import url("pages/_index.css");
 
+
+
 * {
     padding: 0;
     margin: 0;
@@ -21,6 +23,15 @@ html {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    --app-background-01-color: #fafafa;
+    --app-background-02-color: #ffffff;
+    --app-background-03-color: #deedff;
+    --app-text-highlight-01-color: #2071c7;
+    --app-text-default-01-color: #000000;
+    --app-text-default-02-color: #828282;
+    --app-text-dark-01-color: #ffffff;
+    --app-text-error-01-color: #c63030;
+    --app-text-disabled-01-color: #575757;
 }
 
 body {
@@ -28,6 +39,7 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background: var(--app-background-01-color);
 }
 
 #app {
@@ -54,6 +66,9 @@ button {
     justify-content: center;
     text-align: center;
 }
+
+
+
 
 
 

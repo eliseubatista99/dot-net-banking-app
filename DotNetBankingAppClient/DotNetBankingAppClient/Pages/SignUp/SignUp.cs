@@ -12,7 +12,7 @@ public class SignUpPageLogic : ComponentBase
     [Inject]
     protected IApiCommunication ApiCommunication { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     public bool IsFetching = false;
     public string UserName = "";

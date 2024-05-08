@@ -4,19 +4,23 @@
 
 <PageTitle>Banking App - Cards</PageTitle>
 
-<AppScreen title="Cards" loading=@IsFetching onClickBack="@(() => OnClickBack())" contentClasses="page-cards-content">
-    <CardsTabNavigation SelectedCardType="@SelectedCardType" OnTabClicked="@((tab) => OnClickTab(tab))" />
+@{
+    var cards = GetCards();
 
-    <div class="page-cards-cards-list">
-        @{
-            var cards = GetCards();
+    <AppScreen title="Cards" loading=@IsFetching onClickBack="@(() => OnClickBack())" contentClasses="page-cards-content">
+        <CardsTabNavigation SelectedCardType="@SelectedCardType" OnTabClicked="@((tab) => OnClickTab(tab))" />
+       
+        @if (cards.Count > 0)
+        {
+            var currentCard = cards[SelectedCard];
+            <CardsCarousel Cards=@cards SelectedCard=@SelectedCard OnChange=@OnCardSelected Classes="page-cards-carousel" />
 
-            foreach (var card in GetCards())
-            {
-                <CardItem Card="@card"/>
-            }
+            <p>@currentCard.CardNumber</p>
         }
-    </div>
-</AppScreen>
+    </AppScreen>
+
+}
+
+
 
 

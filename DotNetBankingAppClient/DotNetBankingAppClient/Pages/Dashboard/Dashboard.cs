@@ -7,7 +7,7 @@ namespace DotNetBankingAppClient.Pages;
 public class DashboardPageLogic : ComponentBase
 {
     [Inject]
-    protected NavigationManager navManager { get; set; } = default!;
+    protected IAppNavigation navManager { get; set; } = default!;
     [Inject]
     protected IAppResponsive AppResponsive { get; set; } = default!;
 
@@ -36,7 +36,7 @@ public class DashboardPageLogic : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        await AppResponsive.ListenForResponsiveChanges(async (ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges(async (ResponsiveWindowSize size, int _) =>
         {
             windowSize = size;
             this.StateHasChanged();

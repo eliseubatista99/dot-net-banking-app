@@ -12,7 +12,7 @@ public class DashboardNavigationLogic : ComponentBase
     [Inject]
     protected IAppResponsive AppResponsive { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     [Parameter]
     public Action<string> OnOptionSelected { get; set; }
@@ -52,7 +52,7 @@ public class DashboardNavigationLogic : ComponentBase
 
         //selectedOption = GetOptionFromUrl();
 
-        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size) =>
+        await AppResponsive.ListenForResponsiveChanges((ResponsiveWindowSize size, int _) =>
         {
             windowSize = size;
             this.StateHasChanged();

@@ -14,6 +14,7 @@
         public const string Savings = "Savings";
         public const string Cards = "Cards";
         public const string Transactions = "Transactions";
+        public const string TransactionDetails = "TransactionDetails";
         public const string Beneficiaries = "Beneficiaries";
     }
 

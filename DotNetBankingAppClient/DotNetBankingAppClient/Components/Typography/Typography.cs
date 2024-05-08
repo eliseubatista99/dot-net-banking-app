@@ -6,6 +6,7 @@ public enum TypographyColor
 {
     DefaultLight,
     DefaultDark,
+    Default02,
     Highlight,
     Error,
 }
@@ -23,6 +24,12 @@ public class TypographyLogic : ComponentBase
 
     [Parameter]
     public string? classes { get; set; } = "";
+
+    [Parameter]
+    public string? Styles { get; set; } = "";
+
+    [Parameter]
+    public Action? OnClick { get; set; }
 
     [Parameter]
     public TypographyOverflow overflowMode { get; set; } = TypographyOverflow.LineBreak;
@@ -49,6 +56,9 @@ public class TypographyLogic : ComponentBase
                 break;
             case TypographyColor.Error:
                 result += " typography-color-error";
+                break;
+            case TypographyColor.Default02:
+                result += " typography-color-default-02";
                 break;
             default:
                 break;

@@ -1,0 +1,25 @@
+﻿.transaction-item {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 14px;
+    align-items: center;
+}
+
+.transaction-item-details {
+    flex: 1;
+    gap: 6px;
+    flex-direction: column;
+    text-align: start;
+}
+
+
+.transaction-item-date {
+    font-size: 14px;
+}
+
+
+.transaction-item-amount {
+    min-width: fit-content;
+    font-weight: 600;
+}

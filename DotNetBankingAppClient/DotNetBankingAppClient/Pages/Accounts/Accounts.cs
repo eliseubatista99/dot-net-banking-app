@@ -10,26 +10,31 @@ public class AccountsPageLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected NavigationManager NavManager { get; set; } = default!;
+    protected IAppNavigation NavManager { get; set; } = default!;
 
     private UserDTO? CurrentUser;
+    public int SelectedAccount { get; set; } = 0;
 
     public bool isFetching { get; set; } = false;
-    public List<AccountDTO> checkingAccounts { get; set; } = new List<AccountDTO>();
-    public List<AccountDTO> savingAccounts { get; set; } = new List<AccountDTO>();
+    public List<AccountDTO> Accounts { get; set; } = new List<AccountDTO>();
 
     public void OnClickBack()
     {
         NavManager.NavigateTo(uri: AppPages.Dashboard + "/" + DashboardFragments.Home, replace: true);
     }
 
+    public void OnAccountSelected(int index)
+    {
+        SelectedAccount = index;
+        this.StateHasChanged();
+    }
 
     protected override async Task OnInitializedAsync()
     {
         isFetching = true;
         this.StateHasChanged();
-        checkingAccounts = await Store.GetData<List<AccountDTO>>(StoreKeys.CheckingAccounts);
-        savingAccounts = await Store.GetData<List<AccountDTO>>(StoreKeys.SavingAccounts);
+        Accounts = await Store.GetCachedData<List<AccountDTO>>(StoreKeys.CheckingAccounts);
+        Accounts.AddRange(await Store.GetCachedData<List<AccountDTO>>(StoreKeys.SavingAccounts));
 
         isFetching = false;
         this.StateHasChanged();

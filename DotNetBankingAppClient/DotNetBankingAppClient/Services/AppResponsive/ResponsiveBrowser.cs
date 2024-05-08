@@ -5,15 +5,29 @@ namespace DotNetBankingAppClient.Services
     public class ResponsiveBrowser : IAppResponsive
     {
         private readonly IJSRuntime _jsRuntime;
-        private List<Action<ResponsiveWindowSize>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize>>();
+        private List<Action<ResponsiveWindowSize, int>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize, int>>();
         private ResponsiveWindowSize currentWindowSize = ResponsiveWindowSize.Mobile;
+        private int currentWindowWidth = 0;
+        protected int cachedWindowWidth = 0;
 
         public ResponsiveBrowser(IJSRuntime jsRuntime)
         {
             _jsRuntime = jsRuntime;
         }
 
-        private ResponsiveWindowSize CalculateWindowSize(int windowWidth)
+        public ResponsiveWindowSize GetCurrentSize()
+        {
+            return currentWindowSize;
+        }
+
+        public async Task<int> GetWindowWidth()
+        {
+            currentWindowWidth = await _jsRuntime.InvokeAsync<int>("getWidth");
+
+            return currentWindowWidth;
+        }
+
+        public ResponsiveWindowSize CalculateWindowSize(int windowWidth)
         {
             ResponsiveWindowSize size = ResponsiveWindowSize.Mobile;
             if (windowWidth > 768)
@@ -33,28 +47,38 @@ namespace DotNetBankingAppClient.Services
         {
             if (onWindowWidthChangedCallbacks.Count > 0)
             {
-                ResponsiveWindowSize size = CalculateWindowSize(windowWidth);
+                cachedWindowWidth = windowWidth;
+                await Task.Delay(300);
 
-                if (size != currentWindowSize)
+                //If no change was made after 300ms
+                if (cachedWindowWidth == windowWidth)
                 {
-                    onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
+                    ResponsiveWindowSize size = CalculateWindowSize(windowWidth);
+
                     currentWindowSize = size;
-                    foreach (var callback in onWindowWidthChangedCallbacks)
+                    currentWindowWidth = windowWidth;
+                    for (int i = 0; i < onWindowWidthChangedCallbacks.Count; i++)
                     {
-                        callback(size);
+                        var callback = onWindowWidthChangedCallbacks[i];
+
+                        if (callback != null)
+                        {
+                            callback(size, currentWindowWidth);
+                        }
                     }
                 }
             }
         }
 
-        public async Task ListenForResponsiveChanges(Action<ResponsiveWindowSize> callback)
+        public async Task ListenForResponsiveChanges(Action<ResponsiveWindowSize, int> callback)
         {
+            onWindowWidthChangedCallbacks.RemoveAll(elem => elem == null);
             onWindowWidthChangedCallbacks.Add(callback);
             DotNetObjectReference<ResponsiveBrowser> _objectReference = DotNetObjectReference.Create(this);
 
-            int currentWidth = await _jsRuntime.InvokeAsync<int>("getWidth");
-            ResponsiveWindowSize size = CalculateWindowSize(currentWidth);
-            callback(size);
+            await GetWindowWidth();
+            ResponsiveWindowSize size = CalculateWindowSize(currentWindowWidth);
+            callback(size, currentWindowWidth);
 
             //Log is a function declared in index.html
             await _jsRuntime.InvokeVoidAsync("AddWindowWidthListener", _objectReference);

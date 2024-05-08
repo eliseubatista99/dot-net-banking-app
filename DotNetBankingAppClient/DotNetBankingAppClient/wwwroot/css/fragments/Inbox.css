@@ -1,5 +1,4 @@
 ﻿.inbox-fragment-content {
-    background: #ffffff;
     padding: 24px 0 0 0;
     overflow: hidden;
     max-height: 100%;
@@ -38,10 +37,11 @@
     background: #cfcfcf77;
 }
 
-.inbox-fragment-message-item{
+.inbox-fragment-message-item {
     width: 100%;
     padding: 20px 0;
-    gap: 4px;
+    gap: 16px;
+    color: var(--app-text-default-01-color)
 }
 
 .inbox-fragment-message-item-heading {
@@ -51,16 +51,17 @@
     align-items: center;
 }
 
-.inbox-fragment-message-item-heading-subject{
+.inbox-fragment-message-item-heading-subject {
     font-size: 16px;
     font-weight: 700;
     max-width: calc(100% - 40px);
+    color: var(--app-text-highlight-01-color);
 }
 
 .inbox-fragment-message-item-heading-date {
     font-size: 14px;
     font-weight: 500;
-    color: #818181;
+    color: var(--app-text-default-02-color);
     max-width: 40px;
 }
 

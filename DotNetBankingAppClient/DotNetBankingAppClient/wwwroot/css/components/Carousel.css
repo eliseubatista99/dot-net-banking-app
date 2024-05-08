@@ -1,0 +1,16 @@
+﻿.carousel {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: visible;
+}
+
+.carousel-track {
+    min-width: 100%;
+    flex-direction: row;
+    overflow: visible;
+    transition: transform .3s ease;
+}

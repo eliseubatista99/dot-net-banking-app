@@ -98,6 +98,53 @@ namespace DotNetBankingAppApi.Migrations
                     b.ToTable("Messages");
                 });
 
+            modelBuilder.Entity("DotNetBankingAppApi.Models.Transaction", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<double>("BalanceAfterTransaction")
+                        .HasColumnType("float");
+
+                    b.Property<double>("BalanceBeforeTransaction")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Entity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Method")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceiverAccount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SenderAccount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TransactionType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("DotNetBankingAppApi.Models.User", b =>
                 {
                     b.Property<string>("UserName")
