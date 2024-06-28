@@ -1,6 +1,4 @@
-﻿using DotNetBankingAppClient.Services;
-
-namespace DotNetBankingAppClient.Dtos.Api
+﻿namespace DotNetBankingAppClientContracts.Dtos.Api
 {
     public class BaseEndpointInputDto<T>
     {

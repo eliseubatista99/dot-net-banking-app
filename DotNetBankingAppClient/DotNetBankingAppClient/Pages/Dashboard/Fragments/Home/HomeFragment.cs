@@ -1,7 +1,7 @@
-﻿using DotNetBankingAppClient.Api;
-using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Services;
+using DotNetBankingAppClientContracts.Dtos.Api;
+using DotNetBankingAppClientContracts.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -65,7 +65,7 @@ public class HomeFragmentLogic : ComponentBase
 
     private async Task<List<AccountDTO>> GetAllAccounts(UserDTO user)
     {
-        var result = await ApiCommunication.CallService<ServiceGetAccountsInput, ServiceGetAccountsOutput>(ApiEndpoints.GetAccounts, new ServiceGetAccountsInput { UserName = user.UserName });
+        var result = await ApiCommunication.CallService<GetAccountsOperationInput, GetAccountsOperationOutput>(ApiEndpoints.GetAccounts, new GetAccountsOperationInput { UserName = user.UserName });
 
 
         List<AccountDTO> accounts = new List<AccountDTO>();
@@ -84,7 +84,7 @@ public class HomeFragmentLogic : ComponentBase
 
     private async Task<List<TransactionDTO>> GetTransactions(UserDTO user)
     {
-        var result = await ApiCommunication.CallService<GetTransactionsInput, GetTransactionsOutput>(ApiEndpoints.GetTransactions, new GetTransactionsInput { UserName = user.UserName });
+        var result = await ApiCommunication.CallService<GetTransactionsOperationInput, GetTransactionsOperationOutput>(ApiEndpoints.GetTransactions, new GetTransactionsOperationInput { UserName = user.UserName });
 
 
         List<TransactionDTO> transactions = new List<TransactionDTO>();
@@ -106,7 +106,7 @@ public class HomeFragmentLogic : ComponentBase
 
         foreach (var account in accounts)
         {
-            var result = await ApiCommunication.CallService<ServiceGetCardsInput, ServiceGetCardsOutput>(ApiEndpoints.GetCards, new ServiceGetCardsInput { AccountID = account.AccountId });
+            var result = await ApiCommunication.CallService<GetCardsOperationInput, GetCardsOperationOutput>(ApiEndpoints.GetCards, new GetCardsOperationInput { AccountID = account.AccountId });
 
             if (result.MetaData.Success && result.Data != null)
             {

@@ -1,7 +1,7 @@
-﻿using DotNetBankingAppClient.Api;
-using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Services;
+using DotNetBankingAppClientContracts.Dtos.Api;
+using DotNetBankingAppClientContracts.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -34,7 +34,7 @@ public class InboxFragmentLogic : ComponentBase
         this.StateHasChanged();
         CurrentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
-        var result = await ApiCommunication.CallService<ServiceGetInboxInput, ServiceGetInboxOutput>(ApiEndpoints.GetInbox, new ServiceGetInboxInput { UserName = CurrentUser.UserName });
+        var result = await ApiCommunication.CallService<GetInboxOperationInput, GetInboxOperationOutput>(ApiEndpoints.GetInbox, new GetInboxOperationInput { UserName = CurrentUser.UserName });
 
         if (result.MetaData.Success)
         {

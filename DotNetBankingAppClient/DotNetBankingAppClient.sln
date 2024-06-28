@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetBankingAppClient", "DotNetBankingAppClient\DotNetBankingAppClient.csproj", "{E9FF8F5B-A4BE-45C5-80B1-386D33D51B7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetBankingAppClientContracts", "DotNetBankingAppClientContracts\DotNetBankingAppClientContracts.csproj", "{C2A0424C-4428-4168-964A-E12174B7CF9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E9FF8F5B-A4BE-45C5-80B1-386D33D51B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9FF8F5B-A4BE-45C5-80B1-386D33D51B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9FF8F5B-A4BE-45C5-80B1-386D33D51B7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A0424C-4428-4168-964A-E12174B7CF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A0424C-4428-4168-964A-E12174B7CF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A0424C-4428-4168-964A-E12174B7CF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A0424C-4428-4168-964A-E12174B7CF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
-﻿using DotNetBankingAppClient.Api;
-using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Services;
+using DotNetBankingAppClientContracts.Dtos.Api;
+using DotNetBankingAppClientContracts.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -51,7 +51,7 @@ public class SignInPageLogic : ComponentBase
         this.StateHasChanged();
 
 
-        var result = await ApiCommunication.CallService<ServiceSignInInput, ServiceSignInOutput>(ApiEndpoints.SignIn, new ServiceSignInInput
+        var result = await ApiCommunication.CallService<SignInOperationInput, SignInOperationOutput>(ApiEndpoints.SignIn, new SignInOperationInput
         {
             UserName = userName,
             Password = password,

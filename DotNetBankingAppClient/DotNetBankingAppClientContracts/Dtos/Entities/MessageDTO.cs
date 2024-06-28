@@ -1,4 +1,4 @@
-﻿namespace DotNetBankingAppClient.Models;
+﻿namespace DotNetBankingAppClientContracts.Models;
 
 public class MessageDTOGroup
 {

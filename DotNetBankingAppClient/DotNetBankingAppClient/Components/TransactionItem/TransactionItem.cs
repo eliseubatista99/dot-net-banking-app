@@ -1,4 +1,4 @@
-﻿using DotNetBankingAppClient.Models;
+﻿using DotNetBankingAppClientContracts.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Components;

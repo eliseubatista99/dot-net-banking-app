@@ -1,6 +1,6 @@
-﻿using DotNetBankingAppClient.Services;
+﻿using DotNetBankingAppClientContracts.Enums;
 
-namespace DotNetBankingAppClient.Dtos.Api
+namespace DotNetBankingAppClientContracts.Dtos.Api
 {
     public class BaseEndpointInputMetaData
     {

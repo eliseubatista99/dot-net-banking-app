@@ -1,4 +1,4 @@
-﻿namespace DotNetBankingAppClient.Enums
+﻿namespace DotNetBankingAppClientContracts.Enums
 {
     public enum Language
     {

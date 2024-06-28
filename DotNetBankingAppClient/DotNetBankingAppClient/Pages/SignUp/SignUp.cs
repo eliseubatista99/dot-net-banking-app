@@ -1,6 +1,6 @@
-﻿using DotNetBankingAppClient.Api;
-using DotNetBankingAppClient.Constants;
+﻿using DotNetBankingAppClient.Constants;
 using DotNetBankingAppClient.Services;
+using DotNetBankingAppClientContracts.Dtos.Api;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -45,7 +45,7 @@ public class SignUpPageLogic : ComponentBase
         ErrorMessage = null;
         this.StateHasChanged();
 
-        var result = await ApiCommunication.CallService<ServiceSignUpInput, ServiceSignUpOutput>(ApiEndpoints.SignUp, new ServiceSignUpInput
+        var result = await ApiCommunication.CallService<SignUpOperationIntput, SignUpOperationOutput>(ApiEndpoints.SignUp, new SignUpOperationIntput
         {
             UserName = UserName,
             Password = Password,

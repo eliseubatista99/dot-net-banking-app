@@ -1,5 +1,5 @@
 ﻿
-namespace DotNetBankingAppClient.Models;
+namespace DotNetBankingAppClientContracts.Models;
 
 public enum AccountType
 {

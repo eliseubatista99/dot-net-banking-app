@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using DotNetBankingAppClientContracts.Dtos.Api;
+using DotNetBankingAppClientContracts.Enums;
+using System.Text;
 using System.Text.Json;
 
 namespace DotNetBankingAppClient.Services
@@ -12,11 +14,11 @@ namespace DotNetBankingAppClient.Services
             _httpClient = httpClient;
         }
 
-        public async Task<BaseEndpointOutput<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
+        public async Task<BaseEndpointOutputDto<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
         {
             try
             {
-                BaseEndpointInput<TInput> endpointInput = new BaseEndpointInput<TInput>
+                BaseEndpointInputDto<TInput> endpointInput = new BaseEndpointInputDto<TInput>
                 {
                     Data = input,
                     MetaData = new BaseEndpointInputMetaData
@@ -35,7 +37,7 @@ namespace DotNetBankingAppClient.Services
                 if (!serviceResponse.IsSuccessStatusCode)
                 {
                     string message = await serviceResponse.Content.ReadAsStringAsync() ?? "Invalid Response";
-                    return new BaseEndpointOutput<TOutput>
+                    return new BaseEndpointOutputDto<TOutput>
                     {
                         Data = default,
                         MetaData = new BaseEndpointOutputMetaData
@@ -48,7 +50,7 @@ namespace DotNetBankingAppClient.Services
 
                 if (serviceResponseContent == null || serviceResponseContent?.Headers.ContentType?.MediaType != "application/json")
                 {
-                    return new BaseEndpointOutput<TOutput>
+                    return new BaseEndpointOutputDto<TOutput>
                     {
                         Data = default,
                         MetaData = new BaseEndpointOutputMetaData
@@ -61,7 +63,7 @@ namespace DotNetBankingAppClient.Services
 
                 var contentStream = await serviceResponseContent.ReadAsStreamAsync();
 
-                var response = await JsonSerializer.DeserializeAsync<BaseEndpointOutput<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                var response = await JsonSerializer.DeserializeAsync<BaseEndpointOutputDto<TOutput>>(contentStream, new JsonSerializerOptions { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
 
                 if (response == null)
                 {
@@ -72,7 +74,7 @@ namespace DotNetBankingAppClient.Services
             }
             catch (Exception ex)
             {
-                return new BaseEndpointOutput<TOutput>
+                return new BaseEndpointOutputDto<TOutput>
                 {
                     Data = default,
                     MetaData = new BaseEndpointOutputMetaData

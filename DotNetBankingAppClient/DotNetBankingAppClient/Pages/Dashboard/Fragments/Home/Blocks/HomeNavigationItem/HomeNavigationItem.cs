@@ -1,9 +1,4 @@
-﻿using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Helpers;
-using DotNetBankingAppClient.Layout;
-using DotNetBankingAppClient.Models;
-using DotNetBankingAppClient.Services;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
 

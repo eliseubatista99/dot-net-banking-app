@@ -1,4 +1,4 @@
-﻿namespace DotNetBankingAppClient.Dtos.Api
+﻿namespace DotNetBankingAppClientContracts.Dtos.Api
 {
     public class BaseEndpointOutputMetaData
     {

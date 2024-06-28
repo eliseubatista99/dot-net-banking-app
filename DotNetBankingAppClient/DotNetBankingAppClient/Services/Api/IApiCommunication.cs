@@ -1,9 +1,11 @@
-﻿namespace DotNetBankingAppClient.Services
+﻿using DotNetBankingAppClientContracts.Dtos.Api;
+
+namespace DotNetBankingAppClient.Services
 {
 
 
     public interface IApiCommunication
     {
-        public Task<BaseEndpointOutput<TOutput?>> CallService<TInput, TOutput>(string endpoint, TInput input);
+        public Task<BaseEndpointOutputDto<TOutput?>> CallService<TInput, TOutput>(string endpoint, TInput input);
     }
 }
