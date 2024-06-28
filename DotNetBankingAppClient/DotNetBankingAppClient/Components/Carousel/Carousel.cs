@@ -1,4 +1,5 @@
 ﻿using DotNetBankingAppClient.Services;
+using DotNetBankingAppClientContracts.Providers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -7,7 +8,7 @@ namespace DotNetBankingAppClient.Components;
 public class CarouselLogic : ComponentBase
 {
     [Inject]
-    public IAppLogger Logger { get; set; } = default!;
+    public IAppLoggerProvider Logger { get; set; } = default!;
 
     [Parameter]
     public required Action<int> OnChange { get; set; }

@@ -3,8 +3,6 @@ using DotNetBankingAppClientContracts.Enums;
 using DotNetBankingAppClientContracts.Providers;
 using System.Text.Json;
 using System.Text;
-using DotNetBankingAppClient.Constants;
-using DotNetBankingAppClient.Services;
 
 namespace DotNetBankingAppClient.Providers
 {
@@ -99,42 +97,42 @@ namespace DotNetBankingAppClient.Providers
 
         public async Task<BaseEndpointOutputDto<GetAccountsOperationOutput>> GetAccounts(GetAccountsOperationInput input)
         {
-            var result = await CallService<GetAccountsOperationInput, GetAccountsOperationOutput>(ApiEndpoints.GetAccounts, input);
+            var result = await CallService<GetAccountsOperationInput, GetAccountsOperationOutput>("GetAccounts", input);
 
             return result;
         }
 
         public async Task<BaseEndpointOutputDto<GetCardsOperationOutput>> GetCards(GetCardsOperationInput input)
         {
-            var result = await CallService<GetCardsOperationInput, GetCardsOperationOutput>(ApiEndpoints.GetCards, input);
+            var result = await CallService<GetCardsOperationInput, GetCardsOperationOutput>("GetCards", input);
 
             return result;
         }
 
         public async Task<BaseEndpointOutputDto<GetInboxOperationOutput>> GetInbox(GetInboxOperationInput input)
         {
-            var result = await CallService<GetInboxOperationInput, GetInboxOperationOutput>(ApiEndpoints.GetInbox, input);
+            var result = await CallService<GetInboxOperationInput, GetInboxOperationOutput>("GetInbox", input);
 
             return result;
         }
 
         public async Task<BaseEndpointOutputDto<GetTransactionsOperationOutput>> GetTransactions(GetTransactionsOperationInput input)
         {
-            var result = await CallService<GetTransactionsOperationInput, GetTransactionsOperationOutput>(ApiEndpoints.GetTransactions, input);
+            var result = await CallService<GetTransactionsOperationInput, GetTransactionsOperationOutput>("GetTransactions", input);
 
             return result;
         }
 
         public async Task<BaseEndpointOutputDto<SignInOperationOutput>> SignIn(SignInOperationInput input)
         {
-            var result = await CallService<SignInOperationInput, SignInOperationOutput>(ApiEndpoints.SignIn, input);
+            var result = await CallService<SignInOperationInput, SignInOperationOutput>("SignIn", input);
 
             return result;
         }
 
         public async Task<BaseEndpointOutputDto<SignUpOperationOutput>> SignUp(SignUpOperationIntput input)
         {
-            var result = await CallService<SignUpOperationIntput, SignUpOperationOutput>(ApiEndpoints.SignUp, input);
+            var result = await CallService<SignUpOperationIntput, SignUpOperationOutput>("SignUp", input);
 
             return result;
         }

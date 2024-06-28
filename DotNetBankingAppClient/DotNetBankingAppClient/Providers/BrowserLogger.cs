@@ -1,8 +1,9 @@
-﻿using Microsoft.JSInterop;
+﻿using DotNetBankingAppClientContracts.Providers;
+using Microsoft.JSInterop;
 
 namespace DotNetBankingAppClient.Services
 {
-    public class BrowserLogger : IAppLogger
+    public class BrowserLogger : IAppLoggerProvider
     {
         private readonly IJSRuntime _jsRuntime;
 

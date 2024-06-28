@@ -1,4 +1,4 @@
-﻿using DotNetBankingAppClient.Constants;
+﻿using DotNetBankingAppClientContracts.Constants;
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Models;
@@ -10,11 +10,11 @@ namespace DotNetBankingAppClient.Pages;
 public class InboxFragmentLogic : ComponentBase
 {
     [Inject]
-    protected IStore Store { get; set; } = default!;
+    protected IStoreProvider Store { get; set; } = default!;
     [Inject]
     protected IApiProvider ApiProvider { get; set; } = default!;
     [Inject]
-    protected IAppNavigation NavManager { get; set; } = default!;
+    protected IAppNavigationProvider NavManager { get; set; } = default!;
 
     public bool IsFetching = false;
     private UserDTO? CurrentUser;

@@ -1,8 +1,10 @@
-﻿using Microsoft.JSInterop;
+﻿using DotNetBankingAppClientContracts.Enums;
+using DotNetBankingAppClientContracts.Providers;
+using Microsoft.JSInterop;
 
-namespace DotNetBankingAppClient.Services
+namespace DotNetBankingAppClient.Providers
 {
-    public class ResponsiveBrowser : IAppResponsive
+    public class ResponsiveBrowser : IAppResponsiveProvider
     {
         private readonly IJSRuntime _jsRuntime;
         private List<Action<ResponsiveWindowSize, int>> onWindowWidthChangedCallbacks = new List<Action<ResponsiveWindowSize, int>>();

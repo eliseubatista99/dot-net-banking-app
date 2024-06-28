@@ -1,6 +1,6 @@
-﻿namespace DotNetBankingAppClient.Services
+﻿namespace DotNetBankingAppClientContracts.Providers
 {
-    public interface IStore
+    public interface IStoreProvider
     {
         public Task PersistData(string key, object? value);
         public Task CacheData(string key, object? value);

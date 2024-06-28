@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using DotNetBankingAppClientContracts.Providers;
+using Microsoft.AspNetCore.Components;
 
-namespace DotNetBankingAppClient.Services
+namespace DotNetBankingAppClient.Providers
 {
-    public class AppNavigation : IAppNavigation
+    public class AppNavigation : IAppNavigationProvider
     {
         private readonly NavigationManager _navigationManager;
-        private readonly IAppLogger _logger;
+        private readonly IAppLoggerProvider _logger;
 
-        public AppNavigation(NavigationManager navigationManager, IAppLogger logger)
+        public AppNavigation(NavigationManager navigationManager, IAppLoggerProvider logger)
         {
             _navigationManager = navigationManager;
             _logger = logger;

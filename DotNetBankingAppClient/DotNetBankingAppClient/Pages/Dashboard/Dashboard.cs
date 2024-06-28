@@ -1,15 +1,17 @@
-﻿using DotNetBankingAppClient.Constants;
+﻿using DotNetBankingAppClientContracts.Constants;
 using DotNetBankingAppClient.Services;
 using Microsoft.AspNetCore.Components;
+using DotNetBankingAppClientContracts.Enums;
+using DotNetBankingAppClientContracts.Providers;
 
 namespace DotNetBankingAppClient.Pages;
 
 public class DashboardPageLogic : ComponentBase
 {
     [Inject]
-    protected IAppNavigation navManager { get; set; } = default!;
+    protected IAppNavigationProvider navManager { get; set; } = default!;
     [Inject]
-    protected IAppResponsive AppResponsive { get; set; } = default!;
+    protected IAppResponsiveProvider AppResponsive { get; set; } = default!;
 
     public ResponsiveWindowSize windowSize = ResponsiveWindowSize.Mobile;
 

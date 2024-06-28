@@ -1,14 +1,15 @@
-﻿using DotNetBankingAppClient.Constants;
+﻿using DotNetBankingAppClientContracts.Constants;
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Models;
 using Microsoft.AspNetCore.Components;
+using DotNetBankingAppClientContracts.Providers;
 
 namespace DotNetBankingAppClient.Components;
 
 public class DashboardHeaderLogic : ComponentBase
 {
     [Inject]
-    protected IStore Store { get; set; } = default!;
+    protected IStoreProvider Store { get; set; } = default!;
 
     public UserDTO? user;
 

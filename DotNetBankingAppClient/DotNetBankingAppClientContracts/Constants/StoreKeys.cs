@@ -1,4 +1,4 @@
-﻿namespace DotNetBankingAppClient.Constants
+﻿namespace DotNetBankingAppClientContracts.Constants
 {
 
     public class StoreKeys

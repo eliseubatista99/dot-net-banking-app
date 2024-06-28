@@ -1,13 +1,8 @@
-﻿namespace DotNetBankingAppClient.Services
-{
-    public enum ResponsiveWindowSize
-    {
-        Mobile,
-        Tablet,
-        Desktop,
-    }
+﻿using DotNetBankingAppClientContracts.Enums;
 
-    public interface IAppResponsive
+namespace DotNetBankingAppClientContracts.Providers
+{
+    public interface IAppResponsiveProvider
     {
         public ResponsiveWindowSize CalculateWindowSize(int windowWidth);
         public ResponsiveWindowSize GetCurrentSize();

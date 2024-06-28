@@ -1,4 +1,4 @@
-﻿using DotNetBankingAppClient.Constants;
+﻿using DotNetBankingAppClientContracts.Constants;
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Models;
@@ -16,13 +16,13 @@ public class HomeFragmentItems
 public class HomeFragmentLogic : ComponentBase
 {
     [Inject]
-    protected IAppLogger Logger { get; set; } = default!;
+    protected IAppLoggerProvider Logger { get; set; } = default!;
     [Inject]
-    protected IStore Store { get; set; } = default!;
+    protected IStoreProvider Store { get; set; } = default!;
     [Inject]
     protected IApiProvider ApiProvider { get; set; } = default!;
     [Inject]
-    protected IAppNavigation NavManager { get; set; } = default!;
+    protected IAppNavigationProvider NavManager { get; set; } = default!;
 
     public bool IsFetching { get; set; } = false;
 

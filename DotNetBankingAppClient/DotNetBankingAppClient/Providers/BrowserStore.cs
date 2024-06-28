@@ -1,9 +1,10 @@
-﻿using Microsoft.JSInterop;
+﻿using DotNetBankingAppClientContracts.Providers;
+using Microsoft.JSInterop;
 using System.Text.Json;
 
-namespace DotNetBankingAppClient.Services
+namespace DotNetBankingAppClient.Providers
 {
-    public class BrowserStore : IStore
+    public class BrowserStore : IStoreProvider
     {
         private readonly IJSRuntime _jsRuntime;
 

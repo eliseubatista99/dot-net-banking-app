@@ -1,7 +1,8 @@
-﻿@inject IAppNavigation NavManager;
-@inject IStore Store;
-@inject IAppResponsive AppResponsive;
-@inject IAppLogger Logger;
+﻿@using DotNetBankingAppClientContracts.Constants
+@inject IAppNavigationProvider NavManager;
+@inject IStoreProvider Store;
+@inject IAppResponsiveProvider AppResponsive;
+@inject IAppLoggerProvider Logger;
 
 <Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">

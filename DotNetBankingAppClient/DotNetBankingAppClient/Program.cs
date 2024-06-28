@@ -21,11 +21,12 @@ namespace DotNetBankingAppClient
             HttpClient httpClient = new HttpClient { BaseAddress = new Uri(apiUri) };
 
             builder.Services.AddScoped(sp => httpClient);
-            builder.Services.AddScoped<IStore, BrowserStore>();
-            builder.Services.AddScoped<IApiProvider, ApiProvider>();
-            builder.Services.AddScoped<IAppResponsive, ResponsiveBrowser>();
-            builder.Services.AddScoped<IAppLogger, BrowserLogger>();
-            builder.Services.AddScoped<IAppNavigation, AppNavigation>();
+            builder.Services.AddScoped<IStoreProvider, BrowserStore>();
+            //builder.Services.AddScoped<IApiProvider, ApiProvider>();
+            builder.Services.AddScoped<IApiProvider, MockApiProvider>();
+            builder.Services.AddScoped<IAppResponsiveProvider, ResponsiveBrowser>();
+            builder.Services.AddScoped<IAppLoggerProvider, BrowserLogger>();
+            builder.Services.AddScoped<IAppNavigationProvider, AppNavigation>();
         }
 
 
