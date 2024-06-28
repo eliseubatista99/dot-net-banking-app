@@ -1,20 +1,23 @@
 ﻿using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Enums;
-using System.Text;
+using DotNetBankingAppClientContracts.Providers;
 using System.Text.Json;
+using System.Text;
+using DotNetBankingAppClient.Constants;
+using DotNetBankingAppClient.Services;
 
-namespace DotNetBankingAppClient.Services
+namespace DotNetBankingAppClient.Providers
 {
-    public class ApiServices : IApiCommunication
+    public class ApiProvider : IApiProvider
     {
         private readonly HttpClient _httpClient;
 
-        public ApiServices(HttpClient httpClient)
+        public ApiProvider(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public async Task<BaseEndpointOutputDto<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
+        private async Task<BaseEndpointOutputDto<TOutput>> CallService<TInput, TOutput>(string endpoint, TInput input)
         {
             try
             {
@@ -67,7 +70,15 @@ namespace DotNetBankingAppClient.Services
 
                 if (response == null)
                 {
-                    throw new Exception("Failed to deserialize data");
+                    return new BaseEndpointOutputDto<TOutput>
+                    {
+                        Data = default,
+                        MetaData = new BaseEndpointOutputMetaData
+                        {
+                            Success = false,
+                            Message = "Failed to deserialize data",
+                        },
+                    };
                 }
 
                 return response;
@@ -84,6 +95,48 @@ namespace DotNetBankingAppClient.Services
                     },
                 };
             }
+        }
+
+        public async Task<BaseEndpointOutputDto<GetAccountsOperationOutput>> GetAccounts(GetAccountsOperationInput input)
+        {
+            var result = await CallService<GetAccountsOperationInput, GetAccountsOperationOutput>(ApiEndpoints.GetAccounts, input);
+
+            return result;
+        }
+
+        public async Task<BaseEndpointOutputDto<GetCardsOperationOutput>> GetCards(GetCardsOperationInput input)
+        {
+            var result = await CallService<GetCardsOperationInput, GetCardsOperationOutput>(ApiEndpoints.GetCards, input);
+
+            return result;
+        }
+
+        public async Task<BaseEndpointOutputDto<GetInboxOperationOutput>> GetInbox(GetInboxOperationInput input)
+        {
+            var result = await CallService<GetInboxOperationInput, GetInboxOperationOutput>(ApiEndpoints.GetInbox, input);
+
+            return result;
+        }
+
+        public async Task<BaseEndpointOutputDto<GetTransactionsOperationOutput>> GetTransactions(GetTransactionsOperationInput input)
+        {
+            var result = await CallService<GetTransactionsOperationInput, GetTransactionsOperationOutput>(ApiEndpoints.GetTransactions, input);
+
+            return result;
+        }
+
+        public async Task<BaseEndpointOutputDto<SignInOperationOutput>> SignIn(SignInOperationInput input)
+        {
+            var result = await CallService<SignInOperationInput, SignInOperationOutput>(ApiEndpoints.SignIn, input);
+
+            return result;
+        }
+
+        public async Task<BaseEndpointOutputDto<SignUpOperationOutput>> SignUp(SignUpOperationIntput input)
+        {
+            var result = await CallService<SignUpOperationIntput, SignUpOperationOutput>(ApiEndpoints.SignUp, input);
+
+            return result;
         }
     }
 }

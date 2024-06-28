@@ -2,6 +2,7 @@
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Models;
+using DotNetBankingAppClientContracts.Providers;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -19,7 +20,7 @@ public class HomeFragmentLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected IApiCommunication ApiCommunication { get; set; } = default!;
+    protected IApiProvider ApiProvider { get; set; } = default!;
     [Inject]
     protected IAppNavigation NavManager { get; set; } = default!;
 
@@ -65,8 +66,7 @@ public class HomeFragmentLogic : ComponentBase
 
     private async Task<List<AccountDTO>> GetAllAccounts(UserDTO user)
     {
-        var result = await ApiCommunication.CallService<GetAccountsOperationInput, GetAccountsOperationOutput>(ApiEndpoints.GetAccounts, new GetAccountsOperationInput { UserName = user.UserName });
-
+        var result = await ApiProvider.GetAccounts(new GetAccountsOperationInput { UserName = user.UserName });
 
         List<AccountDTO> accounts = new List<AccountDTO>();
 
@@ -84,7 +84,7 @@ public class HomeFragmentLogic : ComponentBase
 
     private async Task<List<TransactionDTO>> GetTransactions(UserDTO user)
     {
-        var result = await ApiCommunication.CallService<GetTransactionsOperationInput, GetTransactionsOperationOutput>(ApiEndpoints.GetTransactions, new GetTransactionsOperationInput { UserName = user.UserName });
+        var result = await ApiProvider.GetTransactions(new GetTransactionsOperationInput { UserName = user.UserName });
 
 
         List<TransactionDTO> transactions = new List<TransactionDTO>();
@@ -106,7 +106,7 @@ public class HomeFragmentLogic : ComponentBase
 
         foreach (var account in accounts)
         {
-            var result = await ApiCommunication.CallService<GetCardsOperationInput, GetCardsOperationOutput>(ApiEndpoints.GetCards, new GetCardsOperationInput { AccountID = account.AccountId });
+            var result = await ApiProvider.GetCards(new GetCardsOperationInput { AccountID = account.AccountId });
 
             if (result.MetaData.Success && result.Data != null)
             {

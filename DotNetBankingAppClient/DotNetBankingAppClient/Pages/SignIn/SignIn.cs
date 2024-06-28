@@ -2,6 +2,7 @@
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Models;
+using DotNetBankingAppClientContracts.Providers;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -11,7 +12,7 @@ public class SignInPageLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected IApiCommunication ApiCommunication { get; set; } = default!;
+    protected IApiProvider ApiProvider { get; set; } = default!;
     [Inject]
     protected IAppNavigation NavManager { get; set; } = default!;
 
@@ -50,13 +51,11 @@ public class SignInPageLogic : ComponentBase
         errorMessage = null;
         this.StateHasChanged();
 
-
-        var result = await ApiCommunication.CallService<SignInOperationInput, SignInOperationOutput>(ApiEndpoints.SignIn, new SignInOperationInput
+        var result = await ApiProvider.SignIn(new SignInOperationInput
         {
             UserName = userName,
             Password = password,
         });
-
 
         if (result.MetaData.Success)
         {

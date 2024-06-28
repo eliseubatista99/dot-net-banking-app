@@ -2,6 +2,7 @@
 using DotNetBankingAppClient.Services;
 using DotNetBankingAppClientContracts.Dtos.Api;
 using DotNetBankingAppClientContracts.Models;
+using DotNetBankingAppClientContracts.Providers;
 using Microsoft.AspNetCore.Components;
 
 namespace DotNetBankingAppClient.Pages;
@@ -11,7 +12,7 @@ public class InboxFragmentLogic : ComponentBase
     [Inject]
     protected IStore Store { get; set; } = default!;
     [Inject]
-    protected IApiCommunication ApiCommunication { get; set; } = default!;
+    protected IApiProvider ApiProvider { get; set; } = default!;
     [Inject]
     protected IAppNavigation NavManager { get; set; } = default!;
 
@@ -34,7 +35,7 @@ public class InboxFragmentLogic : ComponentBase
         this.StateHasChanged();
         CurrentUser = await Store.GetData<UserDTO>(StoreKeys.User);
 
-        var result = await ApiCommunication.CallService<GetInboxOperationInput, GetInboxOperationOutput>(ApiEndpoints.GetInbox, new GetInboxOperationInput { UserName = CurrentUser.UserName });
+        var result = await ApiProvider.GetInbox(new GetInboxOperationInput { UserName = CurrentUser.UserName });
 
         if (result.MetaData.Success)
         {
